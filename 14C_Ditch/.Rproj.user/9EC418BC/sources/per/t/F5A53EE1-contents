@@ -1,0 +1,208 @@
+
+
+# USING GGRADAR ::::::::::::::::::::::::::::::::::::::::::::::::::::
+#devtools::install_github("ricardo-bion/ggradar")
+#library("ggradar")
+
+ library(ggradar)
+ library(tidyverse)
+ library(scales)
+ library(showtext)
+ library(ggpubr)
+ 
+ #:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+ 
+ # Test normal distribution of data
+shapiro.test(x=qc_subset$DOC_Mean)
+shapiro.test(x=qc_subset$C1)
+shapiro.test(x=qc_subset$DHg_Mean)
+shapiro.test(x=qc_subset$C4)
+shapiro.test(x=qc_subset$DMeHg_Mean)
+shapiro.test(x=log(qc_subset$CO2_mgCL))
+shapiro.test(x=log(qc_subset$CH4_mgCL))
+shapiro.test(x=qc_subset$MOX)
+
+#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+# Prepare Data For Radar Charts
+radar <- qc_subset %>%
+  select(ID, #Select the columns 
+         DOC_Mean, C1, DHg_Mean, C4,DMeHg_Mean,CO2_mgCL,CH4_mgCL, MOX)%>% #,MOX
+  
+  drop_na() %>% # only keep complete observations 
+  
+  group_by(ID, # only keep one observation per Site ID
+           .drop=T) %>%
+  
+  summarise(  # Derive the mean per site ID
+    DOC = mean(DOC_Mean),
+    C1 = mean(C1),
+    C4 = mean(C4),
+    DHg = mean(DHg_Mean),
+    DMeHg = mean(DMeHg_Mean),
+    logCO2 = mean(log(CO2_mgCL)), 
+    logCH4 = mean(log(CH4_mgCL)),
+    logMOX = mean(log(MOX), na.rm=T)
+            ) %>% 
+  ungroup() %>%
+ 
+   mutate_at(vars(-c(ID)), rescale) # Linear rescale from 0 to 1
+
+# LogMOX for MOX = 0 returns -Inf. Replace -Inf by 0 in scaled values
+radar$logMOX=ifelse(radar$logMOX=="-Inf", 0, radar$logMOX)
+
+
+#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+# Add the region field to each row in order to seperate the regions
+radar_region= unique(merge(radar, qc_subset %>%
+                             select(ID, Region),      by.y="ID"))
+
+
+# Derive seperate dataframes for each regions
+NS_radar=radar_region[which(radar_region$Region=="EI"),]
+HM_radar=radar_region[which(radar_region$Region=="HM"),]
+LR_radar=radar_region[which(radar_region$Region=="RR"),]
+
+
+# Color for the lines
+#lcols <- c("#EEA236", "#5CB85C", "#46B8DA")
+
+
+radar_a=
+  ggradar(NS_radar[,(1:9)], #filter(radar, Region=="NS"),
+        values.radar = c("Min.", NA, "Max."),
+        background.circle.colour = "white",
+        axis.line.colour = "gray60",
+        gridline.min.colour = "gray60",
+        gridline.mid.colour = "gray60",
+        gridline.max.colour = "gray60",
+        group.colours = rep(colorramp[1],nrow(NS_radar)),
+        group.line.width = 0.3,
+        group.point.size = 0, fill=F, fill.alpha = 0.1)+
+  theme(legend.position = "none")
+
+
+radar_b=
+  ggradar(HM_radar[,-10], #filter(radar, Region=="NS"),
+          values.radar = c("Min.", NA, "Max."),
+          background.circle.colour = "white",
+        axis.line.colour = "gray60",
+        gridline.min.colour = "gray60",
+        gridline.mid.colour = "gray60",
+        gridline.max.colour = "gray60",
+        group.colours = rep(colorramp[3],nrow(HM_radar)),
+        group.line.width = 0.3,
+        group.point.size = 0, fill=F, fill.alpha = 0.1)+
+  theme(legend.position = "none")
+
+radar_c=
+  ggradar(LR_radar[,-10], #filter(radar, Region=="NS"),
+          values.radar = c("Min.", NA, "Max."),
+          background.circle.colour = "white",
+        axis.line.colour = "gray60",
+        gridline.min.colour = "gray60",
+        gridline.mid.colour = "gray60",
+        gridline.max.colour = "gray60",
+        group.colours = rep(colorramp[2],nrow(LR_radar)),
+        group.line.width = 0.3,
+        group.point.size = 0, fill=F, fill.alpha = 0.1)+
+  theme(legend.position = "none")#+
+
+
+quartz(width=12,height=5,pointsize=12)
+
+radars=ggarrange(radar_b, radar_c, radar_a,   nrow=1 #labels=c("A)", "B)", "C)")
+                 )
+radars
+
+quartz.save("/Users/audreycampeau/Documents/DATA/JF/R Codes/JF/RadarCharts.png", type="png", dpi=600)
+
+
+
+
+
+
+# ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+                                  # Extra Code 
+# ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+# Graphical Abstract
+sizes= as.data.frame(c(mean(qc_subset$DHg_Mean, na.rm=T),
+                       mean(qc_subset$DOC_Mean, na.rm=T),
+                       mean(qc_subset$DMeHg_Mean, na.rm=T),
+                       mean(qc_subset$Cgas_mgCL, na.rm=T)))
+
+sizes$x=c(1,2,3,4)
+colnames(sizes)[1]="size"
+ggplot(sizes, aes( x=x, y=x))+
+  geom_point( aes(size=size) ,shape=21)+
+  scale_size(range = c(10, 40))
+
+
+
+
+# Radar Chart
+install.packages("fmsb")
+library(fmsb)
+
+NS_radar=select(NS, DOC_Mean, C1, DHg_Mean, C4,DMeHg_Mean,CO2_mgCL,CH4_mgCL,MOX)
+
+# Define the variable ranges: maximum and minimum
+max_min <- data.frame(
+  DOC = range(NS$DOC_Mean, na.rm=T), 
+  C1  = range(NS$C1, na.rm=T),
+  DHg = range(NS$DHg_Mean, na.rm=T), 
+  C4  = range(NS$C4, na.rm=T),
+  DMeHg = range(NS$DMeHg_Mean, na.rm=T), 
+  CO2 = range(NS$CO2_mgCL, na.rm=T), 
+  CH4 = range(NS$CH4_mgCL, na.rm=T), 
+  MOX = range(NS$MOX, na.rm=T)
+)
+rownames(max_min) <- c("Max", "Min")
+
+
+# Bind the variable ranges to the data
+colnames(NS_radar) <- colnames(max_min) 
+rbind(max_min, NS_radar)
+
+# Plot the data for student 1
+student1_data <- df[c("Max", "Min", "Student.1"), ]
+radarchart(NS_radar)
+
+
+create_beautiful_radarchart <- function(data, color = "#00AFBB", 
+                                        vlabels = colnames(data), vlcex = 0.7,
+                                        caxislabels = NULL, title = NULL, ...){
+  
+  radarchart(
+    data, axistype = 1,
+    # Customize the polygon
+    pcol = color, pfcol = scales::alpha(color, 0.5), plwd = 2, plty = 1,
+    # Customize the grid
+    cglcol = "grey", cglty = 1, cglwd = 0.8,
+    # Customize the axis
+    axislabcol = "grey", 
+    # Variable labels
+    vlcex = vlcex, vlabels = vlabels,
+    caxislabels = caxislabels, title = title, ...
+  )
+}
+
+
+# Reduce plot margin using par()
+op <- par(mar = c(1, 2, 2, 2))
+
+
+# Create the radar charts
+create_beautiful_radarchart(
+  data = NS_radar, caxislabels = c(0, 5, 10, 15, 20),
+  color = c("#00AFBB", "#E7B800", "#FC4E07")
+)
+# Add an horizontal legend
+legend(
+  x = "bottom", legend = rownames(df[-c(1,2),]), horiz = TRUE,
+  bty = "n", pch = 20 , col = c("#00AFBB", "#E7B800", "#FC4E07"),
+  text.col = "black", cex = 1, pt.cex = 1.5
+)
+par(op)
