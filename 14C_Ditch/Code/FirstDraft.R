@@ -4,6 +4,9 @@
 # Test relationships, difference between relationship, and differences in distributions.
 
 
+
+
+
 #Install Libraries
 install.packages("ggExtra")
 library(ggExtra)
@@ -15,12 +18,13 @@ library(rstatix)
 library(broom)
 
 theme_set(theme_bw(base_size = 16))
+
 #::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 # Hydrological Response::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 #::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 # pH
-  ggplot(data=filter(Chemistry, Treatment !="During Clearcut"), 
+  ggplot(data=filter(Chemistry, Treatment !="Clearcut"), 
        aes(y=Norg_mgL, x=DOC_mgL_chem, color=Treatment,fill=Treatment))+
   scale_x_log10()+
   geom_point( shape=21,size=3)+
@@ -37,7 +41,7 @@ theme_set(theme_bw(base_size = 16))
     show.legend = F, size=3)
   
   # [DOC] ~ 14C-DOC
-  ggplot(data=filter(DC1_DC3, Treatment !="During Clearcut"), 
+  ggplot(data=filter(DC_Q, Treatment !="Clearcut"), 
          aes(y=DOC_14C_Modern, x=q_md,color=Treatment,fill=Treatment
             ))+
     scale_x_log10()+
@@ -48,7 +52,7 @@ theme_set(theme_bw(base_size = 16))
     geom_smooth(method="lm", color="black", se=F, show.legend = F)+
     #labs(x="q (m/d)", y="DOC (mgC/L)")+
     theme(legend.position="top")+
-    facet_wrap(~Site_id, scale="fixed")+
+    #facet_wrap(~Site_id, scale="fixed")+
     stat_regline_equation(
       #label.x = rep(30,3), label.y = c(102.5, 101.5, 100.5),
       aes(label =  paste(..eq.label.., ..adj.rr.label.., sep = "~~~~")), 

@@ -1,23 +1,30 @@
+
+
+
 #______________________________________________________________________________________________
 # Hydrological response, DC sites
-ggplot( filter(DC_Q, Treatment %in% c("After clearcut & Ditch cleaning","After clearcut", "Pristine" )),# %>%
+ggplot( filter(DC_Q, Treatment %in% c("Ditch cleaning","Clearcut", "Pristine" )),# %>%
        #filter(Site_id %in% c("DC1", "DC2", "DC3", "DC4")),#%>%
          #filter(Study_Source != "Audrey"), 
-       aes(y=DOC_14C_Modern, x=q_md, color=Treatment))+ #size=DOCmgL_14C, 
+       aes(y=DOC_14C_Modern, x=q_md, fill=Treatment, color=Treatment))+ #size=DOCmgL_14C, 
   geom_point(size=3, aes(shape=Site_id))+
- # scale_color_manual(values=c( "#fc9272ff", "#de2d26ff","skyblue2"))+ #"
-  labs(x="q (m/d)", y="∆14C-DOC (%Modern)")+
+  scale_shape_manual(values=sites_symbols)+
+  scale_fill_manual(values=treatments_colors2)+ #"
+  labs(x="specific discharge (m/d)", y=bquote("∆"^14*"C-DOC  (% modern)"), shape="Watershed ID")+
+  scale_x_continuous(limits=c(0,0.025))+
   
   geom_smooth(method="lm", se=F, aes(color=Treatment), show.legend = F)+
-
+  scale_color_manual(values=treatments_colors2)+ #"
   stat_regline_equation(
-  label.y.npc = "bottom", label.x.npc = "left",
+  label.y.npc = "bottom", label.x.npc = 0.30,
   aes(label =  paste(..eq.label.., ..adj.rr.label.., sep = "~~~~"), color = Treatment), 
-  show.legend = F, size=5)
+  show.legend = F, size=4)+
+
+theme(legend.position = "right")
 
 
 #Run ANCOVA test
-filter(DC1_DC3, Treatment %in% c("After clearcut & Ditch cleaning","After clearcut", "Pristine" )) %>% 
+filter(DC_Q, Treatment %in% c("Ditch cleaning","Clearcut", "Pristine" )) %>% 
   anova_test(DOC_14C_Modern ~ q_md*Treatment)
 
 
@@ -53,7 +60,7 @@ ggplot(filter(DC1_DC3, Treatment!= "NA"),
 library(ggridges)
 
 ggplot(DC1_DC3, aes( y=CO2_14C_Modern, x=Treatment))+
-  geom_boxplot()
+  geom_violin()
 
   #scale_x_log10()+
   #facet_wrap(~DC1$)

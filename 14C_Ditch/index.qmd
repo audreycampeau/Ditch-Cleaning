@@ -1,0 +1,134 @@
+---
+title: "Impact of forestry practices (clearcut and ditch cleaning) on the age of lateral carbon export"
+author:
+  - name: Audrey Campeau
+    affiliation: Université de Montréal
+    orcid: 0000-0002-9113-8915
+  - name: A. Zannella and M. Wallin
+    #affiliation: Their Institution
+    #orcid: 0000-0000-0000-0000
+date: "`r Sys.Date()`"
+format:
+  html:
+    theme: cosmo
+    css: custom.css
+    keep-tex: true    
+    code-fold: true
+    code-summary: "👈 see code here"
+    toc: true
+    toc-depth: 2
+    number-sections: true
+    fig-width: 8
+    fig-height: 6
+    fig-cap-location: bottom
+css: custom.css
+---
+
+# Map of the study sites
+
+![Map of the infrastructure and catchment delineation for each site in the Trollberget ExperimentalArea](Trollberget_All infrastructure_plusPlanned_aerial_dc catchments.jpg){fig-align="center"}
+
+# Import and visualise the database
+
+When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+
+```{r, warning=FALSE, message=FALSE}
+# Importer libraries
+library(tidyverse) 
+library(plotly) 
+library(readxl) 
+library(DT) # for interactive datatables
+library(leaflet) #for interactive maps
+library(htmltools)
+library(rstatix) #anova test
+library(ggpubr)# show reg.line equation 
+
+#Open dataset
+C14_wide_chemistry <- readRDS(file = "Output/Data/C14_wide_chemistry.rds")
+
+DC_Q <- readRDS(file= "Output/Data/DC_Q.rds")
+
+# Define Color Ramp and theme
+treatments_colors <- c(
+  "Pristine" = "deepskyblue",     # light blue
+  "Clearcut" = "#CC6677",     # light red
+  "Ditch cleaning" = "#882255" # dark red
+)
+
+
+treatments_symbols <- c(
+  "Pristine" = 21,     
+  "Clearcut" = 23,     
+  "Ditch cleaning" = 24 
+)
+
+
+sites_symbols <- c(
+  "DC1" = 21,     
+  "DC2" = 3,     
+  "DC3" = 22,
+  "DC4" =4
+)
+
+
+theme_set(theme_bw(base_size = 16))
+
+#Present the dataset with interactivitiy
+datatable(C14_wide_chemistry, options = list(pageLength = 5), filter="top") %>%  
+  formatStyle(columns = colnames(.$x$data), `font-size` = '10px')
+```
+
+# Hydrological Response
+
+Is the radiocarbon age of DOC and CO~2~ controled by runoff, and does it changes after treatment?
+
+## Scatterplot
+
+```{r, warning=FALSE, message=FALSE}
+
+
+# Hydrological response, DC sites
+ggplot( filter(DC_Q, Treatment %in% c("Ditch cleaning","Clearcut", "Pristine" )),# %>%
+       #filter(Site_id %in% c("DC1", "DC2", "DC3", "DC4")),#%>%
+         #filter(Study_Source != "Audrey"), 
+       aes(y=DOC_14C_Modern, x=q_md, fill=Treatment, color=Treatment))+ #size=DOCmgL_14C, 
+  geom_point(size=3, aes(shape=Site_id))+
+  scale_shape_manual(values=sites_symbols)+
+  scale_fill_manual(values=treatments_colors)+ #"
+  labs(x="specific discharge at DC3 (m/d)", y=bquote("∆"^14*"C-DOC  (% modern)"), shape="Watershed ID")+
+  scale_x_continuous(limits=c(0,0.025))+
+  
+  geom_smooth(method="lm", se=F, aes(color=Treatment), show.legend = F)+
+  scale_color_manual(values=treatments_colors)+ #"
+  stat_regline_equation(
+  label.y.npc = "bottom", label.x.npc = 0.40,
+  aes(label =  paste(..eq.label.., ..adj.rr.label.., sep = "~~~~"), color = Treatment), 
+  show.legend = F, size=4)+
+
+theme(legend.position = "right")
+
+```
+
+## ANCOVA test
+
+### Is there a significant difference in the hydrological response between treatments?
+
+```{r, warning=F, echo=FALSE}
+#Run ANCOVA test - Difference in hydro. response between treatments
+filter(DC_Q, Treatment %in% c("Ditch cleaning","Clearcut", "Pristine" )) %>% 
+  anova_test(DOC_14C_Modern ~ q_md*Treatment)
+```
+
+The effect of x (q_md) is significant, and the effect of intercept (Treatment) is also significant. But the differences in slopes are not significant.
+
+Essentially, there is a positive response of the 14C-DOC to dischage, and the effect of treatment shifts the age towards more positive (younger) values, without changing the hydrological response (slope).
+
+### Is there a significant difference in the hydrological response between sites?
+
+```{r, warning=F, echo=FALSE}
+#Run ANCOVA test - Difference in hydro. response between Sites
+filter(DC_Q, Treatment %in% c("Ditch cleaning","Clearcut", "Pristine" )) %>% 
+  anova_test(DOC_14C_Modern ~ q_md*Site_id)
+```
+
+There is no significant difference between sites in this relationship.
