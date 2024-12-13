@@ -1,0 +1,320 @@
+---
+title: "Impact of forestry practices (clearcut and ditch cleaning) on the age of lateral carbon export"
+author:
+  - name: Audrey Campeau
+    affiliation: Université de Montréal
+    orcid: 0000-0002-9113-8915
+  - name: A. Zannella and M. Wallin
+    #affiliation: Their Institution
+    #orcid: 0000-0000-0000-0000
+date: "`r Sys.Date()`"
+format:
+  html:
+    theme: cosmo
+    css: custom.css
+    keep-tex: true    
+    code-fold: true
+    code-summary: "👈 see code here"
+    toc: true
+    toc-depth: 2
+    number-sections: true
+    fig-width: 8
+    fig-height: 6
+    fig-cap-location: bottom
+css: custom.css
+---
+
+# Map of the study sites
+
+![Map of the infrastructure and catchment delineation for each site in the Trollberget ExperimentalArea](Trollberget_All infrastructure_plusPlanned_aerial_dc catchments.jpg){fig-align="center"}
+
+# Import and visualise the database
+
+```{r, warning=FALSE, message=FALSE, echo=F}
+# Importer libraries
+library(tidyverse) 
+library(plotly) 
+library(readxl) 
+library(DT) # for interactive datatables
+library(leaflet) #for interactive maps
+library(htmltools)
+library(rstatix) #anova test
+library(ggpubr)# show reg.line equation 
+
+#Open dataset
+DC_Q <- readRDS(file= "Output/Data/DC_Q.rds")
+
+# Define Color Ramp and theme
+treatments_colors <- c(
+  "Pristine" = "deepskyblue",     # light blue
+  "Clearcut" = "#CC6677",     # light red
+  "Ditch cleaning" = "#882255" # dark red
+)
+
+
+treatments_symbols <- c(
+  "Pristine" = 21,     
+  "Clearcut" = 23,     
+  "Ditch cleaning" = 24 
+)
+
+
+site_colors <- c(
+  "DC1"= "#2E5894", #Dark blue
+    "DC2"= "#E69B00", # Light orange
+    "DC3"= "#7EA6E0", #Light blue
+    "DC4"= "#994F00") #Dark brown
+
+
+sites_symbols <- c(
+  "DC1" = 21,     
+  "DC2" = 3,     
+  "DC3" = 22,
+  "DC4" =4
+)
+
+
+theme_set(theme_bw(base_size = 16))
+
+#Present the dataset with interactivitiy
+datatable(filter(DC_Q, !is.na(DOC_14C_Modern)), options = list(pageLength = 5), filter="top") %>%  
+  formatStyle(columns = colnames(.$x$data), `font-size` = '10px')
+```
+
+# Differences between treatments or sites
+
+## Violin dotplots
+
+Is there a significant change in the median ^14^C content of CO~2~ and DOC across the three treatments and between sites?
+
+```{r, warning =F, message = F}
+#Make dotplot (treatment effect)
+ggplot(filter(DC_Q, Treatment %in% c("Ditch cleaning","Clearcut", "Pristine" )) %>%
+                   pivot_longer(
+                     cols = c(CO2_14C_Modern, DOC_14C_Modern),
+                     names_to = "Carbon_specie",
+                     values_to = "C14_value"
+                   ),
+       
+                   
+                   aes(fill=Treatment, y=C14_value, x=Treatment))+
+  geom_violin(alpha=0.5)+
+  geom_jitter(aes(shape=Site_id), width=0.2, size=3) +
+  #geom_dotplot(binaxis = "y", stackdir = "center", binwidth = 0.3)+
+  scale_fill_manual(values=c(treatments_colors))+
+  scale_shape_manual(values=sites_symbols)+ 
+  facet_wrap(~Carbon_specie, scales = "fixed")+
+  ggtitle("Increase in 14C-CO2 and 14C-DOC following treatments")+
+  theme_bw(base_size = 12)
+```
+
+```{r, warning=FALSE, message=F}
+ggplot(filter(DC_Q, Treatment %in% c("Ditch cleaning","Clearcut", "Pristine" )),
+                   
+                   aes(fill=Treatment, 
+                       y=DOC_14C_Modern-CO2_14C_Modern, 
+                       x=Treatment))+
+  geom_violin(alpha=0.5)+
+  geom_jitter(aes(shape=Site_id), width=0.2, size=3) +
+  #geom_dotplot(binaxis = "y", stackdir = "center", binwidth = 0.3)+
+  scale_fill_manual(values=c(treatments_colors))+
+  scale_shape_manual(values=sites_symbols)+ 
+  #facet_wrap(~Carbon_specie, scales = "fixed")+
+  ggtitle("No change in 14C-gap between CO2 and DOC with treatments")+
+  theme_bw(base_size = 12)
+```
+
+Is there a significant change in the median ^14^C content of CO~2~ and DOC between sites?
+
+```{r, warning =F, message=F}
+
+#Make dotplot (site effect)
+ggplot(filter(DC_Q, Treatment %in% c("Ditch cleaning","Clearcut", "Pristine" )) %>%
+                   pivot_longer(
+                     cols = c(CO2_14C_Modern, DOC_14C_Modern),
+                     names_to = "Carbon_specie",
+                     values_to = "C14_value"
+                   ),
+       
+                   
+                   aes(fill=Site_id, y=C14_value, x=Site_id))+
+  geom_violin(alpha=0.5)+
+  #geom_dotplot(binaxis = "y", stackdir = "center", binwidth = 0.3)+
+  geom_jitter(aes(shape=Treatment), width=0.2, size=3) +
+  scale_fill_manual(values=c(site_colors))+
+  scale_shape_manual(values=treatments_symbols)+ 
+  facet_grid(#cols=vars(Treatment), 
+             rows=vars(Carbon_specie), scales = "fixed")+
+  labs(fill="Watershed ID", y=bquote("∆"^14*"C  (% modern)"), x="Watershed ID")+
+  ggtitle("14C-CO2 and 14C-DOC is similar across sites")+
+  theme_bw(base_size = 12)
+
+```
+
+## Connected dotplot
+
+The age gap between CO2 and DOC seems mostly constant across sites and treatment
+
+```{r, warning = F, message =F}
+# Convert data to long format for plotting
+C14_DC_long <- filter(DC_Q, Site_id %in% c("DC1","DC2", "DC3", "DC4" )) %>%
+  pivot_longer(
+    cols = c(CO2_14C_Modern, DOC_14C_Modern),
+    names_to = "Carbon_specie",
+    values_to = "C14_value"
+  )
+
+
+C14_DC_long$Carbon_specie=recode(C14_DC_long$Carbon_specie, CO2_14C_Modern = "CO2", DOC_14C_Modern="DOC") #Rename the CO2 and DOC fields
+C14_DC_long$Treatment <- factor(C14_DC_long$Treatment, #reorder the treatment types
+                                levels = c("Pristine", "Clearcut", "Ditch cleaning"))
+
+
+# Create the plot
+ggplot(filter(C14_DC_long, !is.na(Treatment)) , aes(x = Carbon_specie, y = C14_value, 
+                      group = interaction(row_id, Treatment),
+                      
+                      fill = Treatment)) +
+  geom_line(alpha = 0.6) +
+  geom_point(#aes(shape=Site_id), 
+             size=3, shape=21) +
+  facet_grid(rows=vars(Site_id), cols=vars(Treatment), scales = "fixed") +
+  scale_fill_manual(values = c(treatments_colors)) +
+  #scale_shape_manual(values = c(21))+
+  labs(x = "Carbon Species",
+       y = "14C Content",
+       color = "Treatment") +
+  theme_cleveland() +
+  theme(
+    panel.grid.minor = element_blank(),
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    legend.position = "top"
+  )+
+  ggtitle("The CO2 is almost always less enriched in 14C than DOC")
+```
+
+# Hydrological Response
+
+Is the radiocarbon age of DOC and CO~2~ controled by runoff, and does it changes after treatment?
+
+## Scatterplot
+
+```{r, warning=FALSE, message=FALSE}
+
+
+# Hydrological response, DC sites
+ggplot( filter(DC_Q, Treatment %in% c("Ditch cleaning","Clearcut", "Pristine" )) %>%
+                   pivot_longer(
+                     cols = c(CO2_14C_Modern, DOC_14C_Modern),
+                     names_to = "Carbon_specie",
+                     values_to = "C14_value"
+                   ),
+       aes(y=C14_value, x=q_md, fill=Treatment, color=Treatment))+ #size=DOCmgL_14C, 
+  geom_point(size=3, aes(shape=Site_id))+
+  scale_shape_manual(values=sites_symbols)+
+  scale_fill_manual(values=treatments_colors)+ #"
+  labs(x="specific discharge at DC3 (m/d)", y=bquote("∆"^14*"C-DOC  (% modern)"), shape="Watershed ID")+
+  scale_x_continuous(limits=c(0,0.025))+
+  facet_wrap(~Carbon_specie, scale="fixed", nrow=2)+
+  
+  geom_smooth(method="lm", se=F, aes(color=Treatment), show.legend = F)+
+  scale_color_manual(values=treatments_colors)+ #"
+  stat_regline_equation(
+  label.y.npc = "bottom", label.x.npc = 0.40,
+  aes(label =  paste(..eq.label.., ..adj.rr.label.., sep = "~~~~"), color = Treatment), 
+  show.legend = F, size=4)+
+
+theme(legend.position = "right")
+
+```
+
+## ANCOVA test
+
+### Is there a significant difference in the hydrological response of 14C-DOC between treatments?
+
+```{r, warning=F, echo=FALSE}
+#Run ANCOVA test - Difference in hydro. response between treatments
+filter(DC_Q, Treatment %in% c("Ditch cleaning","Clearcut", "Pristine" )) %>% 
+  anova_test(DOC_14C_Modern ~ q_md*Treatment)
+```
+
+The effect of x (q_md) is significant, and the effect of intercept (Treatment) is also significant. But the differences in slopes are not significant.
+
+Essentially, there is a positive response of the 14C-DOC to dischage, and the effect of treatment shifts the age towards more positive (younger) values, without changing the hydrological response (slope).
+
+### Is there a significant difference in the hydrological response of 14C-DOC between sites?
+
+```{r, warning=F, echo=FALSE}
+#Run ANCOVA test - Difference in hydro. response between Sites
+filter(DC_Q, Treatment %in% c("Ditch cleaning","Clearcut", "Pristine" )) %>% 
+  anova_test(DOC_14C_Modern ~ q_md*Site_id)
+```
+
+There is no significant difference between sites in this relationship.
+
+### Is there a significant difference in the hydrological response of 14C-CO2 between treatments?
+
+```{r, warning=F, echo=FALSE}
+#Run ANCOVA test - Difference in hydro. response between treatments
+filter(DC_Q, Treatment %in% c("Ditch cleaning","Clearcut", "Pristine" )) %>% 
+  anova_test(CO2_14C_Modern ~ q_md*Treatment)
+```
+
+Neither the discharge, effect of treatment (intercept) or combined (slope) is significant for CO2
+
+# Changes in C yield and age with treatment
+
+Change in the relationship between 14C-CO2 and the CO2 yield (CO2 concentration X runoff)
+
+```{r, warning = F, message =F}
+
+
+ggplot( filter(DC_Q, Treatment %in% c("Ditch cleaning","Clearcut", "Pristine" )),# %>%
+
+       aes(y=CO2_14C_Modern, x=CO2_mgL*q_md, fill=Treatment, color=Treatment))+ #size=DOCmgL_14C, 
+  geom_point(aes(shape=Site_id), size=3)+ #
+  scale_shape_manual(values=sites_symbols)+
+  scale_fill_manual(values=treatments_colors)+ #"
+  #labs(x="CO2 (mgCL)", y=bquote("∆"^14*"C-CO2  (% modern)"), shape="Watershed ID")+
+  #scale_x_continuous(limits=c(0,0.025))+
+  #facet_wrap(~Site_id)+
+  geom_smooth(method="lm", se=F, aes(color=Treatment), show.legend = F)+
+  scale_color_manual(values=treatments_colors)+ #"
+  stat_regline_equation(
+  label.y.npc = "top", label.x.npc = 0.5,
+  aes(label =  paste(..eq.label.., ..adj.rr.label.., sep = "~~~~"), color = Treatment), 
+  show.legend = F, size=4)+
+
+theme(legend.position = "right")
+
+```
+
+Change in the relationship between 14C-DOC and the DOC yield (DOC concentration X runoff)
+
+```{r, warning = F, message=F}
+ggplot( filter(DC_Q, Treatment %in% c("Ditch cleaning","Clearcut", "Pristine" )),# %>%
+
+       aes(y=DOC_14C_Modern, x=DOC_mgL*q_md, fill=Treatment, color=Treatment))+ #size=DOCmgL_14C, 
+  geom_point(aes(shape=Site_id), size=3)+ #
+  scale_shape_manual(values=sites_symbols)+
+  scale_fill_manual(values=treatments_colors)+ #"
+  #labs(x="CO2 (mgCL)", y=bquote("∆"^14*"C-CO2  (% modern)"), shape="Watershed ID")+
+  #scale_x_continuous(limits=c(0,0.025))+
+  #facet_wrap(~Site_id)+
+  geom_smooth(method="lm", se=F, aes(color=Treatment), show.legend = F)+
+  scale_color_manual(values=treatments_colors)+ #"
+  stat_regline_equation(
+  label.y.npc = "bottom", label.x.npc = 0.5,
+  aes(label =  paste(..eq.label.., ..adj.rr.label.., sep = "~~~~"), color = Treatment), 
+  show.legend = F, size=4)+
+
+theme(legend.position = "right")
+
+```
+
+```{r, warning =F}
+#Run ANCOVA test
+#filter(DC_Q, Treatment %in% c("Ditch cleaning","Clearcut", "Pristine" )) %>% 
+#  anova_test(CO2_14C_Modern ~ (CO2_mgL*q_md)*Treatment)
+
+```
