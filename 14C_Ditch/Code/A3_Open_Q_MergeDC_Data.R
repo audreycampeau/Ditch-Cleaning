@@ -87,9 +87,9 @@ ggplot()+
 
 
 #Open dataset
-C14_wide_chemistry <- readRDS(file = "Output/Data/C14_wide_chemistry.rds")
+C14_wide_chemistry_clean <- readRDS(file = "Output/Data/C14_wide_chemistry.rds")
 
-colnames(C14_wide_chemistry)[4]="Date"
+colnames(C14_wide_chemistry_clean)[4]="Date"
 
 
 
@@ -99,46 +99,46 @@ colnames(C14_wide_chemistry)[4]="Date"
 #________________________________________________________________________________________
 
 C2= full_join(Q_C2[,3:5],
-              filter(C14_wide_chemistry, Site_id == "C2"), 
+              filter(C14_wide_chemistry_clean, Site_id == "C2"), 
               by=join_by("Date"),
               suffix = c(" ", " "))
 
 C4= full_join(Q_C4[,3:5],
-              filter(C14_wide_chemistry, Site_id == "C4"), 
+              filter(C14_wide_chemistry_clean, Site_id == "C4"), 
               by=join_by("Date"),
               suffix = c(" ", " "))
 
 C18= full_join(Q_C18[,3:5],
-               filter(C14_wide_chemistry, Site_id == "C18"), 
+               filter(C14_wide_chemistry_clean, Site_id == "C18"), 
                by=join_by("Date"),
                suffix = c(" ", " "))
 
 C1= full_join(Q_C1[,3:5],
-              filter(C14_wide_chemistry, Site_id == "C1"), 
+              filter(C14_wide_chemistry_clean, Site_id == "C1"), 
               by=join_by("Date"),
               suffix = c(" ", " "))
 
 DC2= full_join(Q_DC3_Meteo[,c(3:5,12)],# Merge with Q data from DC3
-               filter(C14_wide_chemistry, Site_id == "DC2"), 
+               filter(C14_wide_chemistry_clean, Site_id == "DC2"), 
                by=join_by("Date"),
                suffix = c(" ", " "))
 DC2$Site_id=rep("DC2", nrow(DC2))
 
 
 DC3= full_join(Q_DC3_Meteo[,c(3:5,12)],
-               filter(C14_wide_chemistry, Site_id == "DC3"), 
+               filter(C14_wide_chemistry_clean, Site_id == "DC3"), 
                by=join_by("Date"),
                suffix = c(" ", " "))
 DC3$Site_id=rep("DC3", nrow(DC3))
 
 DC4= full_join(Q_DC3_Meteo[,c(3:5,12)], # Merge with Q data from DC3
-               filter(C14_wide_chemistry, Site_id == "DC4"), 
+               filter(C14_wide_chemistry_clean, Site_id == "DC4"), 
                by=join_by("Date"),
                suffix = c(" ", " "))
 DC4$Site_id=rep("DC4", nrow(DC4))
 
 DC1= full_join(Q_DC3_Meteo[,c(3:5,12)], # Merge with Q data from DC3
-               filter(C14_wide_chemistry, Site_id == "DC1"), 
+               filter(C14_wide_chemistry_clean, Site_id == "DC1"), 
                by=join_by("Date"),
                suffix = c(" ", " "))
 DC1$Site_id=rep("DC1", nrow(DC1))

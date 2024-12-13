@@ -58,12 +58,14 @@ DC4 =DC4 %>%
 DC_Q=rbind(DC1, DC2, DC3, DC4)
 DC_Q$Site_id=as.factor(DC_Q$Site_id)
 
+DC_Q$Treatment=as.factor(DC_Q$Treatment)
 
-#Prepare Database
-# Select only DC1 and DC3 (sites with ditch cleaning)
-DC1_DC3=filter(DC_Q, Site_id %in% c("DC1","DC3") )
 
-DC1[which(is.na (DC1$Treatment)), "Date"]
+#Order factors
+DC_Q$Treatment <- factor(DC_Q$Treatment, #reorder the treatment types
+                         levels = c("Pristine", "Clearcut", "Ditch cleaning"))
+
+
 
 saveRDS(DC_Q, "Output/Data/DC_Q.rds")
 

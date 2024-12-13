@@ -2,21 +2,20 @@
 
 
 #______________________________________________________________________________________________
-# Hydrological response, DC sites
+# Hydrological response, 14C-DOC
 ggplot( filter(DC_Q, Treatment %in% c("Ditch cleaning","Clearcut", "Pristine" )),# %>%
-       #filter(Site_id %in% c("DC1", "DC2", "DC3", "DC4")),#%>%
-         #filter(Study_Source != "Audrey"), 
-       aes(y=DOC_14C_Modern, x=q_md, fill=Treatment, color=Treatment))+ #size=DOCmgL_14C, 
-  geom_point(size=3, aes(shape=Site_id))+
+
+       aes(y=CO2_14C_Modern, x=CO2_mgL, fill=Treatment, color=Treatment))+ #size=DOCmgL_14C, 
+  geom_point(aes(shape=Site_id), size=3)+ #
   scale_shape_manual(values=sites_symbols)+
-  scale_fill_manual(values=treatments_colors2)+ #"
-  labs(x="specific discharge (m/d)", y=bquote("∆"^14*"C-DOC  (% modern)"), shape="Watershed ID")+
-  scale_x_continuous(limits=c(0,0.025))+
-  
+  scale_fill_manual(values=treatments_colors)+ #"
+  labs(x="DOC (mgCL)", y=bquote("∆"^14*"C-DOC  (% modern)"), shape="Watershed ID")+
+  #scale_x_continuous(limits=c(0,0.025))+
+  #facet_wrap(~Site_id)+
   geom_smooth(method="lm", se=F, aes(color=Treatment), show.legend = F)+
-  scale_color_manual(values=treatments_colors2)+ #"
+  scale_color_manual(values=treatments_colors)+ #"
   stat_regline_equation(
-  label.y.npc = "bottom", label.x.npc = 0.30,
+  label.y.npc = "top", label.x.npc = 0.7,
   aes(label =  paste(..eq.label.., ..adj.rr.label.., sep = "~~~~"), color = Treatment), 
   show.legend = F, size=4)+
 
@@ -28,16 +27,58 @@ filter(DC_Q, Treatment %in% c("Ditch cleaning","Clearcut", "Pristine" )) %>%
   anova_test(DOC_14C_Modern ~ q_md*Treatment)
 
 
-   # stat_ellipse(aes(color=Treatment))
-  #+
-  #geom_smooth(method=lm, se=F)+
-  #facet_wrap(~Site_id, scale="fixed")
+
+#Hydroresponse of C concentrations____________________________________________________________
+
+
+ggplot( filter(DC_Q, Treatment %in% c("Ditch cleaning","Clearcut", "Pristine" )),# %>%
+        aes(y=DOC_mgL, x=q_md, fill=Treatment, color=Treatment))+ #size=DOCmgL_14C, 
+  geom_point(size=3, aes(shape=Site_id))+
+  scale_shape_manual(values=sites_symbols)+
+  scale_fill_manual(values=treatments_colors2)+ #"
+  labs(x="specific discharge (m/d)", y=bquote("DOC (mg C L"^-1*")"), shape="Watershed ID")+
+  #scale_x_log10()+
+  facet_wrap(~Site_id)+
+  
+  geom_smooth(method="lm", se=F, aes(color=Treatment), show.legend = F)+
+  scale_color_manual(values=treatments_colors2)+ #"
+  stat_regline_equation(label.y.npc = "top", label.x.npc = 0.30,
+                        aes(label =  paste(..eq.label.., ..adj.rr.label.., sep = "~~~~"), color = Treatment), 
+                        show.legend = F, size=4)+
+  
+  
+  theme(legend.position = "right")
+
+
+ggplot( filter(DC_Q, Treatment %in% c("Ditch cleaning","Clearcut", "Pristine" )),# %>%
+        aes(y=CO2_mgL, x=q_md, fill=Treatment, color=Treatment))+ #size=DOCmgL_14C, 
+  geom_point(size=3, aes(shape=Site_id))+
+  scale_shape_manual(values=sites_symbols)+
+  scale_fill_manual(values=treatments_colors2)+ #"
+  labs(x="specific discharge (m/d)", y=bquote("CO2 (mg C L"^-1*")"), shape="Watershed ID")+
+  #scale_x_log10()+
+  facet_wrap(~Site_id)+
+  
+  geom_smooth(method="lm", se=F, aes(color=Treatment), show.legend = F)+
+  scale_color_manual(values=treatments_colors2)+ #"
+  stat_regline_equation(label.y.npc = "top", label.x.npc = 0.30,
+                        aes(label =  paste(..eq.label.., ..adj.rr.label.., sep = "~~~~"), color = Treatment), 
+                        show.legend = F, size=4)+
+  
+  
+  theme(legend.position = "right")
+
+
+
+
+
+
+
 
 
 # Keeling response, DC sites
 library(ggpmisc) 
 
-write.csv(filter(DC1_DC3, CO2_14C_Modern!= "NA"), "test.csv")
 
 
 ggplot(filter(DC1_DC3, Treatment!= "NA"), 

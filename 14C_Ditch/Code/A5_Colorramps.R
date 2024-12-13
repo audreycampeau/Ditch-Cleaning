@@ -1,7 +1,4 @@
 
-DC_Q$Treatment=as.factor(DC_Q$Treatment)
-
-levels(DC_Q$Treatment)
 
 
 # Create color ramp and symbols
@@ -18,6 +15,13 @@ treatments_colors2 <- c(
   "Ditch cleaning" = "#882255" # dark red
 )
 
+
+site_colors <- c(
+  "DC1"= "#2E5894", #Dark blue
+    "DC2"= "#E69B00", # Light orange
+    "DC3"= "#7EA6E0", #Light blue
+    "DC4"= "#994F00") #Dark brown
+    
 
 treatments_symbols <- c(
   "Pristine" = 21,     

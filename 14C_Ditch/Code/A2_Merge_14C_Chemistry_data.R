@@ -9,7 +9,6 @@ C14_wide$Date=as.Date(C14_wide$Date)
 
 
 
-
 #::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 #Open Chemistry with Marcu's data
 #::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -57,7 +56,15 @@ C14_wide_chemistry$Date <- as.Date(ifelse(is.na(C14_wide_chemistry$Date),
                                           C14_wide_chemistry$Date_chem_chem, 
                                           C14_wide_chemistry$Date)) 
 
+
+#Order factors
+#C14_wide_chemistry$Treatment <- factor(DC_Q$Treatment, #reorder the treatment types
+#                         levels = c("Pristine", "Clearcut", "Ditch cleaning"))
+
+
 colnames(C14_wide_chemistry)
+
+
 
 
 #::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -105,6 +112,9 @@ C14_wide_chemistry$d18O=ifelse(is.na(C14_wide_chemistry$d18O), C14_wide_chemistr
 C14_wide_chemistry$DIC_mgL=ifelse(is.na(C14_wide_chemistry$DIC_mgL), C14_wide_chemistry$DIC_mgL_chem, C14_wide_chemistry$DIC_mgL)
 C14_wide_chemistry$DIC_mgL=ifelse(is.na(C14_wide_chemistry$DIC_mgL), C14_wide_chemistry$DIC_mgL_MW, C14_wide_chemistry$DIC_mgL)
 
+
+
+
 #Merge pCO2
 C14_wide_chemistry$pCO2_uatm=ifelse(is.na(C14_wide_chemistry$pCO2_uatm), C14_wide_chemistry$pCO2_uatm_chem, C14_wide_chemistry$pCO2_uatm)
 
@@ -114,7 +124,7 @@ C14_wide_chemistry$CH4_ugL=ifelse(is.na(C14_wide_chemistry$CH4_ugL), C14_wide_ch
 
 
 # Drop columns from _chem and _MW that I no longer need
-C14_wide_chemistry_dropped <- C14_wide_chemistry %>% select(-CO2_mgL_chem, -CO2_mgL_MW,
+C14_wide_chemistry_clean <- C14_wide_chemistry %>% select(-CO2_mgL_chem, -CO2_mgL_MW,
                                                             -pH_chem, -pH_MW,
                                                             -EC_uScm,
                                                             -DOC_mgL_chem,
@@ -133,7 +143,7 @@ C14_wide_chemistry_dropped <- C14_wide_chemistry %>% select(-CO2_mgL_chem, -CO2_
 
 
 
-print(tibble(colnames(C14_wide_chemistry_dropped)), n=70)              
+print(tibble(colnames(C14_wide_chemistry_clean)), n=70)              
 
 
 #::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -142,11 +152,11 @@ print(tibble(colnames(C14_wide_chemistry_dropped)), n=70)
 
 
 # Check for complete duplicates across all columns
-complete_duplicates = C14_wide_chemistry[duplicated(C14_wide_chemistry), ]
+complete_duplicates = C14_wide_chemistry_clean[duplicated(C14_wide_chemistry_clean), ]
 
 # Check for duplicates based on Site_id and Date only
-key_duplicates = C14_wide_chemistry[duplicated(C14_wide_chemistry[, c("Publication Code_DOC")]) | 
-                                            duplicated(C14_wide_chemistry[, c("Publication Code_DOC")], fromLast = TRUE), ]
+key_duplicates = C14_wide_chemistry_clean[duplicated(C14_wide_chemistry_clean[, c("Publication Code_DOC")]) | 
+                                            duplicated(C14_wide_chemistry_clean[, c("Publication Code_DOC")], fromLast = TRUE), ]
 
 
 # Inspect the duplicate rows
@@ -158,8 +168,10 @@ row_to_delete = key_duplicates$n #get row id for all duplicated rows
 row_to_delete=row_to_delete[seq(2, length(row_to_delete), 2)] #get row id for every second row
 
 
-C14_wide_chemistry=C14_wide_chemistry[-c(row_to_delete[1:3]),]
+C14_wide_chemistry_clean=C14_wide_chemistry_clean[-c(row_to_delete[1:3]),]
 
 
-saveRDS(C14_wide_chemistry, "Output/Data/C14_wide_chemistry.rds")
+
+
+saveRDS(C14_wide_chemistry_clean, "Output/Data/C14_wide_chemistry.rds")
 
