@@ -73,6 +73,21 @@ ggplot( filter(DC_Q, Treatment %in% c("Ditch cleaning","Clearcut", "Pristine" ))
 
 
 
+ggplot(filter(DC_Q, Treatment %in% c("Ditch cleaning","Clearcut", "Pristine" )),
+       
+       aes(fill=Treatment, 
+           y=DOC_14C_Modern-CO2_14C_Modern, 
+           x=Treatment))+
+  geom_violin(alpha=0.5)+
+  geom_jitter(aes(shape=Site_id), width=0.2, size=3) +
+  #geom_dotplot(binaxis = "y", stackdir = "center", binwidth = 0.3)+
+  scale_fill_manual(values=c(treatments_colors))+
+  scale_shape_manual(values=sites_symbols)+ 
+  #facet_wrap(~Carbon_specie, scales = "fixed")+
+  ggtitle("No change in 14C-gap between CO2 and DOC with treatments")+
+  theme_bw(base_size = 12)
+
+
 
 
 

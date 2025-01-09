@@ -31,14 +31,26 @@ library(PMCMR)
 
 
 
-#shapiro.test(DC1_DC3$DOC_14C_Modern)
+ggplot(data=DC_Q)+
+  geom_boxplot(aes(x=Site_id, y=DOC_14C_Modern))
+
+        dunn.test(x=DC_Q$DOC_14C_Modern, g=DC_Q$Site_id, method = "bonferroni", label=T, table=T)
+        
+        # Perform the test and get multcomp letters
+        multcompLetters(get.pvalues(PMCMRplus::kwAllPairsDunnTest(
+          DC_Q$DOC_14C_Modern ~ DC_Q$Site_id, p.adjust="bonf")),
+          threshold=0.05)
 
 
-ggplot(data=DC1_DC3)+
-  geom_boxplot(aes(x=Treatment, y=DOC_14C_Modern))
+ggplot(data=DC_Q)+
+  geom_boxplot(aes(x=Site_id, y=CO2_14C_Modern))
 
-dunnTest(DOC_14C_Modern ~ Treatment, data = DC1_DC3, method = "bonferroni")
-dunnTest(CO2_14C_Modern ~ Treatment, data = DC1_DC3, method = "bonferroni")
+        dunn.test(x=DC_Q$CO2_14C_Modern, g=DC_Q$Site_id, method = "bonferroni", label=T, table=T)
+        
+        # Perform the test and get multcomp letters
+        multcompLetters(get.pvalues(PMCMRplus::kwAllPairsDunnTest(
+          DC_Q$CO2_14C_Modern ~ DC_Q$Site_id, p.adjust="bonf")),
+          threshold=0.05)
 
 
 # Remove rows with non-finite values
@@ -47,10 +59,6 @@ DC1_DC3_clean <- DC1_DC3 %>%
 
 
 
-# Perform the test and get multcomp letters
-multcompLetters(get.pvalues(PMCMRplus::kwAllPairsDunnTest(
-  DC1_DC3$DOC_14C_Modern ~ DC1_DC3$Treatment, p.adjust="bonf")),
-  threshold=0.05)
 
 
 multcompLetters(get.pvalues(PMCMRplus::kwAllPairsDunnTest(

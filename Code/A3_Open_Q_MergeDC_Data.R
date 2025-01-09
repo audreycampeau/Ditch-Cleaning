@@ -2,6 +2,7 @@
 
 #Data Source: Johannes Tiwari (Sent by Alberto in April 2024)
 #Q units are most likely L s-1
+# Q units can't be L/s, they are too high!! 
 Q_DC4=read.csv("Input/Q and Meteo/Q_59_daily.Time_Series_Data.2024031816491438.csv", skip=11)
 Q_DC2=read.csv("Input/Q and Meteo/Q_C57_Daily.Time_Series_Data.2024031816461304.csv", skip=11)
 Q_DC3=read.csv("Input/Q and Meteo/Q_60_daily.Time_Series_Data.2024031816502188.csv", skip=11)
@@ -27,10 +28,11 @@ Q_C18$Date=as.Date(Q_C18$TIMESTAMP)
 
 
 #Convert all Q measurements to m3/d
-Q_DC4$Q_m3d=Q_DC4$Q/1000*60*60*24
-Q_DC2$Q_m3d=Q_DC2$Q/1000*60*60*24
-Q_DC3$Q_m3d=Q_DC3$Q/1000*60*60*24
-Q_C1$Q_m3d=Q_C1$Q/1000*60*60*24
+## Remove all conversion and assume that Q data is already in m3/d (DC3 range from 0.0001 to 47, which makes sense)
+Q_DC4$Q_m3d=Q_DC4$Q #/1000*60*60*24
+Q_DC2$Q_m3d=Q_DC2$Q #/1000*60*60*24
+Q_DC3$Q_m3d=Q_DC3$Q #/1000*60*60*24
+Q_C1$Q_m3d=Q_C1$Q# /1000*60*60*24
 
 Q_C2$Q_m3d=Q_C2$Q*60*60*24
 Q_C4$Q_m3d=Q_C4$Q*60*60*24
