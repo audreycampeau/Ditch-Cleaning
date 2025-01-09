@@ -191,7 +191,7 @@ ggplot(filter(DC_Q, Treatment %in% c("Ditch cleaning","Clearcut", "Pristine" )) 
 
 ```
 
-Dunn's test results:
+Dunn's test results for 14C-DOC \~ Site_id
 
 ```{r,warning =F, message=F}
 library(dunn.test)
@@ -206,7 +206,11 @@ library(PMCMR)
           DC_Q$DOC_14C_Modern ~ DC_Q$Site_id, p.adjust="bonf")),
           threshold=0.05)$Letters
         
-#dunn.test(x=DC_Q$CO2_14C_Modern, g=DC_Q$Site_id, method = "bonferroni", label=T, table=F)
+```
+
+Dunn's test results for 14C-CO2 \~ Site_id
+
+```{r,warning =F, message=F}
         
         # Perform the test and get multcomp letters
         
@@ -254,7 +258,7 @@ ggplot(filter(DC_Q, Treatment %in% c("Ditch cleaning","Clearcut", "Pristine" )) 
 
 ```
 
-Dunn's test results:
+Dunn's test results for DOC \~ Site_id
 
 ```{r,warning =F, message=F}
 library(dunn.test)
@@ -269,7 +273,15 @@ library(PMCMR)
           DC_Q$DOC_mgL ~ DC_Q$Site_id, p.adjust="bonf")),
           threshold=0.05)$Letters
         
-#dunn.test(x=DC_Q$CO2_14C_Modern, g=DC_Q$Site_id, method = "bonferroni", label=T, table=F)
+```
+
+Dunn's test results for CO2 \~ Site_id
+
+```{r,warning =F, message=F}
+library(dunn.test)
+library(multcompView)
+library(PMCMR)
+
         
         # Perform the test and get multcomp letters
         
@@ -318,7 +330,7 @@ ggplot(filter(DC_Q, Treatment %in% c("Ditch cleaning","Clearcut", "Pristine" )) 
   theme_bw(base_size = 12)
 ```
 
-Dunn's test results:
+Dunn's test results for 14C-DOC \~ Treatment
 
 ```{r,warning =F, message=F}
 library(dunn.test)
@@ -332,7 +344,12 @@ library(PMCMR)
         multcompLetters(get.pvalues(PMCMRplus::kwAllPairsDunnTest(
           DC_Q$DOC_14C_Modern ~ DC_Q$Treatment, p.adjust="bonf")),
           threshold=0.05)$Letters
-        
+```
+
+Dunn's test results for 14C-CO2 \~ Treatment
+
+```{r,warning =F, message=F}
+
 #dunn.test(x=DC_Q$CO2_14C_Modern, g=DC_Q$Site_id, method = "bonferroni", label=T, table=F)
         
         # Perform the test and get multcomp letters
@@ -340,7 +357,6 @@ library(PMCMR)
         multcompLetters(get.pvalues(PMCMRplus::kwAllPairsDunnTest(
           DC_Q$CO2_14C_Modern ~ DC_Q$Treatment, p.adjust="bonf")),
           threshold=0.05)$Letters
-
 ```
 
 ::: callout-note
@@ -374,7 +390,7 @@ ggplot(filter(DC_Q, Treatment %in% c("Ditch cleaning","Clearcut", "Pristine" )) 
   theme_bw(base_size = 12)
 ```
 
-Dunn's test results:
+Dunn's test results for DOC \~ Treatment
 
 ```{r,warning =F, message=F}
 library(dunn.test)
@@ -389,7 +405,12 @@ library(PMCMR)
           DC_Q$DOC_mgL ~ DC_Q$Treatment, p.adjust="bonf")),
           threshold=0.05)$Letters
         
-#dunn.test(x=DC_Q$CO2_14C_Modern, g=DC_Q$Site_id, method = "bonferroni", label=T, table=F)
+```
+
+Dunn's test results for CO2 \~ Treatment
+
+```{r,warning =F, message=F}
+
         
         # Perform the test and get multcomp letters
         

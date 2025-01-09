@@ -287,7 +287,7 @@ Important
 </div>
 </div>
 </div>
-<p>Dunn’s test results:</p>
+<p>Dunn’s test results for 14C-DOC ~ Site_id</p>
 <div class="cell">
 <details class="code-fold">
 <summary>👈 see code here</summary>
@@ -307,15 +307,16 @@ Important
 <pre><code>DC1 DC2 DC3 DC4 
 "a" "a" "a" "a" </code></pre>
 </div>
+</div>
+<p>Dunn’s test results for 14C-CO2 ~ Site_id</p>
+<div class="cell">
 <details class="code-fold">
 <summary>👈 see code here</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#dunn.test(x=DC_Q$CO2_14C_Modern, g=DC_Q$Site_id, method = "bonferroni", label=T, table=F)</span></span>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Perform the test and get multcomp letters</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Perform the test and get multcomp letters</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">multcompLetters</span>(<span class="fu">get.pvalues</span>(PMCMRplus<span class="sc">::</span><span class="fu">kwAllPairsDunnTest</span>(</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>          DC_Q<span class="sc">$</span>CO2_14C_Modern <span class="sc">~</span> DC_Q<span class="sc">$</span>Site_id, <span class="at">p.adjust=</span><span class="st">"bonf"</span>)),</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">threshold=</span><span class="fl">0.05</span>)<span class="sc">$</span>Letters</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">multcompLetters</span>(<span class="fu">get.pvalues</span>(PMCMRplus<span class="sc">::</span><span class="fu">kwAllPairsDunnTest</span>(</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>          DC_Q<span class="sc">$</span>CO2_14C_Modern <span class="sc">~</span> DC_Q<span class="sc">$</span>Site_id, <span class="at">p.adjust=</span><span class="st">"bonf"</span>)),</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">threshold=</span><span class="fl">0.05</span>)<span class="sc">$</span>Letters</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code> DC1  DC2  DC3  DC4 
@@ -367,12 +368,12 @@ Interpretation
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="768"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="768"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>Dunn’s test results:</p>
+<p>Dunn’s test results for DOC ~ Site_id</p>
 <div class="cell">
 <details class="code-fold">
 <summary>👈 see code here</summary>
@@ -392,15 +393,21 @@ Interpretation
 <pre><code>DC1 DC2 DC3 DC4 
 "a" "b" "a" "b" </code></pre>
 </div>
+</div>
+<p>Dunn’s test results for CO2 ~ Site_id</p>
+<div class="cell">
 <details class="code-fold">
 <summary>👈 see code here</summary>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#dunn.test(x=DC_Q$CO2_14C_Modern, g=DC_Q$Site_id, method = "bonferroni", label=T, table=F)</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Perform the test and get multcomp letters</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">multcompLetters</span>(<span class="fu">get.pvalues</span>(PMCMRplus<span class="sc">::</span><span class="fu">kwAllPairsDunnTest</span>(</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>          DC_Q<span class="sc">$</span>CO2_mgL <span class="sc">~</span> DC_Q<span class="sc">$</span>Site_id, <span class="at">p.adjust=</span><span class="st">"bonf"</span>)),</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">threshold=</span><span class="fl">0.05</span>)<span class="sc">$</span>Letters</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dunn.test)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(multcompView)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(PMCMR)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Perform the test and get multcomp letters</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">multcompLetters</span>(<span class="fu">get.pvalues</span>(PMCMRplus<span class="sc">::</span><span class="fu">kwAllPairsDunnTest</span>(</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>          DC_Q<span class="sc">$</span>CO2_mgL <span class="sc">~</span> DC_Q<span class="sc">$</span>Site_id, <span class="at">p.adjust=</span><span class="st">"bonf"</span>)),</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>          <span class="at">threshold=</span><span class="fl">0.05</span>)<span class="sc">$</span>Letters</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>DC1 DC2 DC3 DC4 
@@ -454,12 +461,12 @@ Interpretation
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="768"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="768"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>Dunn’s test results:</p>
+<p>Dunn’s test results for 14C-DOC ~ Treatment</p>
 <div class="cell">
 <details class="code-fold">
 <summary>👈 see code here</summary>
@@ -479,6 +486,9 @@ Interpretation
 <pre><code>      Pristine       Clearcut Ditch cleaning 
            "a"            "b"           "ab" </code></pre>
 </div>
+</div>
+<p>Dunn’s test results for 14C-CO2 ~ Treatment</p>
+<div class="cell">
 <details class="code-fold">
 <summary>👈 see code here</summary>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#dunn.test(x=DC_Q$CO2_14C_Modern, g=DC_Q$Site_id, method = "bonferroni", label=T, table=F)</span></span>
@@ -536,12 +546,12 @@ Interpretation
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="768"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="768"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>Dunn’s test results:</p>
+<p>Dunn’s test results for DOC ~ Treatment</p>
 <div class="cell">
 <details class="code-fold">
 <summary>👈 see code here</summary>
@@ -561,15 +571,16 @@ Interpretation
 <pre><code>      Pristine       Clearcut Ditch cleaning 
            "a"            "b"            "c" </code></pre>
 </div>
+</div>
+<p>Dunn’s test results for CO2 ~ Treatment</p>
+<div class="cell">
 <details class="code-fold">
 <summary>👈 see code here</summary>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">#dunn.test(x=DC_Q$CO2_14C_Modern, g=DC_Q$Site_id, method = "bonferroni", label=T, table=F)</span></span>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Perform the test and get multcomp letters</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Perform the test and get multcomp letters</span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">multcompLetters</span>(<span class="fu">get.pvalues</span>(PMCMRplus<span class="sc">::</span><span class="fu">kwAllPairsDunnTest</span>(</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>          DC_Q<span class="sc">$</span>CO2_mgL <span class="sc">~</span> DC_Q<span class="sc">$</span>Treatment, <span class="at">p.adjust=</span><span class="st">"bonf"</span>)),</span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">threshold=</span><span class="fl">0.05</span>)<span class="sc">$</span>Letters</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">multcompLetters</span>(<span class="fu">get.pvalues</span>(PMCMRplus<span class="sc">::</span><span class="fu">kwAllPairsDunnTest</span>(</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>          DC_Q<span class="sc">$</span>CO2_mgL <span class="sc">~</span> DC_Q<span class="sc">$</span>Treatment, <span class="at">p.adjust=</span><span class="st">"bonf"</span>)),</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">threshold=</span><span class="fl">0.05</span>)<span class="sc">$</span>Letters</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>      Pristine       Clearcut Ditch cleaning 
@@ -636,7 +647,7 @@ Interpreation
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="768"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="768"></p>
 </figure>
 </div>
 </div>
@@ -728,7 +739,7 @@ Interpretation
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="768"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="768"></p>
 </figure>
 </div>
 </div>
@@ -781,7 +792,7 @@ Interpretation
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="768"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="768"></p>
 </figure>
 </div>
 </div>
@@ -913,7 +924,7 @@ Interpretation
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="768"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="768"></p>
 </figure>
 </div>
 </div>
@@ -960,7 +971,7 @@ Interpretation
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="768"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="768"></p>
 </figure>
 </div>
 </div>
