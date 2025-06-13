@@ -1,17 +1,64 @@
+# Define operation periods
+clearcut_start <- as.Date("2020-07-01")
+clearcut_end <- as.Date("2020-07-31")
+ditch_cleaning_start <- as.Date("2021-09-01")
+ditch_cleaning_end <- as.Date("2021-09-30")
 
 
+# Create the hydrograph with operations markdowns
+ggplot(filter(DC_Q, Treatment %in% c("Ditch cleaning","Clearcut", "Pristine")) %>%
+         filter(Site_id == c("DC2", "DC3")),
+       aes(y = q_md, x = as.Date(Date), color = Site_id)) +
+  
+  # Add gray background bars for operations
+  annotate("rect", 
+           xmin = as.Date(clearcut_start), xmax = as.Date(clearcut_end),
+           ymin = -Inf, ymax = Inf,
+           fill = "gray70", alpha = 0.3) +
+  
+  annotate("rect", 
+           xmin = ditch_cleaning_start, xmax = ditch_cleaning_end,
+           ymin = -Inf, ymax = Inf,
+           fill = "gray70", alpha = 0.3) +
+  
+  # Add the discharge lines
+  geom_line() +
+  scale_color_manual(values=site_colors)+ #"
+  
+  # Add text labels for operations
+ annotate("text", 
+           x = clearcut_start + (clearcut_end - clearcut_start)/2,
+           y = Inf, 
+           label = "Forest clear cut operations\n(July 2020)",
+           vjust = 1.2, hjust = 0.5,
+           size = 3.5, color = "black") +
+  
+  annotate("text", 
+           x = ditch_cleaning_start + (ditch_cleaning_end - ditch_cleaning_start)/2,
+           y = Inf, 
+           label = "Ditch cleaning operations\n(September 2021)",
+           vjust = 1.2, hjust = 0.5,
+           size = 3.5, color = "black") +
+  
+  labs(y = "Specific discharge (m/d)", 
+       x = "Date",
+       color = "Stream") +
+  theme(legend.position = "top")
+  
+
+filter(DC_Q, !is.na(DOC_14C_Modern))
 
 #______________________________________________________________________________________________
 # Hydrological response, 14C-DOC
 ggplot( filter(DC_Q, Treatment %in% c("Ditch cleaning","Clearcut", "Pristine" )),# %>%
 
-       aes(y=CO2_14C_Modern, x=CO2_mgL, fill=Treatment, color=Treatment))+ #size=DOCmgL_14C, 
-  geom_point(aes(shape=Site_id), size=3)+ #
-  scale_shape_manual(values=sites_symbols)+
-  scale_fill_manual(values=treatments_colors)+ #"
-  labs(x="DOC (mgCL)", y=bquote("∆"^14*"C-DOC  (% modern)"), shape="Watershed ID")+
+       aes(y=DOC_14C_Modern, x=q_md, color=Treatment))+ #size=DOCmgL_14C, 
+  geom_point( size=3)+ #
+  #scale_shape_manual(values=sites_symbols)+
+  #scale_fill_manual(values=treatments_colors)+ #"
+  #labs(x="DOC (mgCL)", y=bquote("∆"^14*"C-DOC  (% modern)"), shape="Watershed ID")+
   #scale_x_continuous(limits=c(0,0.025))+
-  #facet_wrap(~Site_id)+
+  facet_wrap(~Site_id)+
   geom_smooth(method="lm", se=F, aes(color=Treatment), show.legend = F)+
   scale_color_manual(values=treatments_colors)+ #"
   stat_regline_equation(

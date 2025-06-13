@@ -1,5 +1,5 @@
 ---
-title: "Impact of forestry practices on the age of lateral carbon export in boreal forest catchments"
+title: "Sources and age of lateral CO2 and DOC export are distinct and controled by biological and hydrological processes respectively"
 author:
   - name: Audrey Campeau
     affiliation: Université de Montréal & SLU
@@ -26,24 +26,42 @@ css: custom.css
 
 # Research Question
 
-What is the impact of forest clearcutting and ditch cleaning on the age of lateral carbon export in boreal forest catchments?
+What controls the source and age of lateral CO2 and DOC export in forested headwater catchments?
+
+What can a forest and stream manipulation experiement (forest clear-cut and ditch clearning) tell us about the controls over these C sources?
 
 # Methodology
 
--   Four DC sites are included in this analysis.
+## Study Site and Treatment:
 
--   All four sites were clear cutted around July 2020.
+-   Four headwater catchemnts (DC sites) are included in this analysis.
 
--   DC1 and DC3 were also entrenched (ditch cleaning) in September 2021.
+-   The sites received different treatments:
 
--   The treatments are named as follow (pristine, clear-cut and ditch cleaning)
+    -   Forest in all four sites were clear cutted - around July 2020.
 
-## Map of the study sites
+    -   Twi sites, DC1 and DC3, were also ditch cleaned - in September 2021.
+
+    -   The treatments are named as follow (pristine, clear-cut and ditch cleaning)
+
+## Hydrological and biogeochemical measurements:
+
+-   All four sites are monitored for flow and water chemistry on a near continuous basis.
+
+-   Radiocarbon and stable C isotope measurements were conducted to across those four sites and throughout various treatment stages to identify changes in C sources and link those with their specific controls.
+
+-   14C measurements
+
+    -   Start 2020-03-12
+
+    -   End 2022-10-25
+
+## Map of the study sites (draw schematic instead)
 
 ![Map of the infrastructure and catchment delineation for each site in the Trollberget ExperimentalArea](Trollberget_All%20infrastructure_plusPlanned_aerial_dc%20catchments.jpg){fig-align="center"}
 
 ```{r, warning=FALSE, message=FALSE, echo=F}
-# Importer libraries
+# Import libraries
 library(tidyverse) 
 library(plotly) 
 library(readxl) 
@@ -95,7 +113,7 @@ theme_set(theme_bw(base_size = 16))
 
 # Results
 
-## Timeseries 
+## Timeseries
 
 ```{r, warning=F}
 
@@ -161,32 +179,42 @@ Only DC3 discharge data were provided so far - need to check with Johannes for u
 
 ## Differences between groups
 
-### Differences in ^14^C content between sites 
+### Differences in ^14^C content between sites
 
 Is there a significant change in the median ^14^C content of CO~2~ and DOC between sites?
 
 ```{r, warning =F, message=F}
 
-#Make dotplot (site effect)
-ggplot(filter(DC_Q, Treatment %in% c("Ditch cleaning","Clearcut", "Pristine" )) %>%
-                   pivot_longer(
-                     cols = c(CO2_14C_Modern, DOC_14C_Modern),
-                     names_to = "Carbon_specie",
-                     values_to = "C14_value"
-                   ),
-       
-                   
-                   aes(fill=Site_id, y=C14_value, x=Site_id))+
-  geom_violin(alpha=0.5)+
-  geom_dotplot(binaxis = "y", stackdir = "center", binwidth = 0.7)+
-  #geom_jitter(aes(shape=Treatment), width=0.2, size=3) +
-  scale_fill_manual(values=c(site_colors))+
-  scale_shape_manual(values=treatments_symbols)+ 
-  facet_grid(#cols=vars(Treatment), 
-             rows=vars(Carbon_specie), scales = "fixed")+
-  labs(fill="Watershed ID", y=bquote("∆"^14*"C  (% modern)"), x="Watershed ID")+
-  #ggtitle("14C-CO2 and 14C-DOC is similar across sites")+
-  theme_bw(base_size = 12)
+# Make a scatterplot to distinguish the grouping across sites
+ggExtra::ggMarginal(
+  
+            ggplot(data=filter(DC_Q, Treatment %in% c("Ditch cleaning","Clearcut", "Pristine" )) ,
+                 aes(x=DOC_14C_Modern, y=CO2_14C_Modern, 
+                    color=Site_id))+
+            geom_point(shape=1, size=3)+
+            scale_color_manual(values=c(site_colors))+
+            stat_ellipse(aes(fill = Site_id), size = 1, show.legend = F)+
+            scale_y_continuous(limit=c(95,115))+
+              scale_x_continuous(limit=c(95,115))+
+            theme(legend.position = "top"), 
+            type = "density", groupColour = TRUE, groupFill = TRUE )
+
+
+# Make a scatterplot to distinguish the grouping across treatment
+ggExtra::ggMarginal(
+  
+            ggplot(data=filter(DC_Q, Treatment %in% c("Ditch cleaning","Clearcut", "Pristine" )) ,
+                 aes(x=DOC_14C_Modern, y=CO2_14C_Modern, 
+                    color=Treatment))+
+            geom_point(shape=1, size=3)+
+            scale_color_manual(values=c(treatments_colors))+
+            stat_ellipse(aes(fill = Treatment), size = 1, show.legend = F)+
+            scale_y_continuous(limit=c(95,115))+
+              scale_x_continuous(limit=c(95,115))+
+            theme(legend.position = "top"), 
+            type = "density", groupColour = TRUE, groupFill = TRUE )
+
+
 
 
 ```
@@ -228,7 +256,7 @@ No statistical differences between sites for ^14^C-DOC (group a). We can lump th
 But ^14^C-CO~2~ is significantly lower in DC4 (b), DC3 and DC2 (ab) compared with DC1 (a).
 :::
 
-### Differences in Carbon concentration between sites 
+### Differences in Carbon concentration between sites
 
 ```{r, warning =F, message=F}
 
@@ -637,7 +665,7 @@ filter(DC_Q, Treatment %in% c("Ditch cleaning","Clearcut", "Pristine" )) %>%
 Neither the discharge, effect of treatment (intercept) or combined (slope) is significant for CO2
 :::
 
-### Keeling plots 
+### Keeling plots
 
 #### ^14^C-CO~2~
 
