@@ -2,7 +2,7 @@
 
 DC_Q=readRDS( "Output/Data/DC_Q_Meteo_chem_14C.rds")
 
-
+DC_Q$Date=as.Date(DC_Q$Date)
 # Create color ramp and symbols
 treatment_colors <- c(
   "Pristine" = "deepskyblue",     # light blue

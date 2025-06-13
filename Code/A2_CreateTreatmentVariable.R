@@ -18,7 +18,6 @@ library(dplyr)
 
 
 #Create a new variable called Treatment
-range(DC1_Q_Meteo$Date, na.rm=T)
 #range of dates "2018-12-18" "2023-10-25"
 
 DC1_Q_Meteo=DC1_Q_Meteo %>%
@@ -51,7 +50,10 @@ DC4_Q_Meteo =DC4_Q_Meteo %>%
   ))
 
 # Combine the four DC_Q_Meteo data frames
-DC_Q_Meteo=rbind(DC1_Q_Meteo, DC2_Q_Meteo, DC3_Q_Meteo, DC4_Q_Meteo)
+DC_Q_Meteo=rbind(DC1_Q_Meteo, 
+                 DC2_Q_Meteo, 
+                 DC3_Q_Meteo, 
+                 DC4_Q_Meteo)
 
 # Format to factor Site_id and Treatment
 DC_Q_Meteo$Site_id=as.factor(DC_Q_Meteo$Site_id)

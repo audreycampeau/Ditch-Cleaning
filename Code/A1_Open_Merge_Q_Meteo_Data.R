@@ -1,3 +1,6 @@
+library(readxl)
+library(tidyverse)
+
 # Open Water balance, Discharge data
 
 
@@ -11,11 +14,11 @@
 #Data Source: Johannes Tiwari (Sent by Alberto in April 2024)
 #Q units are most likely L s-1
 # Q units can't be L/s, they are too high!! 
-Q_DC4=read.csv("Input/Q and Meteo/Q_C57_Daily.Time_Series_Data.2024031816461304.csv", skip=11) # !!! Replace with DC2 data (analogue treatment types)
 Q_DC2=read.csv("Input/Q and Meteo/Q_C57_Daily.Time_Series_Data.2024031816461304.csv", skip=11)
+#Q_DC4=read.csv("Input/Q and Meteo/Q_C57_Daily.Time_Series_Data.2024031816461304.csv", skip=11) # !!! Replace with DC2 data (analogue treatment types)
 
 Q_DC3=read.csv("Input/Q and Meteo/Q_60_daily.Time_Series_Data.2024031816502188.csv", skip=11)
-Q_DC1=read.csv("Input/Q and Meteo/Q_60_daily.Time_Series_Data.2024031816502188.csv", skip=11) # !!! Replace with DC3 (analogue treatment types)
+#Q_DC1=read.csv("Input/Q and Meteo/Q_60_daily.Time_Series_Data.2024031816502188.csv", skip=11) # !!! Replace with DC3 (analogue treatment types)
 
 
 
@@ -29,10 +32,10 @@ Q_DC1=read.csv("Input/Q and Meteo/Q_60_daily.Time_Series_Data.2024031816502188.c
 
 
 #Format Dates
-Q_DC4$Date=as.Date(Q_DC4$TimeStamp)
+#Q_DC4$Date=as.Date(Q_DC4$TimeStamp)
 Q_DC2$Date=as.Date(Q_DC2$TimeStamp)
 Q_DC3$Date=as.Date(Q_DC3$TimeStamp)
-Q_DC1$Date=as.Date(Q_DC1$TimeStamp)
+#Q_DC1$Date=as.Date(Q_DC1$TimeStamp)
 
         #Q_C1$Date=as.Date(Q_C1$TimeStamp)
         #Q_C2$Date=as.Date(Q_C2$TIMESTAMP)
@@ -42,10 +45,10 @@ Q_DC1$Date=as.Date(Q_DC1$TimeStamp)
 
 #Convert all Q measurements to m3/d
 ## Remove all conversion and assume that Q data is already in m3/d (DC3 range from 0.0001 to 47, which makes sense)
-Q_DC4$Q_m3d=Q_DC4$Q #/1000*60*60*24
+#Q_DC4$Q_m3d=Q_DC4$Q #/1000*60*60*24
 Q_DC2$Q_m3d=Q_DC2$Q #/1000*60*60*24
 Q_DC3$Q_m3d=Q_DC3$Q #/1000*60*60*24
-Q_DC1$Q_m3d=Q_DC1$Q #/1000*60*60*24
+#Q_DC1$Q_m3d=Q_DC1$Q #/1000*60*60*24
 
         #Q_C2$Q_m3d=Q_C2$Q*60*60*24
         #Q_C4$Q_m3d=Q_C4$Q*60*60*24
@@ -57,8 +60,8 @@ Q_DC1$Q_m3d=Q_DC1$Q #/1000*60*60*24
     #DC1_Area_m2=6.7*10000
 DC2_Area_m2=4.4*10000
 DC3_Area_m2=8.4*10000
-DC4_Area_m2=10.7*10000
-DC1_Area_m2=8.4*10000 # !!!!! Same at DC3
+#DC4_Area_m2=10.7*10000
+#DC1_Area_m2=8.4*10000 # !!!!! Same at DC3
 
         #C2_Area_m2=12*10000
         #C1_Area_m2=48*10000
@@ -67,10 +70,10 @@ DC1_Area_m2=8.4*10000 # !!!!! Same at DC3
 
 
 #Convert all Q measurements to Specific Discharge m/d
-Q_DC4$q_md=Q_DC4$Q_m3d/DC4_Area_m2
+#Q_DC4$q_md=Q_DC4$Q_m3d/DC4_Area_m2
 Q_DC2$q_md=Q_DC2$Q_m3d/DC2_Area_m2
 Q_DC3$q_md=Q_DC3$Q_m3d/DC3_Area_m2
-Q_DC1$q_md=Q_DC1$Q_m3d/DC1_Area_m2
+#Q_DC1$q_md=Q_DC1$Q_m3d/DC1_Area_m2
 
         #Q_C1$q_md=Q_C1$Q_m3d/C1_Area_m2
         #Q_C2$q_md=Q_C2$Q_m3d/C2_Area_m2
@@ -91,10 +94,10 @@ Meteo= Meteo %>% # Remove dates in 2019, and 2023
 
 
 # Combine meteo data to Q_DC
-DC4_Q_Meteo=left_join(Meteo, Q_DC4, by = 'Date', suffix = c( "_Meteo", "_Q"))
+DC4_Q_Meteo=DC2_Q_Meteo
 DC2_Q_Meteo=left_join(Meteo, Q_DC2, by = 'Date', suffix = c( "_Meteo", "_Q"))
 DC3_Q_Meteo=left_join(Meteo, Q_DC3, by = 'Date', suffix = c( "_Meteo", "_Q"))
-DC1_Q_Meteo=left_join(Meteo, Q_DC1, by = 'Date', suffix = c( "_Meteo", "_Q"))
+DC1_Q_Meteo=DC3_Q_Meteo
 
 
 # Add a column to identify the site
@@ -113,10 +116,9 @@ DC1_Q_Meteo$Site_id=rep("DC1", nrow(DC1_Q_Meteo))
 # Timeseries of Q in all sites 
 ggplot(data=rbind(DC2_Q_Meteo, DC3_Q_Meteo), aes(x=Date, y=Q_m3d, color=Site_id))+
   geom_point()+
-  scale_color_manual(values=c(site_colors))+
+  #scale_color_manual(values=c(site_colors))+
   scale_x_date(limits= c(as.Date("2020-01-01"), as.Date("2022-12-31")))+
   labs(x="Date", y="q (m/d)")
-
 
 
 

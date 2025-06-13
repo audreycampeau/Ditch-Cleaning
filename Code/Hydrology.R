@@ -1,18 +1,18 @@
 # Define operation periods
 clearcut_start <- as.Date("2020-07-01")
-clearcut_end <- as.Date("2020-07-31")
+clearcut_end <- as.Date("2020-08-25")
 ditch_cleaning_start <- as.Date("2021-09-01")
 ditch_cleaning_end <- as.Date("2021-09-30")
 
-
+DC_Q$Date
 # Create the hydrograph with operations markdowns
 ggplot(filter(DC_Q, Treatment %in% c("Ditch cleaning","Clearcut", "Pristine")) %>%
-         filter(Site_id == c("DC2", "DC3")),
+         filter(Site_id %in% c("DC2", "DC3")),
        aes(y = q_md, x = as.Date(Date), color = Site_id)) +
   
   # Add gray background bars for operations
   annotate("rect", 
-           xmin = as.Date(clearcut_start), xmax = as.Date(clearcut_end),
+           xmin = clearcut_start, xmax = clearcut_end,
            ymin = -Inf, ymax = Inf,
            fill = "gray70", alpha = 0.3) +
   
@@ -24,6 +24,16 @@ ggplot(filter(DC_Q, Treatment %in% c("Ditch cleaning","Clearcut", "Pristine")) %
   # Add the discharge lines
   geom_line() +
   scale_color_manual(values=site_colors)+ #"
+  
+  
+  # Add black dots for 14C-DOC sampling dates
+  geom_point(data = DC_Q %>% 
+               filter (Site_id %in% c("DC3")) %>%
+               filter(!is.na(DOC_14C_Modern)), 
+             aes(x = as.Date(Date), y = rep(0,12)), 
+             color = "black", 
+             size = 1.5) +
+  
   
   # Add text labels for operations
  annotate("text", 
@@ -46,9 +56,42 @@ ggplot(filter(DC_Q, Treatment %in% c("Ditch cleaning","Clearcut", "Pristine")) %
   theme(legend.position = "top")
   
 
-filter(DC_Q, !is.na(DOC_14C_Modern))
-
 #______________________________________________________________________________________________
+library(ggpubr)
+
+DC2_DC3_wide=filter(DC_Q, Site_id %in% c("DC2", "DC3")) %>%
+  select(Date, Site_id, P, TA, q_md, Treatment) %>%  # Select only necessary columns
+  pivot_wider(names_from = Site_id, 
+              values_from = q_md,
+              names_prefix = "q_md_",
+              values_fn = mean)  # Take mean of multiple values)#%>%
+glimpse(DC2_DC3_wide)
+
+
+ggplot(data=DC2_DC3_wide,
+       aes(x = q_md_DC2*1000, y = q_md_DC3*1000, color = as.factor(lubridate::month(Date))))+
+        geom_point(size = 2, alpha = 0.7) +
+        geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "gray50") +  # 1:1 line
+        #scale_color_manual(values=treatment_colors)+ 
+        #facet_wrap(~Treatment)+
+  scale_y_continuous(limits=c(0,0.4))+
+  scale_x_continuous(limits=c(0,0.4))+
+  
+        labs(x = "Specific discharge DC2 (mm/d)",
+             y = "Specific discharge DC3 (mm/d)",
+             color = "Month") +
+        theme_minimal() +
+        theme(legend.position = "top")
+
+
+
+
+
+
+
+
+
+
 # Hydrological response, 14C-DOC
 ggplot( filter(DC_Q, Treatment %in% c("Ditch cleaning","Clearcut", "Pristine" )),# %>%
 
@@ -58,14 +101,14 @@ ggplot( filter(DC_Q, Treatment %in% c("Ditch cleaning","Clearcut", "Pristine" ))
   #scale_fill_manual(values=treatments_colors)+ #"
   #labs(x="DOC (mgCL)", y=bquote("∆"^14*"C-DOC  (% modern)"), shape="Watershed ID")+
   #scale_x_continuous(limits=c(0,0.025))+
-  facet_wrap(~Site_id)+
+  #facet_wrap(~Site_id)+
   geom_smooth(method="lm", se=F, aes(color=Treatment), show.legend = F)+
-  scale_color_manual(values=treatments_colors)+ #"
+  scale_color_manual(values=treatment_colors)+ #"
   stat_regline_equation(
-  label.y.npc = "top", label.x.npc = 0.7,
+  label.y.npc = "top", label.x.npc = 0.5,
   aes(label =  paste(..eq.label.., ..adj.rr.label.., sep = "~~~~"), color = Treatment), 
   show.legend = F, size=4)+
-
+theme_minimal()+
 theme(legend.position = "right")
 
 
