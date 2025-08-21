@@ -1,10 +1,16 @@
-# Define operation periods
+
+library(tidyverse)
+library(ggpubr)# show reg.line equation 
+
+# Make a hydrograph showing treatments and sampling periods
+
+# Define operation periods for treatments 
 clearcut_start <- as.Date("2020-07-01")
 clearcut_end <- as.Date("2020-08-25")
 ditch_cleaning_start <- as.Date("2021-09-01")
 ditch_cleaning_end <- as.Date("2021-09-30")
 
-DC_Q$Date
+
 # Create the hydrograph with operations markdowns
 ggplot(filter(DC_Q, Treatment %in% c("Ditch cleaning","Clearcut", "Pristine")) %>%
          filter(Site_id %in% c("DC2", "DC3")),
@@ -56,8 +62,45 @@ ggplot(filter(DC_Q, Treatment %in% c("Ditch cleaning","Clearcut", "Pristine")) %
   theme(legend.position = "top")
   
 
+
+
+
+
+
+
+ggplot(DC_Q %>%
+         filter(Site_id %in% c("DC1")),
+       aes(y = P, x = as.Date(Date), color = Site_id)) +
+  
+  # Add gray background bars for operations
+  annotate("rect", 
+           xmin = clearcut_start, xmax = clearcut_end,
+           ymin = -Inf, ymax = Inf,
+           fill = "gray70", alpha = 0.3) +
+  
+  annotate("rect", 
+           xmin = ditch_cleaning_start, xmax = ditch_cleaning_end,
+           ymin = -Inf, ymax = Inf,
+           fill = "gray70", alpha = 0.3) +
+  
+  geom_bar(stat = 'identity', fill=Site_id) +
+  labs( y= "Precipitation (mm/day)") +
+  scale_y_reverse()+
+  scale_color_manual(values=site_colors_6)+ #"
+  scale_x_date(limits=c(as.Date("2020-01-01"), as.Date("2022-11-01")),
+               date_labels = "%Y", date_breaks = "1 year") +
+  
+  
+  labs(y = "q (mm/d)", 
+       x = "Date",
+       color = "Stream") +
+  theme(legend.position = "top", axis.title.x = element_blank())
+
+
 #______________________________________________________________________________________________
 library(ggpubr)
+
+# Is specific discharge at DC2 adn DC3 related?
 
 DC2_DC3_wide=filter(DC_Q, Site_id %in% c("DC2", "DC3")) %>%
   select(Date, Site_id, P, TA, q_md, Treatment) %>%  # Select only necessary columns
@@ -65,7 +108,6 @@ DC2_DC3_wide=filter(DC_Q, Site_id %in% c("DC2", "DC3")) %>%
               values_from = q_md,
               names_prefix = "q_md_",
               values_fn = mean)  # Take mean of multiple values)#%>%
-glimpse(DC2_DC3_wide)
 
 
 ggplot(data=DC2_DC3_wide,
@@ -74,8 +116,8 @@ ggplot(data=DC2_DC3_wide,
         geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "gray50") +  # 1:1 line
         #scale_color_manual(values=treatment_colors)+ 
         #facet_wrap(~Treatment)+
-  scale_y_continuous(limits=c(0,0.4))+
-  scale_x_continuous(limits=c(0,0.4))+
+        scale_y_continuous(limits=c(0,0.4))+
+        scale_x_continuous(limits=c(0,0.4))+
   
         labs(x = "Specific discharge DC2 (mm/d)",
              y = "Specific discharge DC3 (mm/d)",
@@ -89,94 +131,28 @@ ggplot(data=DC2_DC3_wide,
 
 
 
+#______________________________________________________________________________
+# Hydrological control over CO2 concentration
 
-
-
-# Hydrological response, 14C-DOC
-ggplot( filter(DC_Q, Treatment %in% c("Ditch cleaning","Clearcut", "Pristine" )),# %>%
-
-       aes(y=DOC_14C_Modern, x=q_md, color=Treatment))+ #size=DOCmgL_14C, 
-  geom_point( size=3)+ #
-  #scale_shape_manual(values=sites_symbols)+
-  #scale_fill_manual(values=treatments_colors)+ #"
-  #labs(x="DOC (mgCL)", y=bquote("∆"^14*"C-DOC  (% modern)"), shape="Watershed ID")+
-  #scale_x_continuous(limits=c(0,0.025))+
-  #facet_wrap(~Site_id)+
+ggplot( DC_Q, #filter(DC_Q, Site_id %in% c("DC1", "DC3")), #filter(DC_Q, Treatment %in% c("Ditch cleaning","Clearcut", "Pristine" )),# %>%
+        aes(y=CO2_mgL, x=q_md_filled, fill=Treatment, color=Treatment))+ #size=DOCmgL_14C, 
+  geom_point(size=3, aes(shape=Site_id))+
+  scale_shape_manual(values=site_symbols)+
+  scale_fill_manual(values=treatment_colors)+ #"
+  labs(x="specific discharge (m/d)", y=bquote("CO2 (mg C L"^-1*")"), shape="Watershed ID")+
+  scale_x_log10()+
+  scale_y_log10()+
+  
+  facet_wrap(~Site_id)+
+  
   geom_smooth(method="lm", se=F, aes(color=Treatment), show.legend = F)+
   scale_color_manual(values=treatment_colors)+ #"
-  stat_regline_equation(
-  label.y.npc = "top", label.x.npc = 0.5,
-  aes(label =  paste(..eq.label.., ..adj.rr.label.., sep = "~~~~"), color = Treatment), 
-  show.legend = F, size=4)+
-theme_minimal()+
-theme(legend.position = "right")
-
-
-#Run ANCOVA test
-filter(DC_Q, Treatment %in% c("Ditch cleaning","Clearcut", "Pristine" )) %>% 
-  anova_test(DOC_14C_Modern ~ q_md*Treatment)
-
-
-
-#Hydroresponse of C concentrations____________________________________________________________
-
-
-ggplot( filter(DC_Q, Treatment %in% c("Ditch cleaning","Clearcut", "Pristine" )),# %>%
-        aes(y=DOC_mgL, x=q_md, fill=Treatment, color=Treatment))+ #size=DOCmgL_14C, 
-  geom_point(size=3, aes(shape=Site_id))+
-  scale_shape_manual(values=sites_symbols)+
-  scale_fill_manual(values=treatments_colors2)+ #"
-  labs(x="specific discharge (m/d)", y=bquote("DOC (mg C L"^-1*")"), shape="Watershed ID")+
-  #scale_x_log10()+
-  facet_wrap(~Site_id)+
-  
-  geom_smooth(method="lm", se=F, aes(color=Treatment), show.legend = F)+
-  scale_color_manual(values=treatments_colors2)+ #"
-  stat_regline_equation(label.y.npc = "top", label.x.npc = 0.30,
+  stat_regline_equation(label.y.npc = "top", label.x.npc = "left", #0.30
                         aes(label =  paste(..eq.label.., ..adj.rr.label.., sep = "~~~~"), color = Treatment), 
                         show.legend = F, size=4)+
   
   
   theme(legend.position = "right")
-
-
-ggplot( filter(DC_Q, Treatment %in% c("Ditch cleaning","Clearcut", "Pristine" )),# %>%
-        aes(y=CO2_mgL, x=q_md, fill=Treatment, color=Treatment))+ #size=DOCmgL_14C, 
-  geom_point(size=3, aes(shape=Site_id))+
-  scale_shape_manual(values=sites_symbols)+
-  scale_fill_manual(values=treatments_colors2)+ #"
-  labs(x="specific discharge (m/d)", y=bquote("CO2 (mg C L"^-1*")"), shape="Watershed ID")+
-  #scale_x_log10()+
-  facet_wrap(~Site_id)+
-  
-  geom_smooth(method="lm", se=F, aes(color=Treatment), show.legend = F)+
-  scale_color_manual(values=treatments_colors2)+ #"
-  stat_regline_equation(label.y.npc = "top", label.x.npc = 0.30,
-                        aes(label =  paste(..eq.label.., ..adj.rr.label.., sep = "~~~~"), color = Treatment), 
-                        show.legend = F, size=4)+
-  
-  
-  theme(legend.position = "right")
-
-
-
-
-
-
-ggplot(filter(DC_Q, Treatment %in% c("Ditch cleaning","Clearcut", "Pristine" )),
-       
-       aes(fill=Treatment, 
-           y=DOC_14C_Modern-CO2_14C_Modern, 
-           x=Treatment))+
-  geom_violin(alpha=0.5)+
-  geom_jitter(aes(shape=Site_id), width=0.2, size=3) +
-  #geom_dotplot(binaxis = "y", stackdir = "center", binwidth = 0.3)+
-  scale_fill_manual(values=c(treatments_colors))+
-  scale_shape_manual(values=sites_symbols)+ 
-  #facet_wrap(~Carbon_specie, scales = "fixed")+
-  ggtitle("No change in 14C-gap between CO2 and DOC with treatments")+
-  theme_bw(base_size = 12)
-
 
 
 
@@ -184,13 +160,11 @@ ggplot(filter(DC_Q, Treatment %in% c("Ditch cleaning","Clearcut", "Pristine" )),
 # Keeling response, DC sites
 library(ggpmisc) 
 
-
-
-ggplot(filter(DC1_DC3, Treatment!= "NA"), 
-       aes(y=CO2_14C_Modern, x=CO2_mgL_MW, color=Treatment))+
+ggplot(DC_Q, 
+       aes(y=d13C_CO2, x=1/CO2_mgL_filled, color=Treatment))+
   #scale_x_log10()+
   geom_point(size=4, aes(shape=Site_id))+
-  scale_color_manual(values=c( "#fc9272ff", "#de2d26ff","black"))+ 
+  scale_color_manual(values=treatment_colors)+ 
   
   geom_smooth(method="lm", se=F, aes(color=Treatment), show.legend = F)+
   
@@ -202,10 +176,17 @@ ggplot(filter(DC1_DC3, Treatment!= "NA"),
   
   
 
+
+
+
 # Histogram of Q per treatment
 library(ggridges)
 
-ggplot(DC1_DC3, aes( y=CO2_14C_Modern, x=Treatment))+
+ggplot(DC_Q, aes( y=CO2_14C_Modern, x=Site_id))+
+  geom_violin()+
+  stat_bin2d()
+
+ggplot(DC_Q, aes( y=DOC_14C_Modern, x=Site_id))+
   geom_violin()
 
   #scale_x_log10()+
@@ -263,95 +244,4 @@ ggplot(DC3, aes(y=d2H, x=d18O_chem,color=Treatment))+
   geom_smooth(method=lm, se=F)+
 #global meteoric water line (dashed line:δD=8δ18O+10).
 geom_abline(intercept=10,slope=8)
-
-# Long term trend, C18 and C2
-ggplot()+
-  geom_point(data=C18, aes (x=q_md, y=DOC_14C_Modern, color=Study_Source), fill=1,size=3)+
-  geom_smooth(method="lm",data=C18, aes (x=q_md, y=DOC_14C_Modern,color=Study_Source), se=F)+
-labs(title= "14C-DOC ~ q relation between study periods at C18")
-
-ggplot()
-#scale_x_log10()
-
-ggplot()+
-  geom_point(data=C2, aes (x=q_md, y=DOC_14C_Modern, color=Study_Source), fill=1,size=3)+
-  geom_smooth(method="lm",data=C18, aes (x=q_md, y=DOC_14C_Modern,color=Study_Source), se=F)+
-#scale_x_log10()
-labs(title= "14C-DOC ~ q relation between study periods at C2")
-
-
-
-ggplot(data=C18, aes(y=DOC_14C_Modern, x=Study_Source))+
-  geom_boxplot()+
-geom_dotplot(binaxis = "y", stackdir = "center",
-               fill = "white")+
-  labs(title= "Boxplot 14C-DOC at C18")
-
-
-ggplot(data=C4, aes(y=DOC_14C_Modern, x=q_md))+
-  geom_point()+
-  #geom_dotplot(binaxis = "y", stackdir = "center",
-  #             fill = "white")+
-  labs(title= "Boxplot 14C-DOC at C18")
-
-
-#df2 %>%
-#  mutate(Lag_3 = lag(Value, 3), Lag_6 = lag(Value, 6)) %>% 
-#  left_join(df1, ., by = c("Week1" = "Week2")) %>%
-#  rename(Lag_0 = Value)
-
-#left_join(filter(C14_wide_chemistry, Site_id == "C18"),
-#          Q_C18[,-2],
- #              by=join_by("Date"),
- #              suffix = c(" ", " "))
-#filter(C14_wide_chemistry, Site_id == "C18")
-
-plot(x=lag(DC1$q_md,0), y=lag(DC1$d13C_CO2,0))
-
-
-plot(x=log(lag(C18$q_md,9)), y=lag(C18$DOC_14C_Modern,0))
-
-plot(x=lag(C4$q_md,0), y=lag(C4$DOC_14C_Modern,10))
-
-plot(x=lag(C2$q_md,1), y=lag(C2$DOC_14C_Modern,0))
-
-
-
-ggplot()+
-  geom_point(data=DC2, aes (x=q_md, y=DOC_14C_Modern), fill=1, shape=21, size=3)+
-  geom_smooth(method="lm", data=DC2, aes (x=q_md, y=DOC_14C_Modern), color=1, se=F)+
-  
-  geom_point(data=DC3, aes (x=q_md, y=DOC_14C_Modern), fill=2, shape=21,size=3 )+
-  geom_smooth(method="lm", data=DC3, aes (x=q_md, y=DOC_14C_Modern), color=2, se=F)+
-  
-  geom_point(data=C2, aes (x=q_md, y=DOC_14C_Modern), fill=3, shape=21, size=3)+
-  geom_smooth(method="lm", data=C2, aes (x=q_md, y=DOC_14C_Modern), color=3, se=F)+
-  
-  geom_point(data=C1, aes (x=q_md, y=DOC_14C_Modern), fill=4, shape=21, size=3)+
-  geom_smooth(method="lm", data=C1, aes (x=q_md, y=DOC_14C_Modern), color=4, se=F)+
-  
-  geom_point(data=C18, aes (x=q_md, y=DOC_14C_Modern), fill=5, shape=21, size=3)+
-  geom_smooth(method="lm", data=C18, aes (x=q_md, y=DOC_14C_Modern), color=5, se=F)+
-  
-  geom_point(data=C4, aes (x=q_md, y=DOC_14C_Modern), fill=6, shape=21, size=3)+
-  geom_smooth(method="lm", data=C4, aes (x=q_md, y=DOC_14C_Modern), color=6, se=F)+
-  
-  
-  #geom_point(aes (x=Q, y=), shape=2)+
-  #scale_x_log10()+
-  scale_x_continuous(limits=c(0,0.02))+
-  scale_y_continuous(limits=c(95,115))+
-  labs(title="14C Offset increases with Q at C2", subtitle="DC2 (black), DC3(red), C2 (green), C1 (blue), C18 (turquoise), C4 (magenta)")
-
-
-
-
-ggplot(data=DC3)+
-  geom_line(aes (x=Date, y=Q+100))+
-  geom_point(aes (x=Date, y=CO2_14C_Modern), size=3, color="green")+
-  geom_point(aes (x=Date, y=DOC_14C_Modern),size=3, color="orange")+
-  #scale_y_continuous(limits=c(95,115))+
-  scale_x_date(limits=c(as.Date("2020-01-01"),as.Date("2023-01-01")))+
-  labs(title="DC3: Hydrograph with 14C", subtitle="14C-CO2 (green), 14C-DOC (orange), Q+100")
-
 

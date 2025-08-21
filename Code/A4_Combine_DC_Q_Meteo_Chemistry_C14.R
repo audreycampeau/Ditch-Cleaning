@@ -68,4 +68,28 @@ DC_all=rbind(DC2,DC3,DC4,DC1)
 
 
 saveRDS(DC_all, "Output/Data/DC_Q_Meteo_chem_14C.rds")
+write.csv(DC_all, "Output/Data/DC_Q_Meteo_chem_14C.csv")
+
+
+
+#Export DC_Q_14C data in short format 
+DC_Q_14C_short= DC_all %>% 
+  filter(!is.na(DOC_14C_Modern))
+
+write.csv(DC_Q_14C_short, "Output/Data/DC_Q_14C.csv")
+
+
+
+# Add C1 and C2 data
+#file.choose()
+library(readxl)
+C1_C2= read_xlsx("/Users/audreycampeau/Documents/DATA/TROLLBERGET DITCH/R/Input/C2_C1_Database.xlsx", sheet=1)
+
+
+colnames(C1_C2)= colnames(DC_all)
+
+
+DC_C_all= rbind(DC_all, C1_C2)
+
+saveRDS(DC_C_all, "Output/Data/DC_C_Q_Meteo_chem_14C.rds")
 

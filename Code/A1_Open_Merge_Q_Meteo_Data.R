@@ -83,7 +83,7 @@ Q_DC3$q_md=Q_DC3$Q_m3d/DC3_Area_m2
 
 
 
-#Open Meteo Daily
+#Open Meteo Daily _________________________________________________________________________________
 Meteo=read_xlsx("Input/Q and Meteo/Meteo_Daily.xlsx")
 Meteo$Date=as.Date(Meteo$TimeStamp)
 
@@ -94,10 +94,10 @@ Meteo= Meteo %>% # Remove dates in 2019, and 2023
 
 
 # Combine meteo data to Q_DC
-DC4_Q_Meteo=DC2_Q_Meteo
 DC2_Q_Meteo=left_join(Meteo, Q_DC2, by = 'Date', suffix = c( "_Meteo", "_Q"))
+DC4_Q_Meteo=DC2_Q_Meteo  # Assume DC4 site Q is like DC2
 DC3_Q_Meteo=left_join(Meteo, Q_DC3, by = 'Date', suffix = c( "_Meteo", "_Q"))
-DC1_Q_Meteo=DC3_Q_Meteo
+DC1_Q_Meteo=DC3_Q_Meteo # Assume DC1 site Q is like DC3
 
 
 # Add a column to identify the site
@@ -113,7 +113,7 @@ DC1_Q_Meteo$Site_id=rep("DC1", nrow(DC1_Q_Meteo))
           #           DC1_Q_Meteo)
 
 
-# Timeseries of Q in all sites 
+# Timeseries of Q in all sites _______________________________________________________________________
 ggplot(data=rbind(DC2_Q_Meteo, DC3_Q_Meteo), aes(x=Date, y=Q_m3d, color=Site_id))+
   geom_point()+
   #scale_color_manual(values=c(site_colors))+
@@ -121,4 +121,21 @@ ggplot(data=rbind(DC2_Q_Meteo, DC3_Q_Meteo), aes(x=Date, y=Q_m3d, color=Site_id)
   labs(x="Date", y="q (m/d)")
 
 
+
+
+
+# Fill NA's in Q data_________________________________________________________________________________
+# Missing Q data in DC2 and DC4, early 2020 and late 2022
+# DC3 Q measurements cover all 14C measurements 
+# Since there is an acceptable correlation between DC2 and DC3 Q data, fill Na's in DC2 with DC3
+        # plot(log(DC3_Q_Meteo$q_md), log(DC2_Q_Meteo$q_md))
+        # abline(0,1)
+        # cor.test(x=log(DC2_Q_Meteo$q_md), y=log(DC3_Q_Meteo$q_md), na.rm=T )
+
+library(zoo)
+
+DC4_Q_Meteo$q_md_filled= ifelse(is.na(DC2_Q_Meteo$q_md),DC3_Q_Meteo$q_md, DC2_Q_Meteo$q_md ) # When DC2_qmd is missing, use DC3_qmd
+DC2_Q_Meteo$q_md_filled= ifelse(is.na(DC2_Q_Meteo$q_md),DC3_Q_Meteo$q_md, DC2_Q_Meteo$q_md ) # When DC2_qmd is missing, use DC3_qmd
+DC3_Q_Meteo$q_md_filled= DC3_Q_Meteo$q_md
+DC1_Q_Meteo$q_md_filled= DC1_Q_Meteo$q_md
 

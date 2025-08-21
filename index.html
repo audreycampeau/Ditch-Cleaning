@@ -8,9 +8,9 @@
 
 <meta name="author" content="Audrey Campeau">
 <meta name="author" content="A. Zannella and M. Wallin">
-<meta name="dcterms.date" content="2025-06-11">
+<meta name="dcterms.date" content="2025-08-21">
 
-<title>Impact of forestry practices on the age of lateral carbon export in boreal forest catchments</title>
+<title>Forest manipulation experiment reveals divergent controls on the sources and age of lateral DOC and CO₂ export</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -57,7 +57,27 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="index_files/libs/clipboard/clipboard.min.js"></script>
@@ -72,7 +92,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="index_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 
 
-<link rel="stylesheet" href="custom.css">
 </head>
 
 <body>
@@ -83,16 +102,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul class="collapse">
-  <li><a href="#research-question" id="toc-research-question" class="nav-link active" data-scroll-target="#research-question"><span class="header-section-number">1</span> Research Question</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a>
+  <ul class="collapse">
+  <li><a href="#general-context" id="toc-general-context" class="nav-link" data-scroll-target="#general-context"><span class="header-section-number">1.1</span> General Context</a></li>
+  <li><a href="#research-question" id="toc-research-question" class="nav-link" data-scroll-target="#research-question"><span class="header-section-number">1.2</span> Research Question</a></li>
+  <li><a href="#hypothesis" id="toc-hypothesis" class="nav-link" data-scroll-target="#hypothesis"><span class="header-section-number">1.3</span> Hypothesis</a></li>
+  <li><a href="#main-conclusion" id="toc-main-conclusion" class="nav-link" data-scroll-target="#main-conclusion"><span class="header-section-number">1.4</span> Main Conclusion</a></li>
+  </ul></li>
   <li><a href="#methodology" id="toc-methodology" class="nav-link" data-scroll-target="#methodology"><span class="header-section-number">2</span> Methodology</a>
   <ul class="collapse">
-  <li><a href="#map-of-the-study-sites" id="toc-map-of-the-study-sites" class="nav-link" data-scroll-target="#map-of-the-study-sites"><span class="header-section-number">2.1</span> Map of the study sites</a></li>
+  <li><a href="#study-site-and-treatment" id="toc-study-site-and-treatment" class="nav-link" data-scroll-target="#study-site-and-treatment"><span class="header-section-number">2.1</span> Study Site and Treatment:</a></li>
+  <li><a href="#map-of-the-study-sites-draw-schematic-instead" id="toc-map-of-the-study-sites-draw-schematic-instead" class="nav-link" data-scroll-target="#map-of-the-study-sites-draw-schematic-instead"><span class="header-section-number">2.2</span> Map of the study sites (draw schematic instead)</a></li>
+  <li><a href="#field-measurements" id="toc-field-measurements" class="nav-link" data-scroll-target="#field-measurements"><span class="header-section-number">2.3</span> Field measurements:</a></li>
   </ul></li>
   <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results"><span class="header-section-number">3</span> Results</a>
   <ul class="collapse">
-  <li><a href="#timeseries" id="toc-timeseries" class="nav-link" data-scroll-target="#timeseries"><span class="header-section-number">3.1</span> Timeseries</a></li>
-  <li><a href="#differences-between-groups" id="toc-differences-between-groups" class="nav-link" data-scroll-target="#differences-between-groups"><span class="header-section-number">3.2</span> Differences between groups</a></li>
-  <li><a href="#relationships---scatterplots" id="toc-relationships---scatterplots" class="nav-link" data-scroll-target="#relationships---scatterplots"><span class="header-section-number">3.3</span> Relationships - Scatterplots</a></li>
+  <li><a href="#hydrographs-and-carbon-concentrations" id="toc-hydrographs-and-carbon-concentrations" class="nav-link" data-scroll-target="#hydrographs-and-carbon-concentrations"><span class="header-section-number">3.1</span> Hydrographs and carbon concentrations</a></li>
+  <li><a href="#differences-across-treatments" id="toc-differences-across-treatments" class="nav-link" data-scroll-target="#differences-across-treatments"><span class="header-section-number">3.2</span> Differences across treatments</a></li>
+  <li><a href="#relationships---controls-on-c-sources-age-and-concentrations" id="toc-relationships---controls-on-c-sources-age-and-concentrations" class="nav-link" data-scroll-target="#relationships---controls-on-c-sources-age-and-concentrations"><span class="header-section-number">3.3</span> Relationships - controls on C sources, age and concentrations</a></li>
+  <li><a href="#biological-controls-over-14c-co2---keeling-plots" id="toc-biological-controls-over-14c-co2---keeling-plots" class="nav-link" data-scroll-target="#biological-controls-over-14c-co2---keeling-plots"><span class="header-section-number">3.4</span> Biological controls over <sup>14</sup>C-CO<sub>2</sub> - Keeling plots</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -101,7 +129,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Impact of forestry practices on the age of lateral carbon export in boreal forest catchments</h1>
+<h1 class="title">Forest manipulation experiment reveals divergent controls on the sources and age of lateral DOC and CO₂ export</h1>
 </div>
 
 
@@ -130,7 +158,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">June 11, 2025</p>
+      <p class="date">August 21, 2025</p>
     </div>
   </div>
   
@@ -142,20 +170,56 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="research-question" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Research Question</h1>
-<p>What is the impact of forest clearcutting and ditch cleaning on the age of lateral carbon export in boreal forest catchments?</p>
+<section id="introduction" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
+<section id="general-context" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="general-context"><span class="header-section-number">1.1</span> General Context</h2>
+<ul>
+<li><p>Lateral C export is a significant fraction of watershed C balance.</p></li>
+<li><p>Forested catchments contain a large OM storage that could sustain DOC export for decades <span class="citation" data-cites="ledesma2013">(<a href="#ref-ledesma2013" role="doc-biblioref">Ledesma et al. 2013</a>)</span></p></li>
+<li><p>LCE and NEE are connected over long timescale, by hydrology <span class="citation" data-cites="öquist2014">(<a href="#ref-öquist2014" role="doc-biblioref">Öquist et al. 2014</a>)</span></p></li>
+<li><p>Isotopic values of C (stable and radiogenic) can inform us on the sources and age of C.</p></li>
+</ul>
+</section>
+<section id="research-question" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="research-question"><span class="header-section-number">1.2</span> Research Question</h2>
+<ul>
+<li><p>What are the controls over the sources and age of lateral CO2 and DOC export in forested catchments?</p></li>
+<li><p>Can a forest manipulation experiment (forest clearcut and ditch cleaning) provide new insight to test ongoing hypothesis on the controls of LCE in forested catchments?</p></li>
+</ul>
+</section>
+<section id="hypothesis" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="hypothesis"><span class="header-section-number">1.3</span> Hypothesis</h2>
+<ul>
+<li><p>The CO2 source and age is more closely linked to the forest C sink <span class="citation" data-cites="campeau2019">(<a href="#ref-campeau2019" role="doc-biblioref">A. Campeau et al. 2019</a>)</span>, so clearcutting the forest should have an impact on C sources and age</p></li>
+<li><p>The DOC source and age is linked to discharge <span class="citation" data-cites="campeau2017">(<a href="#ref-campeau2017" role="doc-biblioref">Audrey Campeau et al. 2017</a>)</span> or water table position <span class="citation" data-cites="campeau2019">(<a href="#ref-campeau2019" role="doc-biblioref">A. Campeau et al. 2019</a>)</span>, so changes in watershed hydrology, caused by clear-cutting and draining, should change the source and age of DOC.</p></li>
+</ul>
+</section>
+<section id="main-conclusion" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="main-conclusion"><span class="header-section-number">1.4</span> Main Conclusion</h2>
+<p>DOC is controled more by <em>hydrological processes</em>, which determines what material is being mobilised, while CO2 is controled more by <em>biological processes,</em> which fuels CO2 in the watershed. Both are therefore controled by different processes, but will likely respond to changes in climate, albeit via different drivers.</p>
+</section>
 </section>
 <section id="methodology" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Methodology</h1>
+<section id="study-site-and-treatment" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="study-site-and-treatment"><span class="header-section-number">2.1</span> Study Site and Treatment:</h2>
 <ul>
-<li><p>Four DC sites are included in this analysis.</p></li>
-<li><p>All four sites were clear cutted around July 2020.</p></li>
-<li><p>DC1 and DC3 were also entrenched (ditch cleaning) in September 2021.</p></li>
+<li><p>Six headwater catchments are included in this study:</p>
+<ul>
+<li><p>2 pristine sites (C1 and C2)</p></li>
+<li><p>4 treated watersheds (DC1 to DC4).</p></li>
+</ul></li>
+<li><p>The DC sites received different treatments:</p>
+<ul>
+<li><p>Forest in all four sites was clearcut - around July 2020.</p></li>
+<li><p>Two sites, DC1 and DC3, were also ditch cleaned - in September 2021.</p></li>
 <li><p>The treatments are named as follow (pristine, clear-cut and ditch cleaning)</p></li>
+</ul></li>
 </ul>
-<section id="map-of-the-study-sites" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="map-of-the-study-sites"><span class="header-section-number">2.1</span> Map of the study sites</h2>
+</section>
+<section id="map-of-the-study-sites-draw-schematic-instead" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="map-of-the-study-sites-draw-schematic-instead"><span class="header-section-number">2.2</span> Map of the study sites (draw schematic instead)</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="Trollberget_All%20infrastructure_plusPlanned_aerial_dc%20catchments.jpg" class="img-fluid figure-img"></p>
@@ -163,56 +227,102 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </figure>
 </div>
 </section>
+<section id="field-measurements" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="field-measurements"><span class="header-section-number">2.3</span> Field measurements:</h2>
+<ul>
+<li><p>All four sites are monitored for flow and water chemistry on a near continuous basis.</p></li>
+<li><p>Radiocarbon and stable C isotope measurements were collected at those six sites simultaniously and throughout various treatment stages.</p></li>
+<li><p>14C measurements</p>
+<ul>
+<li><p>Start 2020-03-12</p></li>
+<li><p>End 2022-10-25</p></li>
+</ul></li>
+</ul>
+</section>
 </section>
 <section id="results" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Results</h1>
-<section id="timeseries" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="timeseries"><span class="header-section-number">3.1</span> Timeseries</h2>
+<section id="hydrographs-and-carbon-concentrations" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="hydrographs-and-carbon-concentrations"><span class="header-section-number">3.1</span> Hydrographs and carbon concentrations</h2>
 <div class="cell">
 <details class="code-fold">
 <summary>👈 see code here</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Hydrograph</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>hydrograph<span class="ot">=</span><span class="fu">ggplot</span>(<span class="at">data=</span>DC_Q <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Site_id<span class="sc">==</span><span class="st">"DC3"</span>), </span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">aes</span>( <span class="at">x=</span>Date, <span class="at">y=</span>Q_m3d, <span class="at">color=</span>Site_id))<span class="sc">+</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>              <span class="fu">geom_path</span>()<span class="sc">+</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>              <span class="fu">geom_vline</span>(<span class="at">xintercept=</span><span class="fu">c</span>(<span class="fu">as.Date</span>(<span class="st">"2020-08-25"</span>), <span class="fu">as.Date</span>(<span class="st">"2021-09-23"</span>)),</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>                         <span class="at">linetype=</span><span class="st">"dashed"</span>)<span class="sc">+</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>              <span class="fu">scale_x_date</span>(<span class="at">limits=</span><span class="fu">c</span>(<span class="fu">as.Date</span>(<span class="st">"2020-03-01"</span>), <span class="fu">as.Date</span>(<span class="st">"2023-10-01"</span>)))<span class="sc">+</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>              <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">30</span>))<span class="sc">+</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>   <span class="fu">scale_color_manual</span>(<span class="at">values=</span><span class="fu">c</span>(site_colors))</span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define operation periods for treatments::::::::::::::::::::::::::::::::::::::::::</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>clearcut_start <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2020-07-01"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>clearcut_end <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2020-08-25"</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>ditch_cleaning_start <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2021-09-01"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>ditch_cleaning_end <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2021-09-30"</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Make the precipitation graph :::::::::::::::::::::::::::::::::::::::::::::::::::::</span></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Timeseries 14C per site, CO2 and DOC seperately</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>plot_timeseries <span class="ot">&lt;-</span> <span class="cf">function</span>(data, y_var,labs_y) {</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x=</span>Date, <span class="at">y=</span><span class="sc">!!</span><span class="fu">sym</span>(y_var), <span class="at">group=</span>Site_id, <span class="at">color=</span>Site_id)) <span class="sc">+</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">data=</span>data[<span class="sc">!</span><span class="fu">is.na</span>(data[[y_var]]), ]) <span class="sc">+</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_vline</span>(<span class="at">xintercept=</span><span class="fu">c</span>(<span class="fu">as.Date</span>(<span class="st">"2020-08-25"</span>), <span class="fu">as.Date</span>(<span class="st">"2021-09-23"</span>)),</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>               <span class="at">linetype=</span><span class="st">"dashed"</span>) <span class="sc">+</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_date</span>(<span class="at">limits=</span><span class="fu">c</span>(<span class="fu">as.Date</span>(<span class="st">"2020-01-01"</span>), <span class="fu">as.Date</span>(<span class="st">"2022-11-01"</span>)),</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>                 <span class="at">date_labels =</span> <span class="st">"%Y"</span>, <span class="at">date_breaks =</span> <span class="st">"1 year"</span>) <span class="sc">+</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_manual</span>(<span class="at">values=</span><span class="fu">c</span>(site_colors))<span class="sc">+</span></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">y=</span>labs_y)</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="co">#Concentration timeseries</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>timeserie_14CDOC <span class="ot">=</span> <span class="fu">plot_timeseries</span>(DC_Q, <span class="st">"DOC_14C_Modern"</span>, <span class="st">"14C-DOC (%)"</span>)</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>timeserie_DOC <span class="ot">=</span> <span class="fu">plot_timeseries</span>(DC_Q, <span class="st">"DOC_mgL"</span>, <span class="st">"DOC (mg/l)"</span>)</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>timeserie_14CCO2 <span class="ot">=</span> <span class="fu">plot_timeseries</span>(DC_Q, <span class="st">"CO2_14C_Modern"</span>, <span class="st">"14C-CO2 (%)"</span>)</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>timeserie_CO2 <span class="ot">=</span> <span class="fu">plot_timeseries</span>(DC_Q, <span class="st">"CO2_mgL"</span>, <span class="st">"CO2 (mg/L)"</span>)</span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>precipitation<span class="ot">=</span> <span class="fu">ggplot</span>(DC_Q <span class="sc">%&gt;%</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>         <span class="fu">filter</span>(Site_id <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"DC1"</span>)),</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">y =</span> P, <span class="at">x =</span> <span class="fu">as.Date</span>(Date), <span class="at">color =</span> Site_id)) <span class="sc">+</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add gray background bars for operations</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"rect"</span>, </span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>           <span class="at">xmin =</span> clearcut_start, <span class="at">xmax =</span> clearcut_end,</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>           <span class="at">ymin =</span> <span class="sc">-</span><span class="cn">Inf</span>, <span class="at">ymax =</span> <span class="cn">Inf</span>, <span class="at">fill =</span> <span class="st">"gray70"</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"rect"</span>, </span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>           <span class="at">xmin =</span> ditch_cleaning_start, <span class="at">xmax =</span> ditch_cleaning_end,</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>           <span class="at">ymin =</span> <span class="sc">-</span><span class="cn">Inf</span>, <span class="at">ymax =</span> <span class="cn">Inf</span>, <span class="at">fill =</span> <span class="st">"gray70"</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">'identity'</span>, <span class="at">width=</span><span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>( <span class="at">y=</span> <span class="st">"Precipitation (mm/day)"</span>) <span class="sc">+</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_reverse</span>()<span class="sc">+</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values=</span>site_colors_6)<span class="sc">+</span> <span class="co">#"</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">limits=</span><span class="fu">c</span>(<span class="fu">as.Date</span>(<span class="st">"2020-01-01"</span>), <span class="fu">as.Date</span>(<span class="st">"2022-11-01"</span>)),</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>               <span class="at">date_labels =</span> <span class="st">"%b-%Y"</span>, <span class="at">date_breaks =</span> <span class="st">"6 months"</span>) <span class="sc">+</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"P (mm/d)"</span>,  <span class="at">x =</span> <span class="st">"Date"</span>) <span class="sc">+</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>, <span class="at">axis.title.x =</span> <span class="fu">element_blank</span>())</span>
 <span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="fu">ggarrange</span>(hydrograph, </span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>          <span class="fu">ggarrange</span>(timeserie_14CDOC, timeserie_DOC,</span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>                    timeserie_14CCO2, timeserie_CO2, </span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>                    <span class="at">common.legend =</span> T, <span class="at">legend=</span><span class="st">"top"</span>,</span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>                    <span class="at">nrow=</span><span class="dv">2</span>, <span class="at">ncol=</span><span class="dv">2</span>, <span class="at">align=</span><span class="st">"hv"</span>),</span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>          </span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>          <span class="at">ncol=</span><span class="dv">1</span>, <span class="at">heights =</span> <span class="fu">c</span>(<span class="fl">0.7</span>, <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="co"># Make Hydrograph :::::::::::::::::::::::::::::::::::::::::::::::::::::</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>hydrograph<span class="ot">=</span> <span class="fu">ggplot</span>(DC_Q <span class="sc">%&gt;%</span></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>         <span class="fu">filter</span>(Site_id <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"DC2"</span>, <span class="st">"DC3"</span>)),</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">y =</span> q_md<span class="sc">*</span><span class="dv">1000</span>, <span class="at">x =</span> <span class="fu">as.Date</span>(Date), <span class="at">color =</span> Site_id)) <span class="sc">+</span></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add gray background bars for operations</span></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"rect"</span>, </span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>           <span class="at">xmin =</span> clearcut_start, <span class="at">xmax =</span> clearcut_end,</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>           <span class="at">ymin =</span> <span class="sc">-</span><span class="cn">Inf</span>, <span class="at">ymax =</span> <span class="cn">Inf</span>,</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>           <span class="at">fill =</span> <span class="st">"gray70"</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"rect"</span>, </span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>           <span class="at">xmin =</span> ditch_cleaning_start, <span class="at">xmax =</span> ditch_cleaning_end,</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>           <span class="at">ymin =</span> <span class="sc">-</span><span class="cn">Inf</span>, <span class="at">ymax =</span> <span class="cn">Inf</span>,</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>           <span class="at">fill =</span> <span class="st">"gray70"</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add the discharge lines</span></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values=</span>site_colors_6)<span class="sc">+</span> <span class="co">#"</span></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>   </span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add text labels for operations</span></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a> <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> clearcut_start <span class="sc">+</span> (clearcut_end <span class="sc">-</span> clearcut_start)<span class="sc">/</span><span class="dv">2</span>, <span class="at">y =</span> <span class="cn">Inf</span>, </span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="st">"Forest clear cut operations</span><span class="sc">\n</span><span class="st">(July 2020)"</span>,</span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>           <span class="at">vjust =</span> <span class="fl">1.2</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="fl">3.5</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> ditch_cleaning_start <span class="sc">+</span> (ditch_cleaning_end <span class="sc">-</span>    ditch_cleaning_start)<span class="sc">/</span><span class="dv">2</span>, <span class="at">y =</span> <span class="cn">Inf</span>, </span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="st">"Ditch cleaning operations</span><span class="sc">\n</span><span class="st">(September 2021)"</span>,</span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>           <span class="at">vjust =</span> <span class="fl">1.2</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="fl">3.5</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">limits=</span><span class="fu">c</span>(<span class="fu">as.Date</span>(<span class="st">"2020-01-01"</span>), <span class="fu">as.Date</span>(<span class="st">"2022-11-01"</span>)),</span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a>                 <span class="at">date_labels =</span> <span class="st">"%b-%Y"</span>, <span class="at">date_breaks =</span> <span class="st">"6 months"</span>) <span class="sc">+</span></span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"q (mm/d)"</span>,   <span class="at">x =</span> <span class="st">"Date"</span>,  <span class="at">color =</span> <span class="st">"Stream"</span>) <span class="sc">+</span></span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>, <span class="at">axis.title.x =</span> <span class="fu">element_blank</span>())</span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a><span class="fu">ggarrange</span>(precipitation, hydrograph,</span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>          <span class="at">ncol=</span><span class="dv">1</span>, <span class="at">align=</span><span class="st">"v"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -222,62 +332,93 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Interpretation
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>The temporal trends seems similar across the four sites for both CO2 and DOC concentration and 14C content.</p>
-<p>At DC4, there was a clear peak in DOC and CO2 concentration in the stream during clearcut.</p>
-</div>
-</div>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Important
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Only DC3 discharge data were provided so far - need to check with Johannes for updates.</p>
-</div>
-</div>
-</section>
-<section id="differences-between-groups" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="differences-between-groups"><span class="header-section-number">3.2</span> Differences between groups</h2>
-<section id="differences-in-14c-content-between-sites" class="level3" data-number="3.2.1">
-<h3 data-number="3.2.1" class="anchored" data-anchor-id="differences-in-14c-content-between-sites"><span class="header-section-number">3.2.1</span> Differences in <sup>14</sup>C content between sites</h3>
-<p>Is there a significant change in the median <sup>14</sup>C content of CO<sub>2</sub> and DOC between sites?</p>
 <div class="cell">
 <details class="code-fold">
 <summary>👈 see code here</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Make dotplot (site effect)</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">filter</span>(DC_Q, Treatment <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Ditch cleaning"</span>,<span class="st">"Clearcut"</span>, <span class="st">"Pristine"</span> )) <span class="sc">%&gt;%</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">pivot_longer</span>(</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">cols =</span> <span class="fu">c</span>(CO2_14C_Modern, DOC_14C_Modern),</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">names_to =</span> <span class="st">"Carbon_specie"</span>,</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                     <span class="at">values_to =</span> <span class="st">"C14_value"</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>                   ),</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>       </span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>                   </span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">aes</span>(<span class="at">fill=</span>Site_id, <span class="at">y=</span>C14_value, <span class="at">x=</span>Site_id))<span class="sc">+</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>(<span class="at">alpha=</span><span class="fl">0.5</span>)<span class="sc">+</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_dotplot</span>(<span class="at">binaxis =</span> <span class="st">"y"</span>, <span class="at">stackdir =</span> <span class="st">"center"</span>, <span class="at">binwidth =</span> <span class="fl">0.7</span>)<span class="sc">+</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="co">#geom_jitter(aes(shape=Treatment), width=0.2, size=3) +</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values=</span><span class="fu">c</span>(site_colors))<span class="sc">+</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_shape_manual</span>(<span class="at">values=</span>treatments_symbols)<span class="sc">+</span> </span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="co">#cols=vars(Treatment), </span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>             <span class="at">rows=</span><span class="fu">vars</span>(Carbon_specie), <span class="at">scales =</span> <span class="st">"fixed"</span>)<span class="sc">+</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">fill=</span><span class="st">"Watershed ID"</span>, <span class="at">y=</span><span class="fu">bquote</span>(<span class="st">"∆"</span><span class="sc">^</span><span class="dv">14</span><span class="sc">*</span><span class="st">"C  (% modern)"</span>), <span class="at">x=</span><span class="st">"Watershed ID"</span>)<span class="sc">+</span></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>  <span class="co">#ggtitle("14C-CO2 and 14C-DOC is similar across sites")+</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Timeseries 14C per site, CO2 and DOC seperately</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>plot_timeseries <span class="ot">=</span> <span class="cf">function</span>(data, y_var,labs_y) {</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x=</span>Date, <span class="at">y=</span><span class="sc">!!</span><span class="fu">sym</span>(y_var), <span class="at">group=</span>Site_id, <span class="at">color=</span>Site_id)) <span class="sc">+</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">data=</span>data[<span class="sc">!</span><span class="fu">is.na</span>(data[[y_var]]), ]) <span class="sc">+</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add gray background bars for operations</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"rect"</span>, </span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>           <span class="at">xmin =</span> clearcut_start, <span class="at">xmax =</span> clearcut_end,</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>           <span class="at">ymin =</span> <span class="sc">-</span><span class="cn">Inf</span>, <span class="at">ymax =</span> <span class="cn">Inf</span>,</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>           <span class="at">fill =</span> <span class="st">"gray70"</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"rect"</span>, </span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>           <span class="at">xmin =</span> ditch_cleaning_start, <span class="at">xmax =</span> ditch_cleaning_end,</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>           <span class="at">ymin =</span> <span class="sc">-</span><span class="cn">Inf</span>, <span class="at">ymax =</span> <span class="cn">Inf</span>,</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>           <span class="at">fill =</span> <span class="st">"gray70"</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_date</span>(<span class="at">limits=</span><span class="fu">c</span>(<span class="fu">as.Date</span>(<span class="st">"2020-01-01"</span>), <span class="fu">as.Date</span>(<span class="st">"2022-11-01"</span>)),</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>                 <span class="at">date_labels =</span> <span class="st">"%b-%Y"</span>, <span class="at">date_breaks =</span> <span class="st">"6 months"</span>) <span class="sc">+</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_manual</span>(<span class="at">values=</span><span class="fu">c</span>(site_colors_6))<span class="sc">+</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">y=</span>labs_y)<span class="sc">+</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>( <span class="co"># set margins to align combined plots </span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>      <span class="at">plot.margin =</span> <span class="fu">margin</span>(<span class="fl">5.5</span>, <span class="fl">5.5</span>, <span class="fl">5.5</span>, <span class="fl">5.5</span>, <span class="st">"pt"</span>),</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>      <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>      <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">11</span>),</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>      <span class="at">panel.grid.major =</span> <span class="fu">element_line</span>(<span class="at">size =</span> <span class="fl">0.5</span>),</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>      <span class="at">panel.grid.minor =</span> <span class="fu">element_line</span>(<span class="at">size =</span> <span class="fl">0.25</span>)</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="co">#Concentration timeseries</span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>timeserie_DOC <span class="ot">=</span> ggExtra<span class="sc">::</span><span class="fu">ggMarginal</span>(</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_timeseries</span>(DC_Q, <span class="st">"DOC_mgL"</span>, <span class="st">"DOC (mg/L)"</span>)<span class="sc">+</span></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add text labels for operations</span></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a> <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> clearcut_start <span class="sc">+</span> (clearcut_end <span class="sc">-</span> clearcut_start)<span class="sc">/</span><span class="dv">2</span>, <span class="at">y =</span> <span class="cn">Inf</span>, </span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="st">"Forest clear cut operations</span><span class="sc">\n</span><span class="st">(July 2020)"</span>,</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>           <span class="at">vjust =</span> <span class="fl">1.2</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="fl">3.5</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> ditch_cleaning_start <span class="sc">+</span> (ditch_cleaning_end <span class="sc">-</span>    ditch_cleaning_start)<span class="sc">/</span><span class="dv">2</span>, <span class="at">y =</span> <span class="cn">Inf</span>, </span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="st">"Ditch cleaning operations</span><span class="sc">\n</span><span class="st">(September 2021)"</span>,</span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>           <span class="at">vjust =</span> <span class="fl">1.2</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="fl">3.5</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>, <span class="at">axis.title.x =</span> <span class="fu">element_blank</span>()),</span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>  <span class="at">margins=</span><span class="fu">c</span>(<span class="st">"y"</span>), <span class="at">type =</span> <span class="st">"boxplot"</span>, <span class="at">groupColour =</span> <span class="cn">TRUE</span>, <span class="at">groupFill =</span> <span class="cn">TRUE</span> )</span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>timeserie_14CDOC <span class="ot">=</span> ggExtra<span class="sc">::</span><span class="fu">ggMarginal</span>(</span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_timeseries</span>(DC_Q, <span class="st">"DOC_14C_Modern"</span>, <span class="st">"14C-DOC (%)"</span>)<span class="sc">+</span></span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits=</span><span class="fu">c</span>(<span class="dv">95</span>,<span class="dv">115</span>))<span class="sc">+</span></span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>, <span class="at">axis.title.x =</span> <span class="fu">element_blank</span>()),</span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>  <span class="at">margins=</span><span class="fu">c</span>(<span class="st">"y"</span>), <span class="at">type =</span> <span class="st">"boxplot"</span>, <span class="at">groupColour =</span> <span class="cn">TRUE</span>, <span class="at">groupFill =</span> <span class="cn">TRUE</span> )</span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>timeserie_CO2 <span class="ot">=</span> ggExtra<span class="sc">::</span><span class="fu">ggMarginal</span>(</span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_timeseries</span>(DC_Q, <span class="st">"CO2_mgL"</span>, <span class="st">"CO2 (mg/L)"</span>)<span class="sc">+</span></span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>     <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>, <span class="at">axis.title.x =</span> <span class="fu">element_blank</span>()),</span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>  <span class="at">margins=</span><span class="fu">c</span>(<span class="st">"y"</span>), <span class="at">type =</span> <span class="st">"boxplot"</span>, <span class="at">groupColour =</span> <span class="cn">TRUE</span>, <span class="at">groupFill =</span> <span class="cn">TRUE</span> )</span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a>timeserie_14CCO2 <span class="ot">=</span> ggExtra<span class="sc">::</span><span class="fu">ggMarginal</span>(</span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_timeseries</span>(DC_Q, <span class="st">"CO2_14C_Modern"</span>, <span class="st">"14C-CO2 (%)"</span>)<span class="sc">+</span></span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits=</span><span class="fu">c</span>(<span class="dv">95</span>,<span class="dv">115</span>))<span class="sc">+</span></span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a>   <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>, <span class="at">axis.title.x =</span> <span class="fu">element_blank</span>()),</span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a>  <span class="at">margins=</span><span class="fu">c</span>(<span class="st">"y"</span>), <span class="at">type =</span> <span class="st">"boxplot"</span>, <span class="at">groupColour =</span> <span class="cn">TRUE</span>, <span class="at">groupFill =</span> <span class="cn">TRUE</span> )</span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine four plts</span></span>
+<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gridExtra)</span>
+<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a>final_plot <span class="ot">&lt;-</span> <span class="fu">grid.arrange</span>(</span>
+<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a>  timeserie_DOC,</span>
+<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a>  timeserie_14CDOC,</span>
+<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a>  timeserie_CO2,</span>
+<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a>  timeserie_14CCO2,</span>
+<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a>  <span class="at">ncol =</span> <span class="dv">1</span>,</span>
+<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a>  <span class="at">heights =</span> <span class="fu">c</span>( <span class="fl">0.75</span>, <span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="fl">0.55</span>)</span>
+<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -287,40 +428,50 @@ Important
 </div>
 </div>
 </div>
-<p>Dunn’s test results for 14C-DOC ~ Site_id</p>
+<section id="dunns-test-¹⁴c-and-c-site" class="level4" data-number="3.1.0.1">
+<h4 data-number="3.1.0.1" class="anchored" data-anchor-id="dunns-test-¹⁴c-and-c-site"><span class="header-section-number">3.1.0.1</span> Dunn’s test | ¹⁴C and [C] ~ Site</h4>
 <div class="cell">
 <details class="code-fold">
 <summary>👈 see code here</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dunn.test)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(multcompView)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(PMCMR)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Testing the statistical difference in 14C-DOC between sites</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#dunn.test(x=DC_Q$DOC_14C_Modern, g=DC_Q$Site_id, method = "bonferroni", label=T, table=F, list =F)</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Perform the test and get multcomp letters</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>        <span class="fu">multcompLetters</span>(<span class="fu">get.pvalues</span>(PMCMRplus<span class="sc">::</span><span class="fu">kwAllPairsDunnTest</span>(</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform the test and get multcomp letters</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>DOCSites_letters <span class="ot">=</span> <span class="fu">multcompLetters</span>(<span class="fu">get.pvalues</span>(PMCMRplus<span class="sc">::</span><span class="fu">kwAllPairsDunnTest</span>(</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>          DC_Q<span class="sc">$</span>DOC_mgL <span class="sc">~</span> DC_Q<span class="sc">$</span>Site_id, <span class="at">p.adjust=</span><span class="st">"bonf"</span>)),</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">threshold=</span><span class="fl">0.05</span>)<span class="sc">$</span>Letters</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>DOC_14C_Sites_letters <span class="ot">=</span> <span class="fu">multcompLetters</span>(<span class="fu">get.pvalues</span>(PMCMRplus<span class="sc">::</span><span class="fu">kwAllPairsDunnTest</span>(</span>
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>          DC_Q<span class="sc">$</span>DOC_14C_Modern <span class="sc">~</span> DC_Q<span class="sc">$</span>Site_id, <span class="at">p.adjust=</span><span class="st">"bonf"</span>)),</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>          <span class="at">threshold=</span><span class="fl">0.05</span>)<span class="sc">$</span>Letters</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>          <span class="at">threshold=</span><span class="fl">0.05</span>)<span class="sc">$</span>Letters</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>CO2Sites_letters <span class="ot">=</span> <span class="fu">multcompLetters</span>(<span class="fu">get.pvalues</span>(PMCMRplus<span class="sc">::</span><span class="fu">kwAllPairsDunnTest</span>(</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>          DC_Q<span class="sc">$</span>CO2_mgL <span class="sc">~</span> DC_Q<span class="sc">$</span>Site_id, <span class="at">p.adjust=</span><span class="st">"bonf"</span>)),</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>          <span class="at">threshold=</span><span class="fl">0.05</span>)<span class="sc">$</span>Letters</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>CO2_C14_Sites_letters <span class="ot">=</span> <span class="fu">multcompLetters</span>(<span class="fu">get.pvalues</span>(PMCMRplus<span class="sc">::</span><span class="fu">kwAllPairsDunnTest</span>(</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>          DC_Q<span class="sc">$</span>CO2_14C_Modern <span class="sc">~</span> DC_Q<span class="sc">$</span>Site_id, <span class="at">p.adjust=</span><span class="st">"bonf"</span>)),</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>          <span class="at">threshold=</span><span class="fl">0.05</span>)<span class="sc">$</span>Letters</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine into a data frame</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>combined_dunns_results <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">Site =</span> <span class="fu">names</span>(DOCSites_letters),</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>  <span class="st">"[DOC]"</span> <span class="ot">=</span> <span class="fu">as.character</span>(DOCSites_letters),</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>  <span class="st">"14C-DOC"</span> <span class="ot">=</span> <span class="fu">as.character</span>(DOC_14C_Sites_letters),</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>  <span class="st">"[CO2]"</span> <span class="ot">=</span> <span class="fu">as.character</span>(CO2Sites_letters[<span class="fu">names</span>(DOCSites_letters)]),</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>  <span class="st">"14C-CO2"</span> <span class="ot">=</span> <span class="fu">as.character</span>(CO2_C14_Sites_letters[<span class="fu">names</span>(DOCSites_letters)]),</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>  <span class="at">check.names =</span> <span class="cn">FALSE</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(combined_dunns_results)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>DC1 DC2 DC3 DC4 
-"a" "a" "a" "a" </code></pre>
-</div>
-</div>
-<p>Dunn’s test results for 14C-CO2 ~ Site_id</p>
-<div class="cell">
-<details class="code-fold">
-<summary>👈 see code here</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Perform the test and get multcomp letters</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">multcompLetters</span>(<span class="fu">get.pvalues</span>(PMCMRplus<span class="sc">::</span><span class="fu">kwAllPairsDunnTest</span>(</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>          DC_Q<span class="sc">$</span>CO2_14C_Modern <span class="sc">~</span> DC_Q<span class="sc">$</span>Site_id, <span class="at">p.adjust=</span><span class="st">"bonf"</span>)),</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">threshold=</span><span class="fl">0.05</span>)<span class="sc">$</span>Letters</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code> DC1  DC2  DC3  DC4 
- "a" "ab" "ab"  "b" </code></pre>
+<pre><code>  Site [DOC] 14C-DOC [CO2] 14C-CO2
+1  DC2     a       a     a      ab
+2  DC4     a       a     b       a
+3  DC1     b       a    ac       b
+4  DC3     b       a     c      ab</code></pre>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -333,85 +484,136 @@ Interpretation
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>No statistical differences between sites for <sup>14</sup>C-DOC (group a). We can lump the sites.</p>
-<p>But <sup>14</sup>C-CO<sub>2</sub> is significantly lower in DC4 (b), DC3 and DC2 (ab) compared with DC1 (a).</p>
+<p><strong>Trend:</strong></p>
+<ul>
+<li><p>No obvious trends over time in C concentration or 14C content</p></li>
+<li><p>There was a clear peak in DOC and CO2 concentration at DC4 during clearcut opperations.</p></li>
+</ul>
+<p><strong>Differences between sites:</strong></p>
+<ul>
+<li><p>CO2 and DOC concentration at DC4 is consistently higher than the other sites, followed with DC2, and DC1 and DC3.</p></li>
+<li><p>14C-DOC is not different across sites</p></li>
+<li><p>14C-CO2 is significantly lower at DC4, followed with DC3 and DC2, DC1 which is significantly higher</p></li>
+</ul>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Q data
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The database contains DC3 and DC2 flow data, one ditch cleaned while the other only clearcut. Other timeseries are incomplete.</p>
 </div>
 </div>
 </section>
-<section id="differences-in-carbon-concentration-between-sites" class="level3" data-number="3.2.2">
-<h3 data-number="3.2.2" class="anchored" data-anchor-id="differences-in-carbon-concentration-between-sites"><span class="header-section-number">3.2.2</span> Differences in Carbon concentration between sites</h3>
+</section>
+<section id="differences-across-treatments" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="differences-across-treatments"><span class="header-section-number">3.2</span> Differences across treatments</h2>
+<p>Is there a significant change in the median <sup>14</sup>C content of CO<sub>2</sub> and DOC between sites or treatment, based on their distribution ?</p>
 <div class="cell">
 <details class="code-fold">
 <summary>👈 see code here</summary>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Make dotplot (site effect)</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">filter</span>(DC_Q, Treatment <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Ditch cleaning"</span>,<span class="st">"Clearcut"</span>, <span class="st">"Pristine"</span> )) <span class="sc">%&gt;%</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">pivot_longer</span>(</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">cols =</span> <span class="fu">c</span>(DOC_mgL, CO2_mgL),</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">names_to =</span> <span class="st">"Carbon_specie"</span>,</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>                     <span class="at">values_to =</span> <span class="st">"Carbon_concentrations"</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>                   ),</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>       </span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>                   </span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">aes</span>(<span class="at">fill=</span>Site_id, <span class="at">y=</span>Carbon_concentrations, <span class="at">x=</span>Site_id))<span class="sc">+</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>(<span class="at">alpha=</span><span class="fl">0.5</span>)<span class="sc">+</span></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> median, <span class="at">geom =</span> <span class="st">"point"</span>, <span class="at">shape =</span> <span class="dv">18</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  <span class="co">#geom_dotplot(binaxis = "y", stackdir = "center", binwidth = 0.2)+</span></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  <span class="co">#geom_jitter(aes(shape=Treatment), width=0.2, size=0.5) +</span></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values=</span><span class="fu">c</span>(site_colors))<span class="sc">+</span></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_shape_manual</span>(<span class="at">values=</span>treatments_symbols)<span class="sc">+</span> </span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="co">#cols=vars(Treatment), </span></span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>             <span class="at">rows=</span><span class="fu">vars</span>(Carbon_specie), <span class="at">scales =</span> <span class="st">"free"</span>)<span class="sc">+</span></span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">fill=</span><span class="st">"Watershed ID"</span>, <span class="at">y=</span><span class="fu">bquote</span>(<span class="st">"Carbon (mg/L)"</span>), <span class="at">x=</span><span class="st">"Watershed ID"</span>)<span class="sc">+</span></span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>  <span class="co">#ggtitle("Violin dotplot of the CO2 (top) and DOC (bottom) concentration for each site")+</span></span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make a scatterplot to distinguish the grouping across sites</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>density_14Cscatter_sites <span class="ot">=</span> </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  ggExtra<span class="sc">::</span><span class="fu">ggMarginal</span>(</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>            <span class="fu">ggplot</span>(<span class="at">data=</span>DC_Q,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">aes</span>(<span class="at">x=</span>DOC_mgL, <span class="at">y=</span>CO2_mgL_filled, </span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>                    <span class="at">color=</span>Treatment))<span class="sc">+</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>            <span class="fu">stat_density_2d</span>(<span class="fu">aes</span>(<span class="at">fill =</span> Treatment), <span class="at">geom =</span> <span class="st">"polygon"</span>, <span class="at">linewidth=</span><span class="dv">0</span>,</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>                             <span class="at">alpha =</span> <span class="fl">0.2</span>)<span class="sc">+</span> </span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>            <span class="fu">geom_point</span>(<span class="at">size=</span><span class="dv">1</span>)<span class="sc">+</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>            <span class="fu">geom_abline</span>(<span class="at">intercept=</span><span class="dv">0</span>,<span class="at">slope=</span><span class="dv">1</span>, <span class="at">linetype=</span><span class="st">"dotted"</span>)<span class="sc">+</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>            <span class="fu">scale_color_manual</span>(<span class="at">values=</span><span class="fu">c</span>(treatments_colors))<span class="sc">+</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>            <span class="fu">scale_fill_manual</span>(<span class="at">values=</span><span class="fu">c</span>(treatments_colors))<span class="sc">+</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>            <span class="fu">scale_y_log10</span>()<span class="sc">+</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>              <span class="fu">scale_x_log10</span>()<span class="sc">+</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>            <span class="fu">labs</span>(<span class="at">x=</span><span class="fu">bquote</span>(<span class="st">"DOC (mg L"</span><span class="sc">^-</span><span class="dv">1</span><span class="sc">*</span><span class="st">")"</span>), </span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>                   <span class="at">y=</span><span class="fu">bquote</span>(<span class="st">"CO"</span>[<span class="dv">2</span>]<span class="sc">*</span> <span class="st">" (mg L"</span><span class="sc">^-</span><span class="dv">1</span><span class="sc">*</span><span class="st">")"</span>))<span class="sc">+</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>              <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>), </span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>            <span class="at">type =</span> <span class="st">"boxplot"</span>, <span class="at">groupColour =</span> <span class="cn">TRUE</span>, <span class="at">groupFill =</span> <span class="cn">TRUE</span> ) </span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Make a scatterplot to distinguish the grouping across treatment</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>density_14Cscatter_treatment <span class="ot">=</span> </span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>ggExtra<span class="sc">::</span><span class="fu">ggMarginal</span>(</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>            <span class="fu">ggplot</span>(<span class="at">data=</span>DC_Q,<span class="fu">aes</span>(<span class="at">x=</span>DOC_14C_Modern, <span class="at">y=</span>CO2_14C_Modern, </span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>                    <span class="at">color=</span>Treatment))<span class="sc">+</span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>               <span class="fu">stat_density_2d</span>(<span class="fu">aes</span>(<span class="at">fill =</span> Treatment), <span class="at">geom =</span> <span class="st">"polygon"</span>, <span class="at">linewidth=</span><span class="dv">0</span>,</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>                             <span class="at">alpha =</span> <span class="fl">0.2</span>)<span class="sc">+</span> </span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>            <span class="fu">geom_point</span>(<span class="at">size=</span><span class="dv">2</span>)<span class="sc">+</span></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>            <span class="fu">geom_abline</span>(<span class="at">intercept=</span><span class="dv">0</span>,<span class="at">slope=</span><span class="dv">1</span>, <span class="at">linetype=</span><span class="st">"dotted"</span>)<span class="sc">+</span></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>            <span class="fu">scale_color_manual</span>(<span class="at">values=</span><span class="fu">c</span>(treatments_colors))<span class="sc">+</span></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>            <span class="fu">scale_fill_manual</span>(<span class="at">values=</span><span class="fu">c</span>(treatments_colors))<span class="sc">+</span></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>            <span class="fu">scale_y_continuous</span>(<span class="at">limit=</span><span class="fu">c</span>(<span class="dv">95</span>,<span class="dv">115</span>))<span class="sc">+</span></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>            <span class="fu">labs</span>(<span class="at">x=</span><span class="fu">bquote</span>(<span class="st">"∆"</span><span class="sc">^</span><span class="dv">14</span><span class="sc">*</span><span class="st">"C-DOC (% modern)"</span>), </span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>                   <span class="at">y=</span><span class="fu">bquote</span>(<span class="st">"∆"</span><span class="sc">^</span><span class="dv">14</span><span class="sc">*</span><span class="st">"C-CO"</span>[<span class="dv">2</span>]<span class="sc">*</span><span class="st">" (% modern)"</span>))<span class="sc">+</span></span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>              <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>), </span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>            <span class="at">type =</span> <span class="st">"boxplot"</span>, <span class="at">groupColour =</span> <span class="cn">TRUE</span>, <span class="at">groupFill =</span> <span class="cn">TRUE</span> )</span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a><span class="fu">ggarrange</span>(density_14Cscatter_sites,</span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>density_14Cscatter_treatment, <span class="at">nrow=</span><span class="dv">2</span>, <span class="at">align=</span><span class="st">"hv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="768"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="768"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>Dunn’s test results for DOC ~ Site_id</p>
+<section id="dunns-test-¹⁴c-et-c-treatment" class="level4" data-number="3.2.0.1">
+<h4 data-number="3.2.0.1" class="anchored" data-anchor-id="dunns-test-¹⁴c-et-c-treatment"><span class="header-section-number">3.2.0.1</span> Dunn’s test | ¹⁴C et [C]~ Treatment</h4>
 <div class="cell">
 <details class="code-fold">
 <summary>👈 see code here</summary>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dunn.test)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(multcompView)</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(PMCMR)</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Testing the statistical difference in 14C-DOC between sites</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co">#dunn.test(x=DC_Q$DOC_14C_Modern, g=DC_Q$Site_id, method = "bonferroni", label=T, table=F, list =F)</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Perform the test and get multcomp letters</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>        <span class="fu">multcompLetters</span>(<span class="fu">get.pvalues</span>(PMCMRplus<span class="sc">::</span><span class="fu">kwAllPairsDunnTest</span>(</span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>          DC_Q<span class="sc">$</span>DOC_mgL <span class="sc">~</span> DC_Q<span class="sc">$</span>Site_id, <span class="at">p.adjust=</span><span class="st">"bonf"</span>)),</span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>          <span class="at">threshold=</span><span class="fl">0.05</span>)<span class="sc">$</span>Letters</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dunn.test)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(multcompView)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(PMCMR)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform the test and get multcomp letters</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>DOCTreatment_letters <span class="ot">=</span> <span class="fu">multcompLetters</span>(<span class="fu">get.pvalues</span>(PMCMRplus<span class="sc">::</span><span class="fu">kwAllPairsDunnTest</span>(</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>          DC_Q<span class="sc">$</span>DOC_mgL <span class="sc">~</span> DC_Q<span class="sc">$</span>Treatment, <span class="at">p.adjust=</span><span class="st">"bonf"</span>)),</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>          <span class="at">threshold=</span><span class="fl">0.05</span>)<span class="sc">$</span>Letters</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>DOC_C14_Treatment_letters <span class="ot">=</span> <span class="fu">multcompLetters</span>(<span class="fu">get.pvalues</span>(PMCMRplus<span class="sc">::</span><span class="fu">kwAllPairsDunnTest</span>(</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>          DC_Q<span class="sc">$</span>DOC_14C_Modern <span class="sc">~</span> DC_Q<span class="sc">$</span>Treatment, <span class="at">p.adjust=</span><span class="st">"bonf"</span>)),</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>          <span class="at">threshold=</span><span class="fl">0.05</span>)<span class="sc">$</span>Letters</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>CO2Treatment_letters <span class="ot">=</span> <span class="fu">multcompLetters</span>(<span class="fu">get.pvalues</span>(PMCMRplus<span class="sc">::</span><span class="fu">kwAllPairsDunnTest</span>(</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>          DC_Q<span class="sc">$</span>CO2_mgL <span class="sc">~</span> DC_Q<span class="sc">$</span>Treatment, <span class="at">p.adjust=</span><span class="st">"bonf"</span>)),</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>          <span class="at">threshold=</span><span class="fl">0.05</span>)<span class="sc">$</span>Letters</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>CO2_C14_Treatment_letters <span class="ot">=</span> <span class="fu">multcompLetters</span>(<span class="fu">get.pvalues</span>(PMCMRplus<span class="sc">::</span><span class="fu">kwAllPairsDunnTest</span>(</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>          DC_Q<span class="sc">$</span>CO2_14C_Modern <span class="sc">~</span> DC_Q<span class="sc">$</span>Treatment, <span class="at">p.adjust=</span><span class="st">"bonf"</span>)),</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>          <span class="at">threshold=</span><span class="fl">0.05</span>)<span class="sc">$</span>Letters</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine into a data frame</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>combined_dunns_results <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">Site =</span> <span class="fu">names</span>(DOC_C14_Treatment_letters),</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>  <span class="st">"14C-DOC"</span> <span class="ot">=</span> <span class="fu">as.character</span>(DOC_C14_Treatment_letters),</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>  <span class="st">"[DOC]"</span> <span class="ot">=</span> <span class="fu">as.character</span>(DOCTreatment_letters),</span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>  <span class="st">"14C-CO2"</span> <span class="ot">=</span> <span class="fu">as.character</span>(CO2_C14_Treatment_letters[<span class="fu">names</span>(DOC_C14_Treatment_letters)]),</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>  <span class="st">"[CO2]"</span> <span class="ot">=</span> <span class="fu">as.character</span>(CO2Treatment_letters[<span class="fu">names</span>(DOC_C14_Treatment_letters)]),</span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">check.names =</span> <span class="cn">FALSE</span></span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(combined_dunns_results)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>DC1 DC2 DC3 DC4 
-"a" "b" "a" "b" </code></pre>
-</div>
-</div>
-<p>Dunn’s test results for CO2 ~ Site_id</p>
-<div class="cell">
-<details class="code-fold">
-<summary>👈 see code here</summary>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dunn.test)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(multcompView)</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(PMCMR)</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Perform the test and get multcomp letters</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">multcompLetters</span>(<span class="fu">get.pvalues</span>(PMCMRplus<span class="sc">::</span><span class="fu">kwAllPairsDunnTest</span>(</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>          DC_Q<span class="sc">$</span>CO2_mgL <span class="sc">~</span> DC_Q<span class="sc">$</span>Site_id, <span class="at">p.adjust=</span><span class="st">"bonf"</span>)),</span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>          <span class="at">threshold=</span><span class="fl">0.05</span>)<span class="sc">$</span>Letters</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>DC1 DC2 DC3 DC4 
-"a" "b" "a" "c" </code></pre>
+<pre><code>            Site 14C-DOC [DOC] 14C-CO2 [CO2]
+1       Pristine       a     a       a     a
+2       Clearcut       b     b       a     a
+3 Ditch cleaning      ab     a       a     a</code></pre>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -424,39 +626,160 @@ Interpretation
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The DOC concentration is significantly higher in DC2 and DC4 (group b) (the two sites that were not ditch cleaned) than in DC1 and DC3 (group a)</p>
-<p>The CO2 concentration in significantly different across three groups. The highest concentration occur in DC4 (group c), followed with DC2 (group b) and lastly DC1 and DC3 (group a)</p>
-<p>Overall DC1 and DC3 ( the two ditch cleaned sites) have lower DOC and CO2 concentration - could this be related to the impact of ditch cleaning?</p>
+<p><strong>Treatment</strong> <strong>effect on 14 content</strong></p>
+<ul>
+<li><p>The <sup>14</sup>C-DOC is significantly lower in the pristine (group a) compared with clearcut and ditch cleaning sites.</p></li>
+<li><p>The <sup>14</sup>C-CO<sub>2</sub> is doesn’t differ significantly across treatments</p></li>
+</ul>
+<p><strong>Treatment</strong> <strong>effect on C concentrations:</strong></p>
+<ul>
+<li><p>The DOC concentrations are significantly higher following clearcut treatment compared with ditchcleaned and pristine conditions (short term effect of ditch cleaning can compensate?)</p></li>
+<li><p>The CO2 concentration do not differ significantly across treatment</p></li>
+</ul>
 </div>
 </div>
 </section>
-<section id="effect-of-treatment" class="level3" data-number="3.2.3">
-<h3 data-number="3.2.3" class="anchored" data-anchor-id="effect-of-treatment"><span class="header-section-number">3.2.3</span> Effect of treatment</h3>
-<p>Here, all four sites are lumped up, despite significant differences in <sup>14</sup>C-CO<sub>2</sub> and CO<sub>2</sub> and DOC concentration across sites (as seen above)</p>
-<section id="differences-in-14c-content-across-treatments" class="level4" data-number="3.2.3.1">
-<h4 data-number="3.2.3.1" class="anchored" data-anchor-id="differences-in-14c-content-across-treatments"><span class="header-section-number">3.2.3.1</span> Differences in 14C content across treatments</h4>
-<p>Is there a significant change in the <sup>14</sup>C-DOC and <sup>14</sup>C-CO<sub>2</sub> following treatments?</p>
+</section>
+<section id="relationships---controls-on-c-sources-age-and-concentrations" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="relationships---controls-on-c-sources-age-and-concentrations"><span class="header-section-number">3.3</span> Relationships - controls on C sources, age and concentrations</h2>
+<section id="hydrological-control-over-c-concentrations" class="level3" data-number="3.3.1">
+<h3 data-number="3.3.1" class="anchored" data-anchor-id="hydrological-control-over-c-concentrations"><span class="header-section-number">3.3.1</span> Hydrological control over C concentrations</h3>
+<p>Is the radiocarbon age or concentration of DOC and CO<sub>2</sub> controled by runoff, and does this relationship changes after treatment?</p>
 <div class="cell">
 <details class="code-fold">
 <summary>👈 see code here</summary>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Make dotplot (treatment effect)</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">filter</span>(DC_Q, Treatment <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Ditch cleaning"</span>,<span class="st">"Clearcut"</span>, <span class="st">"Pristine"</span> )) <span class="sc">%&gt;%</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">pivot_longer</span>(</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">cols =</span> <span class="fu">c</span>(CO2_14C_Modern, DOC_14C_Modern),</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">names_to =</span> <span class="st">"Carbon_specie"</span>,</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>                     <span class="at">values_to =</span> <span class="st">"Radiocarbon_content"</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>                   ),</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>       </span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>                   </span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">aes</span>(<span class="at">fill=</span>Treatment, <span class="at">y=</span>Radiocarbon_content, <span class="at">x=</span>Treatment))<span class="sc">+</span></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>(<span class="at">alpha=</span><span class="fl">0.5</span>)<span class="sc">+</span></span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>  <span class="co">#geom_jitter(aes(shape=Site_id), width=0.2, size=3) +</span></span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_dotplot</span>(<span class="at">binaxis =</span> <span class="st">"y"</span>, <span class="at">stackdir =</span> <span class="st">"center"</span>, <span class="at">binwidth =</span> <span class="fl">0.5</span>)<span class="sc">+</span></span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values=</span><span class="fu">c</span>(treatments_colors))<span class="sc">+</span></span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_shape_manual</span>(<span class="at">values=</span>sites_symbols)<span class="sc">+</span> </span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Carbon_specie, <span class="at">scales =</span> <span class="st">"fixed"</span>)<span class="sc">+</span></span>
-<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a> <span class="co"># ggtitle("Increase in 14C-CO2 and 14C-DOC following treatments")+</span></span>
-<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Hydrological control over  DOC concentration</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>hydro_resp_DOC<span class="ot">=</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(DC_Q,</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">y=</span>DOC_mgL, <span class="at">x=</span>q_md_filled<span class="sc">*</span><span class="dv">1000</span>, <span class="at">color=</span>Treatment))<span class="sc">+</span> </span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size=</span><span class="dv">1</span>, <span class="at">show.legend =</span> F)<span class="sc">+</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>()<span class="sc">+</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_log10</span>()<span class="sc">+</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">"lm"</span>, <span class="at">se=</span>F, <span class="fu">aes</span>(<span class="at">color=</span>Treatment), <span class="at">show.legend =</span> T)<span class="sc">+</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values=</span>treatments_colors)<span class="sc">+</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_regline_equation</span>(<span class="at">label.y.npc =</span> <span class="st">"top"</span>, <span class="at">label.x.npc =</span> <span class="st">"left"</span>,</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">label =</span>  <span class="fu">paste</span>(..eq.label.., ..adj.rr.label.., </span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>                     <span class="at">sep =</span> <span class="st">"~~~~"</span>), <span class="at">color =</span> Treatment), </span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>                      <span class="at">show.legend =</span> F, <span class="at">size=</span><span class="dv">3</span>)<span class="sc">+</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"q (mm/d)"</span>, </span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">y=</span><span class="fu">bquote</span>(<span class="st">"DOC (mg/L)"</span>))<span class="sc">+</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>, <span class="at">base_size=</span><span class="dv">8</span>)</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Hydrological control over CO2 concentration</span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>hydro_resp_CO2<span class="ot">=</span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(DC_Q,</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">y=</span>CO2_mgL, <span class="at">x=</span>q_md_filled<span class="sc">*</span><span class="dv">1000</span>, <span class="at">color=</span>Treatment))<span class="sc">+</span> </span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size=</span><span class="dv">1</span>, <span class="at">show.legend =</span> F)<span class="sc">+</span></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>()<span class="sc">+</span></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_log10</span>()<span class="sc">+</span></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">"lm"</span>, <span class="at">se=</span>F, <span class="fu">aes</span>(<span class="at">color=</span>Treatment), <span class="at">show.legend =</span> T)<span class="sc">+</span></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values=</span>treatments_colors)<span class="sc">+</span> <span class="co">#"</span></span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_regline_equation</span>(<span class="at">label.y.npc =</span> <span class="st">"top"</span>, <span class="at">label.x.npc =</span> <span class="st">"left"</span>,</span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">label =</span>  <span class="fu">paste</span>(..eq.label.., ..adj.rr.label.., </span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>                     <span class="at">sep =</span> <span class="st">"~~~~"</span>), <span class="at">color =</span> Treatment), </span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>                      <span class="at">show.legend =</span> F, <span class="at">size=</span><span class="dv">3</span>)<span class="sc">+</span></span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"q (mm/d)"</span>, </span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>       <span class="at">y=</span><span class="fu">bquote</span>(<span class="st">"CO"</span>[<span class="dv">2</span>]<span class="sc">*</span><span class="st">" (mg/L)"</span>))<span class="sc">+</span></span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>, <span class="at">base_size=</span><span class="dv">8</span>)</span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a><span class="fu">ggarrange</span>(hydro_resp_DOC, </span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a>          hydro_resp_CO2, </span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a>          <span class="at">nrow=</span><span class="dv">2</span>, <span class="at">common.legend =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="ancova-test" class="level4" data-number="3.3.1.1">
+<h4 data-number="3.3.1.1" class="anchored" data-anchor-id="ancova-test"><span class="header-section-number">3.3.1.1</span> ANCOVA test</h4>
+<p>Is there a significant difference in the hydrological response of C concentrations between <em>Treatments</em>?</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>ANOVA Table (type II tests)
+
+                 Effect DFn DFd      F        p p&lt;.05   ges
+1           q_md_filled   1 285  3.461 6.40e-02       0.012
+2             Treatment   2 285 18.080 4.05e-08     * 0.113
+3 q_md_filled:Treatment   2 285  1.277 2.80e-01       0.009</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>ANOVA Table (type II tests)
+
+               Effect DFn DFd      F        p p&lt;.05      ges
+1         q_md_filled   1 283  0.002 9.66e-01       6.60e-06
+2             Site_id   3 283 39.524 2.31e-21     * 2.95e-01
+3 q_md_filled:Site_id   3 283  8.764 1.41e-05     * 8.50e-02</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>ANOVA Table (type II tests)
+
+                 Effect DFn DFd     F     p p&lt;.05   ges
+1           q_md_filled   1  97 2.308 0.132       0.023
+2             Treatment   2  97 1.524 0.223       0.030
+3 q_md_filled:Treatment   2  97 1.781 0.174       0.035</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>ANOVA Table (type II tests)
+
+               Effect DFn DFd      F        p p&lt;.05   ges
+1         q_md_filled   1  95  2.113 1.49e-01       0.022
+2             Site_id   3  95 31.327 3.62e-14     * 0.497
+3 q_md_filled:Site_id   3  95  3.818 1.20e-02     * 0.108</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Interpretation
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><p>Q <strong>doesn’t</strong> have a significant effect on DOC concentration, but treatment and site do (intercept difference). Significant interaction between Q and Site (slope difference)</p></li>
+<li><p>Q has a significant effect on CO2 concentration, but not treatment. Site effect causes a signficant effect on intercept and slope (interaction)</p></li>
+</ul>
+</div>
+</div>
+</section>
+</section>
+<section id="hydrological-controls-over-14c-content" class="level3" data-number="3.3.2">
+<h3 data-number="3.3.2" class="anchored" data-anchor-id="hydrological-controls-over-14c-content"><span class="header-section-number">3.3.2</span> Hydrological controls over <sup>14</sup>C-content</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>👈 see code here</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Scatter coloured by Treatment</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>( DC_Q <span class="sc">%&gt;%</span> <span class="fu">pivot_longer</span>(</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">cols =</span> <span class="fu">c</span>(CO2_14C_Modern, DOC_14C_Modern),</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">names_to =</span> <span class="st">"Carbon_specie"</span>,</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">values_to =</span> <span class="st">"C14_value"</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>                   ),</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">y=</span>C14_value, <span class="at">x=</span>q_md_filled<span class="sc">*</span><span class="dv">1000</span>, <span class="at">fill=</span>Treatment, <span class="at">color=</span>Treatment))<span class="sc">+</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size=</span><span class="dv">3</span>)<span class="sc">+</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">"glm"</span>, <span class="at">se=</span>F, <span class="fu">aes</span>(<span class="at">color=</span>Treatment), <span class="at">show.legend =</span> F)<span class="sc">+</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values=</span>treatments_colors)<span class="sc">+</span> </span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values=</span>treatments_colors)<span class="sc">+</span> </span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_regline_equation</span>(</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">label.y.npc =</span> <span class="st">"top"</span>, <span class="at">label.x.npc =</span> <span class="st">"left"</span>,</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">label =</span>  <span class="fu">paste</span>(..eq.label.., ..adj.rr.label.., </span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>                     <span class="at">sep =</span> <span class="st">"~~~~"</span>), <span class="at">color =</span> Treatment), </span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">show.legend =</span> F, <span class="at">size=</span><span class="dv">4</span>)<span class="sc">+</span></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"q (m/d)"</span>, <span class="at">y=</span><span class="fu">bquote</span>(<span class="st">"∆"</span><span class="sc">^</span><span class="dv">14</span><span class="sc">*</span><span class="st">"C (% modern)"</span>), <span class="at">shape=</span><span class="st">"Watershed ID"</span>)<span class="sc">+</span></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Carbon_specie, <span class="at">scale=</span><span class="st">"fixed"</span>, <span class="at">nrow=</span><span class="dv">1</span>)<span class="sc">+</span></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -466,42 +789,66 @@ Interpretation
 </div>
 </div>
 </div>
-<p>Dunn’s test results for 14C-DOC ~ Treatment</p>
+<section id="ancova-test-1" class="level4" data-number="3.3.2.1">
+<h4 data-number="3.3.2.1" class="anchored" data-anchor-id="ancova-test-1"><span class="header-section-number">3.3.2.1</span> ANCOVA test</h4>
+<p>Is there a significant difference in the hydrological response of <strong>14C-DOC</strong> between <em>Treatments</em>?</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>ANOVA Table (type II tests)
+
+                 Effect DFn DFd      F        p p&lt;.05   ges
+1           q_md_filled   1  40 22.622 2.57e-05     * 0.361
+2             Treatment   2  40 13.505 3.30e-05     * 0.403
+3 q_md_filled:Treatment   2  40  2.234 1.20e-01       0.100</code></pre>
+</div>
+</div>
+<p>Is there a significant difference in the hydrological response of <strong>14C-CO2</strong> between <em>Treatments</em>?</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>ANOVA Table (type II tests)
+
+                 Effect DFn DFd     F     p p&lt;.05   ges
+1           q_md_filled   1  37 0.119 0.732       0.003
+2             Treatment   2  37 0.677 0.514       0.035
+3 q_md_filled:Treatment   1  37 0.282 0.598       0.008</code></pre>
+</div>
+</div>
 <div class="cell">
 <details class="code-fold">
 <summary>👈 see code here</summary>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dunn.test)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(multcompView)</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(PMCMR)</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Testing the statistical difference in 14C-DOC between sites</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co">#dunn.test(x=DC_Q$DOC_14C_Modern, g=DC_Q$Site_id, method = "bonferroni", label=T, table=F, list =F)</span></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Perform the test and get multcomp letters</span></span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>        <span class="fu">multcompLetters</span>(<span class="fu">get.pvalues</span>(PMCMRplus<span class="sc">::</span><span class="fu">kwAllPairsDunnTest</span>(</span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>          DC_Q<span class="sc">$</span>DOC_14C_Modern <span class="sc">~</span> DC_Q<span class="sc">$</span>Treatment, <span class="at">p.adjust=</span><span class="st">"bonf"</span>)),</span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>          <span class="at">threshold=</span><span class="fl">0.05</span>)<span class="sc">$</span>Letters</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Scatter coloured by sites</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co">#ggplot( DC_Q %&gt;% pivot_longer(</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co">#                     cols = c(CO2_14C_Modern, DOC_14C_Modern),</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a> <span class="co">#                    names_to = "Carbon_specie",</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co">#                     values_to = "C14_value"</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co">#                   ),</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co">#       aes(y=C14_value, x=q_md_filled*1000, fill=Site_id, color=Site_id))+</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a> <span class="co"># geom_point(size=3)+</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="co">#  geom_smooth(method="glm", se=F, aes(color=Site_id), show.legend = F)+</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="co">#  scale_color_manual(values=site_colors_6)+ </span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="co">#  scale_fill_manual(values=site_colors_6)+ </span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="co">#  stat_regline_equation(</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="co">#  label.y.npc = "top", label.x.npc = "left",</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="co">#  aes(label =  paste(..eq.label.., ..adj.rr.label.., </span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="co">#                     sep = "~~~~"), color = Site_id), </span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a><span class="co">#  show.legend = F, size=4)+</span></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="co">#  labs(x="q (m/d)", y=bquote("∆"^14*"C (% modern)"), shape="Watershed ID")+</span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a><span class="co">#  facet_wrap(~Carbon_specie, scale="fixed", nrow=1)+</span></span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a><span class="co">#  theme(legend.position = "top")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-stdout">
-<pre><code>      Pristine       Clearcut Ditch cleaning 
-           "a"            "b"           "ab" </code></pre>
 </div>
-</div>
-<p>Dunn’s test results for 14C-CO2 ~ Treatment</p>
+</section>
+<section id="ancova-test-2" class="level4" data-number="3.3.2.2">
+<h4 data-number="3.3.2.2" class="anchored" data-anchor-id="ancova-test-2"><span class="header-section-number">3.3.2.2</span> ANCOVA test</h4>
+<p>Is there a significant difference in the hydrological response of <strong>14C-DOC</strong> between <em>Sites</em>?</p>
 <div class="cell">
-<details class="code-fold">
-<summary>👈 see code here</summary>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#dunn.test(x=DC_Q$CO2_14C_Modern, g=DC_Q$Site_id, method = "bonferroni", label=T, table=F)</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Perform the test and get multcomp letters</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">multcompLetters</span>(<span class="fu">get.pvalues</span>(PMCMRplus<span class="sc">::</span><span class="fu">kwAllPairsDunnTest</span>(</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>          DC_Q<span class="sc">$</span>CO2_14C_Modern <span class="sc">~</span> DC_Q<span class="sc">$</span>Treatment, <span class="at">p.adjust=</span><span class="st">"bonf"</span>)),</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">threshold=</span><span class="fl">0.05</span>)<span class="sc">$</span>Letters</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-stdout">
-<pre><code>      Pristine       Clearcut Ditch cleaning 
-           "a"            "a"            "a" </code></pre>
+<pre><code>ANOVA Table (type II tests)
+
+               Effect DFn DFd      F     p p&lt;.05   ges
+1         q_md_filled   1  38 11.645 0.002     * 0.235
+2             Site_id   3  38  2.254 0.098       0.151
+3 q_md_filled:Site_id   3  38  1.076 0.371       0.078</code></pre>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -514,467 +861,96 @@ Interpretation
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The <sup>14</sup>C-CO<sub>2</sub> does not change significantly across treatments (group a).</p>
-<p>But the <sup>14</sup>C-DOC increases significantly from pristine (group a) to clearcut condition (group b), while ditch cleaning (group ab) is in between the two (brings the <sup>14</sup>C-DOC back down)</p>
+<ul>
+<li><p>q has a significant effect on 14C-DOC, but not on 14C-CO2</p></li>
+<li><p>there is a significant effect of both <strong>Treatment</strong> <strong>14C-DOC</strong> in the model (intercept differences), but no significant interaction (slope differences). No significant effect of Site_id</p></li>
+<li><p>The intercept shifts from 100%modern in pristine sites, to 110%modern in clearcut+ditchcleaned sites.</p></li>
+</ul>
 </div>
 </div>
 </section>
 </section>
-<section id="differences-in-carbon-concentration-across-treatments" class="level3" data-number="3.2.4">
-<h3 data-number="3.2.4" class="anchored" data-anchor-id="differences-in-carbon-concentration-across-treatments"><span class="header-section-number">3.2.4</span> Differences in Carbon concentration across treatments</h3>
-<p>Is there a significant change in carbon concentration following treatments?</p>
+</section>
+<section id="biological-controls-over-14c-co2---keeling-plots" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="biological-controls-over-14c-co2---keeling-plots"><span class="header-section-number">3.4</span> Biological controls over <sup>14</sup>C-CO<sub>2</sub> - Keeling plots</h2>
 <div class="cell">
 <details class="code-fold">
 <summary>👈 see code here</summary>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Make dotplot (treatment effect)</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">filter</span>(DC_Q, Treatment <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Ditch cleaning"</span>,<span class="st">"Clearcut"</span>, <span class="st">"Pristine"</span> )) <span class="sc">%&gt;%</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">pivot_longer</span>(</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">cols =</span> <span class="fu">c</span>(DOC_mgL, CO2_mgL),</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">names_to =</span> <span class="st">"Carbon_specie"</span>,</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>                     <span class="at">values_to =</span> <span class="st">"Carbon_mgL"</span></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>                   ),</span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>       </span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>                   </span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">aes</span>(<span class="at">fill=</span>Treatment, <span class="at">y=</span>Carbon_mgL, <span class="at">x=</span>Treatment))<span class="sc">+</span></span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>(<span class="at">alpha=</span><span class="fl">0.5</span>)<span class="sc">+</span></span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>   <span class="fu">stat_summary</span>(<span class="at">fun =</span> median, <span class="at">geom =</span> <span class="st">"point"</span>, <span class="at">shape =</span> <span class="dv">18</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values=</span><span class="fu">c</span>(treatments_colors))<span class="sc">+</span></span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_shape_manual</span>(<span class="at">values=</span>sites_symbols)<span class="sc">+</span> </span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Carbon_specie, <span class="at">scales =</span> <span class="st">"free"</span>)<span class="sc">+</span></span>
-<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="768"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Dunn’s test results for DOC ~ Treatment</p>
-<div class="cell">
-<details class="code-fold">
-<summary>👈 see code here</summary>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dunn.test)</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(multcompView)</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(PMCMR)</span>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>DC_Q<span class="sc">$</span>CO2_mgL_filled_keeling<span class="ot">=</span> <span class="dv">1</span><span class="sc">/</span>DC_Q<span class="sc">$</span>CO2_mgL_filled</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>DC_Q<span class="sc">$</span>CO2_mgL_filled_keeling <span class="ot">=</span> <span class="fu">ifelse</span>(<span class="fu">is.infinite</span> (DC_Q<span class="sc">$</span>CO2_mgL_filled_keeling), <span class="cn">NA</span>, DC_Q<span class="sc">$</span>CO2_mgL_filled_keeling)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Testing the statistical difference in 14C-DOC between sites</span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co">#dunn.test(x=DC_Q$DOC_14C_Modern, g=DC_Q$Site_id, method = "bonferroni", label=T, table=F, list =F)</span></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Perform the test and get multcomp letters</span></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>        <span class="fu">multcompLetters</span>(<span class="fu">get.pvalues</span>(PMCMRplus<span class="sc">::</span><span class="fu">kwAllPairsDunnTest</span>(</span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>          DC_Q<span class="sc">$</span>DOC_mgL <span class="sc">~</span> DC_Q<span class="sc">$</span>Treatment, <span class="at">p.adjust=</span><span class="st">"bonf"</span>)),</span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>          <span class="at">threshold=</span><span class="fl">0.05</span>)<span class="sc">$</span>Letters</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>      Pristine       Clearcut Ditch cleaning 
-           "a"            "b"            "c" </code></pre>
-</div>
-</div>
-<p>Dunn’s test results for CO2 ~ Treatment</p>
-<div class="cell">
-<details class="code-fold">
-<summary>👈 see code here</summary>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Perform the test and get multcomp letters</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">multcompLetters</span>(<span class="fu">get.pvalues</span>(PMCMRplus<span class="sc">::</span><span class="fu">kwAllPairsDunnTest</span>(</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>          DC_Q<span class="sc">$</span>CO2_mgL <span class="sc">~</span> DC_Q<span class="sc">$</span>Treatment, <span class="at">p.adjust=</span><span class="st">"bonf"</span>)),</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">threshold=</span><span class="fl">0.05</span>)<span class="sc">$</span>Letters</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>      Pristine       Clearcut Ditch cleaning 
-           "a"            "b"            "c" </code></pre>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Interpreation
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Both CO<sub>2</sub> and DOC follow the same pattern across treatments. The differences are significant across the three treatments with carbon concentrations increasing after clearcut and then lowering, below pristine conditions, after ditch cleaning.</p>
-</div>
-</div>
-</section>
-<section id="differences-in-14c-gap-between-co2-and-doc" class="level3" data-number="3.2.5">
-<h3 data-number="3.2.5" class="anchored" data-anchor-id="differences-in-14c-gap-between-co2-and-doc"><span class="header-section-number">3.2.5</span> Differences in <sup>14</sup>C-gap between CO<sub>2</sub> and DOC</h3>
-<p>Does the <sup>14</sup>C gap between CO<sub>2</sub> and DOC remains constant between both treatments and sites?</p>
-<div class="cell">
-<details class="code-fold">
-<summary>👈 see code here</summary>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert data to long format for plotting</span></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>C14_DC_long <span class="ot">&lt;-</span> <span class="fu">filter</span>(DC_Q, Site_id <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"DC1"</span>,<span class="st">"DC2"</span>, <span class="st">"DC3"</span>, <span class="st">"DC4"</span> )) <span class="sc">%&gt;%</span></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">c</span>(CO2_14C_Modern, DOC_14C_Modern),</span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"Carbon_specie"</span>,</span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"C14_value"</span></span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>C14_DC_long<span class="sc">$</span>Carbon_specie<span class="ot">=</span><span class="fu">recode</span>(C14_DC_long<span class="sc">$</span>Carbon_specie, <span class="at">CO2_14C_Modern =</span> <span class="st">"CO2"</span>, <span class="at">DOC_14C_Modern=</span><span class="st">"DOC"</span>) <span class="co">#Rename the CO2 and DOC fields</span></span>
-<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>C14_DC_long<span class="sc">$</span>Treatment <span class="ot">&lt;-</span> <span class="fu">factor</span>(C14_DC_long<span class="sc">$</span>Treatment, <span class="co">#reorder the treatment types</span></span>
-<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>                                <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Pristine"</span>, <span class="st">"Clearcut"</span>, <span class="st">"Ditch cleaning"</span>))</span>
-<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the plot</span></span>
-<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">filter</span>(C14_DC_long, <span class="sc">!</span><span class="fu">is.na</span>(Treatment)) , <span class="fu">aes</span>(<span class="at">x =</span> Carbon_specie, <span class="at">y =</span> C14_value, </span>
-<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>                      <span class="at">group =</span> <span class="fu">interaction</span>(row_id, Treatment),</span>
-<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>                      </span>
-<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a>                      <span class="at">fill =</span> Treatment)) <span class="sc">+</span></span>
-<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
-<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="co">#aes(shape=Site_id), </span></span>
-<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a>             <span class="at">size=</span><span class="dv">3</span>, <span class="at">shape=</span><span class="dv">21</span>) <span class="sc">+</span></span>
-<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="at">rows=</span><span class="fu">vars</span>(Site_id), <span class="at">cols=</span><span class="fu">vars</span>(Treatment), <span class="at">scales =</span> <span class="st">"fixed"</span>) <span class="sc">+</span></span>
-<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(treatments_colors)) <span class="sc">+</span></span>
-<span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a>  <span class="co">#scale_shape_manual(values = c(21))+</span></span>
-<span id="cb22-28"><a href="#cb22-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Carbon Species"</span>,</span>
-<span id="cb22-29"><a href="#cb22-29" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"14C Content"</span>,</span>
-<span id="cb22-30"><a href="#cb22-30" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">"Treatment"</span>) <span class="sc">+</span></span>
-<span id="cb22-31"><a href="#cb22-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_cleveland</span>() <span class="sc">+</span></span>
-<span id="cb22-32"><a href="#cb22-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb22-33"><a href="#cb22-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb22-34"><a href="#cb22-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>),</span>
-<span id="cb22-35"><a href="#cb22-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"top"</span></span>
-<span id="cb22-36"><a href="#cb22-36" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  DC_Q <span class="sc">%&gt;%</span> <span class="fu">pivot_longer</span>(</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">cols =</span> <span class="fu">c</span>(CO2_14C_Modern, d13C_CO2),</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>                     <span class="at">names_to =</span> <span class="st">"Carbon_isotope"</span>,</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>                     <span class="at">values_to =</span> <span class="st">"isotope_value"</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>                   ),</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">y=</span>isotope_value, <span class="at">x=</span>CO2_mgL_filled_keeling, </span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>           <span class="at">color=</span>Treatment))<span class="sc">+</span></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">"glm"</span>, <span class="at">se=</span>F, </span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>                <span class="at">show.legend =</span> F)<span class="sc">+</span> </span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_wrap</span>(<span class="sc">~</span>Carbon_isotope, <span class="at">scale=</span><span class="st">"free"</span>, <span class="at">nrow=</span><span class="dv">2</span>)<span class="sc">+</span></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stat_regline_equation</span>(</span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">label.y.npc =</span> <span class="st">"top"</span>, <span class="at">label.x.npc =</span> <span class="st">"left"</span>, <span class="co">#0.5</span></span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">label =</span>  <span class="fu">paste</span>(..eq.label.., ..adj.rr.label.., <span class="at">sep =</span> <span class="st">"~~~~"</span>)), <span class="at">show.legend =</span> F, <span class="at">size=</span><span class="dv">4</span>)<span class="sc">+</span></span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> treatments_colors) <span class="sc">+</span></span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> treatments_colors) <span class="sc">+</span></span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span> <span class="st">"1/CO2"</span>, <span class="at">y=</span><span class="st">"isotopic ratio"</span>)<span class="sc">+</span></span>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"right"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="768"></p>
-</figure>
-</div>
-</div>
-<details class="code-fold">
-<summary>👈 see code here</summary>
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>  <span class="co">#ggtitle("The CO2 is almost always less enriched in 14C than DOC")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Interpretation
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>The <sup>14</sup>C gap between CO<sub>2</sub> and DOC seems mostly constant across both sites (rows) and treatments (columns), with CO<sub>2</sub> being generally lower than DOC.</p>
-</div>
-</div>
-</section>
-</section>
-<section id="relationships---scatterplots" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="relationships---scatterplots"><span class="header-section-number">3.3</span> Relationships - Scatterplots</h2>
-<section id="hydrological-response" class="level3" data-number="3.3.1">
-<h3 data-number="3.3.1" class="anchored" data-anchor-id="hydrological-response"><span class="header-section-number">3.3.1</span> Hydrological response</h3>
-<p>Is the radiocarbon age or concentration of DOC and CO<sub>2</sub> controled by runoff, and does this relationship changes after treatment?</p>
-<section id="carbon-concentrations" class="level4" data-number="3.3.1.1">
-<h4 data-number="3.3.1.1" class="anchored" data-anchor-id="carbon-concentrations"><span class="header-section-number">3.3.1.1</span> Carbon concentrations</h4>
-<div class="cell">
-<details class="code-fold">
-<summary>👈 see code here</summary>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Hydrological response DOC</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>hydro_resp_DOC<span class="ot">=</span><span class="fu">ggplot</span>(<span class="fu">filter</span>(DC_Q, Treatment <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Ditch cleaning"</span>,<span class="st">"Clearcut"</span>, <span class="st">"Pristine"</span> )),</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">y=</span>DOC_mgL, <span class="at">x=</span>Q_m3d, <span class="at">color=</span>Site_id))<span class="sc">+</span> </span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size=</span><span class="dv">2</span>, <span class="fu">aes</span>(<span class="at">shape=</span>Site_id), <span class="at">show.legend =</span> F)<span class="sc">+</span></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_shape_manual</span>(<span class="at">values=</span>sites_symbols)<span class="sc">+</span></span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>  <span class="co">#scale_fill_manual(values=treatments_colors)+ #"</span></span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>(<span class="at">limit=</span><span class="fu">c</span>(<span class="fl">0.01</span>,<span class="dv">100</span>))<span class="sc">+</span></span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Treatment, <span class="at">scale=</span><span class="st">"fixed"</span>, <span class="at">ncol=</span><span class="dv">3</span>)<span class="sc">+</span></span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">"lm"</span>, <span class="at">se=</span>F, <span class="fu">aes</span>(<span class="at">color=</span>Site_id), <span class="at">show.legend =</span> T)<span class="sc">+</span></span>
-<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values=</span>site_colors)<span class="sc">+</span> <span class="co">#"</span></span>
-<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_regline_equation</span>(<span class="at">label.y.npc =</span> <span class="st">"top"</span>, <span class="at">label.x.npc =</span> <span class="st">"left"</span>,</span>
-<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">label =</span>  <span class="fu">paste</span>(..eq.label.., ..adj.rr.label.., </span>
-<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>                     <span class="at">sep =</span> <span class="st">"~~~~"</span>), <span class="at">color =</span> Site_id), </span>
-<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>                      <span class="at">show.legend =</span> F, <span class="at">size=</span><span class="dv">3</span>)<span class="sc">+</span></span>
-<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a><span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Q (m3/d)"</span>, </span>
-<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>       <span class="at">y=</span><span class="fu">bquote</span>(<span class="st">"DOC (mg/L)"</span>))<span class="sc">+</span></span>
-<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a><span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>, <span class="at">base_size=</span><span class="dv">8</span>)</span>
-<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Hydrological response CO2</span></span>
-<span id="cb24-29"><a href="#cb24-29" aria-hidden="true" tabindex="-1"></a>hydro_resp_CO2<span class="ot">=</span><span class="fu">ggplot</span>(<span class="fu">filter</span>(DC_Q, Treatment <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Ditch cleaning"</span>,<span class="st">"Clearcut"</span>, <span class="st">"Pristine"</span> )),</span>
-<span id="cb24-30"><a href="#cb24-30" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">y=</span>CO2_mgL, <span class="at">x=</span>Q_m3d, <span class="at">color=</span>Site_id))<span class="sc">+</span> </span>
-<span id="cb24-31"><a href="#cb24-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size=</span><span class="dv">2</span>, <span class="fu">aes</span>(<span class="at">shape=</span>Site_id), <span class="at">show.legend =</span> F)<span class="sc">+</span></span>
-<span id="cb24-32"><a href="#cb24-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-33"><a href="#cb24-33" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb24-34"><a href="#cb24-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_shape_manual</span>(<span class="at">values=</span>sites_symbols)<span class="sc">+</span></span>
-<span id="cb24-35"><a href="#cb24-35" aria-hidden="true" tabindex="-1"></a>  <span class="co">#scale_fill_manual(values=treatments_colors)+ #"</span></span>
-<span id="cb24-36"><a href="#cb24-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>(<span class="at">limit=</span><span class="fu">c</span>(<span class="fl">0.01</span>,<span class="dv">100</span>))<span class="sc">+</span></span>
-<span id="cb24-37"><a href="#cb24-37" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb24-38"><a href="#cb24-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Treatment, <span class="at">scale=</span><span class="st">"fixed"</span>, <span class="at">ncol=</span><span class="dv">3</span>)<span class="sc">+</span></span>
-<span id="cb24-39"><a href="#cb24-39" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb24-40"><a href="#cb24-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">"lm"</span>, <span class="at">se=</span>F, <span class="fu">aes</span>(<span class="at">color=</span>Site_id), <span class="at">show.legend =</span> T)<span class="sc">+</span></span>
-<span id="cb24-41"><a href="#cb24-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values=</span>site_colors)<span class="sc">+</span> <span class="co">#"</span></span>
-<span id="cb24-42"><a href="#cb24-42" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb24-43"><a href="#cb24-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_regline_equation</span>(<span class="at">label.y.npc =</span> <span class="st">"top"</span>, <span class="at">label.x.npc =</span> <span class="st">"left"</span>,</span>
-<span id="cb24-44"><a href="#cb24-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">label =</span>  <span class="fu">paste</span>(..eq.label.., ..adj.rr.label.., </span>
-<span id="cb24-45"><a href="#cb24-45" aria-hidden="true" tabindex="-1"></a>                     <span class="at">sep =</span> <span class="st">"~~~~"</span>), <span class="at">color =</span> Site_id), </span>
-<span id="cb24-46"><a href="#cb24-46" aria-hidden="true" tabindex="-1"></a>                      <span class="at">show.legend =</span> F, <span class="at">size=</span><span class="dv">3</span>)<span class="sc">+</span></span>
-<span id="cb24-47"><a href="#cb24-47" aria-hidden="true" tabindex="-1"></a><span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Q (m3/d)"</span>, </span>
-<span id="cb24-48"><a href="#cb24-48" aria-hidden="true" tabindex="-1"></a>       <span class="at">y=</span><span class="fu">bquote</span>(<span class="st">"CO2 (mg/L)"</span>))<span class="sc">+</span></span>
-<span id="cb24-49"><a href="#cb24-49" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb24-50"><a href="#cb24-50" aria-hidden="true" tabindex="-1"></a><span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>, <span class="at">base_size=</span><span class="dv">8</span>)</span>
-<span id="cb24-51"><a href="#cb24-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-52"><a href="#cb24-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-53"><a href="#cb24-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-54"><a href="#cb24-54" aria-hidden="true" tabindex="-1"></a><span class="fu">ggarrange</span>(hydro_resp_DOC, hydro_resp_CO2, <span class="at">nrow=</span><span class="dv">2</span>, <span class="at">common.legend =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="768"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="768"></p>
 </figure>
 </div>
 </div>
 </div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Interpretation
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Relationships are not significant, but still visually interesting.</p>
-<p>DC4 and DC2 seems to have always had higher DOC and CO2 concentration.</p>
-<p>Clear-cutting increased the CO2 and DOC concentration during low flow (steeper negative slope)</p>
-</div>
-</div>
-</section>
-<section id="c-content" class="level4" data-number="3.3.1.2">
-<h4 data-number="3.3.1.2" class="anchored" data-anchor-id="c-content"><span class="header-section-number">3.3.1.2</span> <sup>14</sup>C-content</h4>
+<section id="ancova-test-3" class="level4" data-number="3.4.0.1">
+<h4 data-number="3.4.0.1" class="anchored" data-anchor-id="ancova-test-3"><span class="header-section-number">3.4.0.1</span> ANCOVA test</h4>
+<p>Does the keeling relationship for <strong>d13C-CO2</strong> varies significantly between treatment?</p>
 <div class="cell">
 <details class="code-fold">
 <summary>👈 see code here</summary>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Hydrological response, DC sites</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>( <span class="fu">filter</span>(DC_Q, Treatment <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Ditch cleaning"</span>,<span class="st">"Clearcut"</span>, <span class="st">"Pristine"</span> )) <span class="sc">%&gt;%</span></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">pivot_longer</span>(</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">cols =</span> <span class="fu">c</span>(CO2_14C_Modern, DOC_14C_Modern),</span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">names_to =</span> <span class="st">"Carbon_specie"</span>,</span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>                     <span class="at">values_to =</span> <span class="st">"C14_value"</span></span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>                   ),</span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">y=</span>C14_value, <span class="at">x=</span>Q_m3d, <span class="at">fill=</span>Treatment, <span class="at">color=</span>Treatment))<span class="sc">+</span> <span class="co">#size=DOCmgL_14C, </span></span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size=</span><span class="dv">3</span>, <span class="fu">aes</span>(<span class="at">shape=</span>Site_id))<span class="sc">+</span></span>
-<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_shape_manual</span>(<span class="at">values=</span>sites_symbols)<span class="sc">+</span></span>
-<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values=</span>treatments_colors)<span class="sc">+</span> <span class="co">#"</span></span>
-<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Q at DC3 (m3/d)"</span>, <span class="at">y=</span><span class="fu">bquote</span>(<span class="st">"∆"</span><span class="sc">^</span><span class="dv">14</span><span class="sc">*</span><span class="st">"C-DOC  (% modern)"</span>), <span class="at">shape=</span><span class="st">"Watershed ID"</span>)<span class="sc">+</span></span>
-<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>  <span class="co">#scale_x_continuous(limits=c(0,0.025))+</span></span>
-<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Carbon_specie, <span class="at">scale=</span><span class="st">"fixed"</span>, <span class="at">nrow=</span><span class="dv">2</span>)<span class="sc">+</span></span>
-<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">"lm"</span>, <span class="at">se=</span>F, <span class="fu">aes</span>(<span class="at">color=</span>Treatment), <span class="at">show.legend =</span> F)<span class="sc">+</span></span>
-<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values=</span>treatments_colors)<span class="sc">+</span> <span class="co">#"</span></span>
-<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_regline_equation</span>(</span>
-<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">label.y.npc =</span> <span class="st">"bottom"</span>, <span class="at">label.x.npc =</span> <span class="fl">0.40</span>,</span>
-<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">label =</span>  <span class="fu">paste</span>(..eq.label.., ..adj.rr.label.., <span class="at">sep =</span> <span class="st">"~~~~"</span>), <span class="at">color =</span> Treatment), </span>
-<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">show.legend =</span> F, <span class="at">size=</span><span class="dv">4</span>)<span class="sc">+</span></span>
-<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a><span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"right"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Run ANCOVA test - Difference in hydro. response between Sites</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>DC_Q <span class="sc">%&gt;%</span> <span class="fu">anova_test</span>(d13C_CO2 <span class="sc">~</span> CO2_mgL_filled_keeling<span class="sc">*</span>Treatment)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="768"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Interpretation
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>The <sup>14</sup>C-CO<sub>2</sub> is not controled by discharge.</p>
-<p>But 14C-DOC is positively related to discharge.</p>
-<p>Based on the ANCOVA analysis (below). There is a significant difference in intercepts between treatments, but the slope is not significantly different. This means the treatment shifts the age towards more positive (younger) values, without changing the hydrological response (slope).</p>
-</div>
-</div>
-<section id="ancova-test" class="level5" data-number="3.3.1.2.1">
-<h5 data-number="3.3.1.2.1" class="anchored" data-anchor-id="ancova-test"><span class="header-section-number">3.3.1.2.1</span> ANCOVA test</h5>
-<section id="is-there-a-significant-difference-in-the-hydrological-response-of-14c-doc-between-treatments" class="level6" data-number="3.3.1.2.1.1">
-<h6 data-number="3.3.1.2.1.1" class="anchored" data-anchor-id="is-there-a-significant-difference-in-the-hydrological-response-of-14c-doc-between-treatments"><span class="header-section-number">3.3.1.2.1.1</span> Is there a significant difference in the hydrological response of 14C-DOC between treatments?</h6>
-<div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>ANOVA Table (type II tests)
 
-           Effect DFn DFd      F        p p&lt;.05   ges
-1           Q_m3d   1  41 27.690 4.81e-06     * 0.403
-2       Treatment   2  41  9.282 4.73e-04     * 0.312
-3 Q_m3d:Treatment   2  41  1.953 1.55e-01       0.087</code></pre>
+                            Effect DFn DFd      F        p p&lt;.05   ges
+1           CO2_mgL_filled_keeling   1  36 16.913 0.000217     * 0.320
+2                        Treatment   2  36  0.154 0.858000       0.008
+3 CO2_mgL_filled_keeling:Treatment   2  36  0.220 0.804000       0.012</code></pre>
 </div>
+<details class="code-fold">
+<summary>👈 see code here</summary>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">#DC_Q %&gt;% anova_test(d13C_CO2 ~ CO2_mgL_filled_keeling*Site_id)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Interpretation
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>The effect of x (q_md) is significant, and the effect of intercept (Treatment) is also significant. But the differences in slopes are not significant.</p>
-</div>
-</div>
-</section>
-<section id="is-there-a-significant-difference-in-the-hydrological-response-of-14c-doc-between-sites" class="level6" data-number="3.3.1.2.1.2">
-<h6 data-number="3.3.1.2.1.2" class="anchored" data-anchor-id="is-there-a-significant-difference-in-the-hydrological-response-of-14c-doc-between-sites"><span class="header-section-number">3.3.1.2.1.2</span> Is there a significant difference in the hydrological response of 14C-DOC between sites?</h6>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>ANOVA Table (type II tests)
-
-         Effect DFn DFd      F        p p&lt;.05   ges
-1         Q_m3d   1  39 17.795 0.000142     * 0.313
-2       Site_id   3  39  1.369 0.266000       0.095
-3 Q_m3d:Site_id   3  39  0.506 0.680000       0.037</code></pre>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Interpretation
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>There is no significant difference between sites in the relationship between 14C-DOC and discharge (we can lump the sites).</p>
-</div>
-</div>
-</section>
-<section id="is-there-a-significant-difference-in-the-hydrological-response-of-14c-co2-between-treatments" class="level6" data-number="3.3.1.2.1.3">
-<h6 data-number="3.3.1.2.1.3" class="anchored" data-anchor-id="is-there-a-significant-difference-in-the-hydrological-response-of-14c-co2-between-treatments"><span class="header-section-number">3.3.1.2.1.3</span> Is there a significant difference in the hydrological response of 14C-CO2 between treatments?</h6>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>ANOVA Table (type II tests)
-
-           Effect DFn DFd     F     p p&lt;.05   ges
-1           Q_m3d   1  39 0.586 0.448       0.015
-2       Treatment   2  39 1.370 0.266       0.066
-3 Q_m3d:Treatment   2  39 0.065 0.937       0.003</code></pre>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Interpretation
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Neither the discharge, effect of treatment (intercept) or combined (slope) is significant for CO2</p>
-</div>
-</div>
-</section>
-</section>
-</section>
-</section>
-<section id="keeling-plots" class="level3" data-number="3.3.2">
-<h3 data-number="3.3.2" class="anchored" data-anchor-id="keeling-plots"><span class="header-section-number">3.3.2</span> Keeling plots</h3>
-<section id="c-co2" class="level4" data-number="3.3.2.1">
-<h4 data-number="3.3.2.1" class="anchored" data-anchor-id="c-co2"><span class="header-section-number">3.3.2.1</span> <sup>14</sup>C-CO<sub>2</sub></h4>
-<p>Is the change in <sup>14</sup>C-CO<sub>2</sub> across treatment more related to mass than transport?</p>
+<p>Does the keeling relationship for <strong>14C-CO2</strong> varies significantly between treatment?</p>
 <div class="cell">
 <details class="code-fold">
 <summary>👈 see code here</summary>
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>( <span class="fu">filter</span>(DC_Q, Treatment <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Ditch cleaning"</span>,<span class="st">"Clearcut"</span>, <span class="st">"Pristine"</span> )),<span class="co"># %&gt;%</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">y=</span>CO2_14C_Modern, <span class="at">x=</span><span class="dv">1</span><span class="sc">/</span>CO2_mgL, <span class="at">fill=</span>Treatment, <span class="at">color=</span>Treatment))<span class="sc">+</span> <span class="co">#size=DOCmgL_14C, </span></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">shape=</span>Site_id), <span class="at">size=</span><span class="dv">3</span>)<span class="sc">+</span> <span class="co">#</span></span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_shape_manual</span>(<span class="at">values=</span>sites_symbols)<span class="sc">+</span></span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values=</span>treatments_colors)<span class="sc">+</span> <span class="co">#"</span></span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>  <span class="co">#labs(x="CO2 (mgCL)", y=bquote("∆"^14*"C-CO2  (% modern)"), shape="Watershed ID")+</span></span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>  <span class="co">#scale_x_continuous(limits=c(0,0.025))+</span></span>
-<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>  <span class="co">#facet_wrap(~Site_id)+</span></span>
-<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">"lm"</span>, <span class="at">se=</span>F, <span class="fu">aes</span>(<span class="at">color=</span>Treatment), <span class="at">show.legend =</span> F)<span class="sc">+</span></span>
-<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values=</span>treatments_colors)<span class="sc">+</span> <span class="co">#"</span></span>
-<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_regline_equation</span>(</span>
-<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">label.y.npc =</span> <span class="st">"top"</span>, <span class="at">label.x.npc =</span> <span class="st">"left"</span>,</span>
-<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">label =</span>  <span class="fu">paste</span>(..eq.label.., ..adj.rr.label.., <span class="at">sep =</span> <span class="st">"~~~~"</span>), <span class="at">color =</span> Treatment), </span>
-<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">show.legend =</span> F, <span class="at">size=</span><span class="dv">4</span>)<span class="sc">+</span></span>
-<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a><span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"right"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Run ANCOVA test - Difference in hydro. response between Sites</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>DC_Q <span class="sc">%&gt;%</span> <span class="fu">anova_test</span>(CO2_14C_Modern <span class="sc">~</span> CO2_mgL_filled_keeling<span class="sc">*</span>Treatment)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="768"></p>
-</figure>
+<div class="cell-output cell-output-stdout">
+<pre><code>ANOVA Table (type II tests)
+
+                            Effect DFn DFd     F     p p&lt;.05   ges
+1           CO2_mgL_filled_keeling   1  36 5.960 0.020     * 0.142
+2                        Treatment   2  36 1.821 0.176       0.092
+3 CO2_mgL_filled_keeling:Treatment   2  36 0.308 0.737       0.017</code></pre>
 </div>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Interpretation
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>The 14C-CO2 is more related to CO2 concentration than discharge.</p>
-<p>The keeling plot suggests that clear-cut changes the source of CO2 (making the age more positve - removing forest CO2 sink?),</p>
-<p>but ditch clearning brings the source back to pristine values.</p>
-</div>
-</div>
-</section>
-<section id="c-doc" class="level4" data-number="3.3.2.2">
-<h4 data-number="3.3.2.2" class="anchored" data-anchor-id="c-doc"><span class="header-section-number">3.3.2.2</span> <sup>14</sup>C-DOC</h4>
-<div class="cell">
 <details class="code-fold">
 <summary>👈 see code here</summary>
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>( <span class="fu">filter</span>(DC_Q, Treatment <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Ditch cleaning"</span>,<span class="st">"Clearcut"</span>, <span class="st">"Pristine"</span> )),<span class="co"># %&gt;%</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">y=</span>DOC_14C_Modern, <span class="at">x=</span><span class="dv">1</span><span class="sc">/</span>DOC_mgL, <span class="at">fill=</span>Treatment, <span class="at">color=</span>Treatment))<span class="sc">+</span> <span class="co">#size=DOCmgL_14C, </span></span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">shape=</span>Site_id), <span class="at">size=</span><span class="dv">3</span>)<span class="sc">+</span> <span class="co">#</span></span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_shape_manual</span>(<span class="at">values=</span>sites_symbols)<span class="sc">+</span></span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values=</span>treatments_colors)<span class="sc">+</span> <span class="co">#"</span></span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>  <span class="co">#labs(x="CO2 (mgCL)", y=bquote("∆"^14*"C-CO2  (% modern)"), shape="Watershed ID")+</span></span>
-<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>  <span class="co">#scale_x_continuous(limits=c(0,0.025))+</span></span>
-<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>  <span class="co">#facet_wrap(~Site_id)+</span></span>
-<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">"lm"</span>, <span class="at">se=</span>F, <span class="fu">aes</span>(<span class="at">color=</span>Treatment), <span class="at">show.legend =</span> F)<span class="sc">+</span></span>
-<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values=</span>treatments_colors)<span class="sc">+</span> <span class="co">#"</span></span>
-<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_regline_equation</span>(</span>
-<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">label.y.npc =</span> <span class="st">"bottom"</span>, <span class="at">label.x.npc =</span> <span class="st">"left"</span>,</span>
-<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">label =</span>  <span class="fu">paste</span>(..eq.label.., ..adj.rr.label.., <span class="at">sep =</span> <span class="st">"~~~~"</span>), <span class="at">color =</span> Treatment), </span>
-<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">show.legend =</span> F, <span class="at">size=</span><span class="dv">4</span>)<span class="sc">+</span></span>
-<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a><span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"right"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#DC_Q %&gt;% anova_test(CO2_14C_Modern ~ CO2_mgL_filled_keeling*Site_id)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="768"></p>
-</figure>
-</div>
-</div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -986,15 +962,32 @@ Interpretation
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>the 14C-DOC is not really related to mass, and more related to transport (see hydrological response above).</p>
+<ul>
+<li><p>The keeling plot suggests that CO2 concentration has a significant effect on both d13C-value and 14C-concent, but this relationship doesnt change with treatment or site.</p></li>
+<li><p>The d13C source of CO2 is (-25‰) (no signficant effect of slope or intercept across sites or treatment)</p></li>
+<li><p>The 14C source of CO2 is between 99, 100m and 94. Which are large differences, but don’t appear as significant effects in the model.</p></li>
+</ul>
 </div>
 </div>
-</section>
+
 </section>
 </section>
 </section>
 
-</main>
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-campeau2019" class="csl-entry" role="listitem">
+Campeau, A., K. Bishop, N. Amvrosiadi, M. F. Billett, M. H. Garnett, H. Laudon, M. G. Öquist, and M. B. Wallin. 2019. <span>“Current Forest Carbon Fixation Fuels Stream CO2 Emissions.”</span> <em>Nature Communications</em> 10 (1). <a href="https://doi.org/10.1038/s41467-019-09922-3">https://doi.org/10.1038/s41467-019-09922-3</a>.
+</div>
+<div id="ref-campeau2017" class="csl-entry" role="listitem">
+Campeau, Audrey, Kevin H. Bishop, Michael F. Billett, Mark H. Garnett, Hjalmar Laudon, Jason A. Leach, Mats B. Nilsson, Mats G. Öquist, and Marcus B. Wallin. 2017. <span>“Aquatic Export of Young Dissolved and Gaseous Carbon from a Pristine Boreal Fen: Implications for Peat Carbon Stock Stability.”</span> <em>Global Change Biology</em> 23 (12): 5523–36. <a href="https://doi.org/10.1111/gcb.13815">https://doi.org/10.1111/gcb.13815</a>.
+</div>
+<div id="ref-ledesma2013" class="csl-entry" role="listitem">
+Ledesma, J. L. J., T. Grabs, M. N. Futter, K. H. Bishop, H. Laudon, and S. J. Köhler. 2013. <span>“Riparian Zone Control on Base Cation Concentration in Boreal Streams.”</span> <em>Biogeosciences</em> 10 (6): 3849–68. <a href="https://doi.org/10.5194/bg-10-3849-2013">https://doi.org/10.5194/bg-10-3849-2013</a>.
+</div>
+<div id="ref-öquist2014" class="csl-entry" role="listitem">
+Öquist, M. G., K. Bishop, A. Grelle, L. Klemedtsson, S. J. Köhler, H. Laudon, A. Lindroth, M. Ottosson Löfvenius, M. B. Wallin, and M. B. Nilsson. 2014. <span>“The Full Annual Carbon Balance of Boreal Forests Is Highly Sensitive to Precipitation.”</span> <em>Environmental Science &amp; Technology Letters</em> 1 (7): 315–19. <a href="https://doi.org/10.1021/ez500169j">https://doi.org/10.1021/ez500169j</a>.
+</div>
+</div></section></div></main>
 <!-- /main column -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {

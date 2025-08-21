@@ -77,3 +77,10 @@ summary(lm(DOC_14C_Modern ~ q_md,
 
 filter(DC1_DC3, Treatment %in% c("After clearcut & Ditch cleaning","After clearcut", "Pristine" )) %>% 
   anova_test(DOC_14C_Modern ~ q_md*Treatment)
+
+
+
+
+
+
+library()
