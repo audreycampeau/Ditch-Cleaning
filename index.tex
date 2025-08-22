@@ -4,9 +4,7 @@
 \PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
 %
 \documentclass[
-  letterpaper,
-  DIV=11,
-  numbers=noendperiod]{scrartcl}
+]{article}
 
 \usepackage{amsmath,amssymb}
 \usepackage{iftex}
@@ -66,46 +64,6 @@
 \fi
 \makeatother
 
-\usepackage{color}
-\usepackage{fancyvrb}
-\newcommand{\VerbBar}{|}
-\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
-\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
-% Add ',fontsize=\small' for more characters per line
-\usepackage{framed}
-\definecolor{shadecolor}{RGB}{241,243,245}
-\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
-\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
-\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
-\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.40,0.45,0.13}{#1}}
-\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
-\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
-\newcommand{\CharTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
-\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
-\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
-\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
-\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
-\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
-\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
-\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
-\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
-\newcommand{\ExtensionTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
-\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
-\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.28,0.35,0.67}{#1}}
-\newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.46,0.62}{#1}}
-\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
-\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
-\newcommand{\NormalTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
-\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
-\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
-\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
-\newcommand{\RegionMarkerTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
-\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
-\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
-\newcommand{\StringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
-\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.07,0.07,0.07}{#1}}
-\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
-\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
 
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\usepackage{longtable,booktabs,array}
@@ -165,7 +123,6 @@
 \newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{\strut#1\strut}}
 \newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 
-\KOMAoption{captions}{tableheading}
 \makeatletter
 \@ifpackageloaded{tcolorbox}{}{\usepackage[skins,breakable]{tcolorbox}}
 \@ifpackageloaded{fontawesome5}{}{\usepackage{fontawesome5}}
@@ -245,7 +202,7 @@
 \title{Forest manipulation experiment reveals divergent controls on the
 sources and age of lateral DOC and CO₂ export}
 \author{Audrey Campeau \and A. Zannella and M. Wallin}
-\date{2025-08-21}
+\date{2025-08-22}
 
 \begin{document}
 \maketitle
@@ -265,29 +222,41 @@ sources and age of lateral DOC and CO₂ export}
 \item
   Lateral C export is a significant fraction of watershed C balance.
 \item
-  Forested catchments contain a large OM storage (Ledesma et al. 2013)
+  Forested catchments contain a large OM storage that could sustain DOC
+  export for decades (Ledesma et al. 2013)
 \item
   LCE and NEE are connected over long timescale, by hydrology (Öquist et
   al. 2014)
+\item
+  Isotopic values of C (stable and radiogenic) can inform us on the
+  sources and age of C.
 \end{itemize}
 
 \subsection{Research Question}\label{research-question}
 
-What are the controls over the sources and age of lateral CO2 and DOC
-export in forested catchments? Can a forest manipulation experiment
-(forest clearcut and ditch cleaning) inform us on the controls of these
-C sources?
+\begin{itemize}
+\item
+  What are the controls over the sources and age of lateral CO2 and DOC
+  export in forested catchments?
+\item
+  Can a forest manipulation experiment (forest clearcut and ditch
+  cleaning) provide new insight to test ongoing hypothesis on the
+  controls of LCE in forested catchments?
+\end{itemize}
 
 \subsection{Hypothesis}\label{hypothesis}
 
-The CO2 source and age is more closely linked to the forest C sink (A.
-Campeau et al. 2019), so clearcutting the forest should have an impact
-on C sources and age
-
-The DOC source and age is linked to discharge (Audrey Campeau et al.
-2017) or water table position (A. Campeau et al. 2019), so changes in
-watershed hydrology, caused by clear-cutting and draining, should change
-the source and age of DOC.
+\begin{itemize}
+\item
+  The CO2 source and age is more closely linked to the forest C sink (A.
+  Campeau et al. 2019), so clearcutting the forest should have an impact
+  on C sources and age
+\item
+  The DOC source and age is linked to discharge (Audrey Campeau et al.
+  2017) or water table position (A. Campeau et al. 2019), so changes in
+  watershed hydrology, caused by clear-cutting and draining, should
+  change the source and age of DOC.
+\end{itemize}
 
 \subsection{Main Conclusion}\label{main-conclusion}
 
@@ -328,17 +297,6 @@ changes in climate, albeit via different drivers.
 \subsection{Map of the study sites (draw schematic
 instead)}\label{map-of-the-study-sites-draw-schematic-instead}
 
-\begin{figure}[H]
-
-{\centering \includegraphics{Trollberget_All infrastructure_plusPlanned_aerial_dc catchments.jpg}
-
-}
-
-\caption{Map of the infrastructure and catchment delineation for each
-site in the Trollberget ExperimentalArea}
-
-\end{figure}%
-
 \subsection{Field measurements:}\label{field-measurements}
 
 \begin{itemize}
@@ -364,208 +322,41 @@ site in the Trollberget ExperimentalArea}
 \subsection{Hydrographs and carbon
 concentrations}\label{hydrographs-and-carbon-concentrations}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# Define operation periods for treatments::::::::::::::::::::::::::::::::::::::::::}
-  
-\NormalTok{clearcut\_start }\OtherTok{\textless{}{-}} \FunctionTok{as.Date}\NormalTok{(}\StringTok{"2020{-}07{-}01"}\NormalTok{)}
-\NormalTok{clearcut\_end }\OtherTok{\textless{}{-}} \FunctionTok{as.Date}\NormalTok{(}\StringTok{"2020{-}08{-}25"}\NormalTok{)}
-\NormalTok{ditch\_cleaning\_start }\OtherTok{\textless{}{-}} \FunctionTok{as.Date}\NormalTok{(}\StringTok{"2021{-}09{-}01"}\NormalTok{)}
-\NormalTok{ditch\_cleaning\_end }\OtherTok{\textless{}{-}} \FunctionTok{as.Date}\NormalTok{(}\StringTok{"2021{-}09{-}30"}\NormalTok{)}
+\begin{figure}[H]
 
- 
-\CommentTok{\# Make the precipitation graph :::::::::::::::::::::::::::::::::::::::::::::::::::::}
+{\centering \includegraphics{index_files/figure-pdf/unnamed-chunk-2-1.pdf}
 
+}
 
-\NormalTok{precipitation}\OtherTok{=} \FunctionTok{ggplot}\NormalTok{(DC\_Q }\SpecialCharTok{\%\textgreater{}\%}
-         \FunctionTok{filter}\NormalTok{(Site\_id }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"DC1"}\NormalTok{)),}
-       \FunctionTok{aes}\NormalTok{(}\AttributeTok{y =}\NormalTok{ P, }\AttributeTok{x =} \FunctionTok{as.Date}\NormalTok{(Date), }\AttributeTok{color =}\NormalTok{ Site\_id)) }\SpecialCharTok{+}
-  
-  \CommentTok{\# Add gray background bars for operations}
-  \FunctionTok{annotate}\NormalTok{(}\StringTok{"rect"}\NormalTok{, }
-           \AttributeTok{xmin =}\NormalTok{ clearcut\_start, }\AttributeTok{xmax =}\NormalTok{ clearcut\_end,}
-           \AttributeTok{ymin =} \SpecialCharTok{{-}}\ConstantTok{Inf}\NormalTok{, }\AttributeTok{ymax =} \ConstantTok{Inf}\NormalTok{, }\AttributeTok{fill =} \StringTok{"gray70"}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.3}\NormalTok{) }\SpecialCharTok{+}
-  
-  \FunctionTok{annotate}\NormalTok{(}\StringTok{"rect"}\NormalTok{, }
-           \AttributeTok{xmin =}\NormalTok{ ditch\_cleaning\_start, }\AttributeTok{xmax =}\NormalTok{ ditch\_cleaning\_end,}
-           \AttributeTok{ymin =} \SpecialCharTok{{-}}\ConstantTok{Inf}\NormalTok{, }\AttributeTok{ymax =} \ConstantTok{Inf}\NormalTok{, }\AttributeTok{fill =} \StringTok{"gray70"}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.3}\NormalTok{) }\SpecialCharTok{+}
-  
-  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat =} \StringTok{\textquotesingle{}identity\textquotesingle{}}\NormalTok{, }\AttributeTok{width=}\FloatTok{0.2}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{labs}\NormalTok{( }\AttributeTok{y=} \StringTok{"Precipitation (mm/day)"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{scale\_y\_reverse}\NormalTok{()}\SpecialCharTok{+}
-  \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values=}\NormalTok{site\_colors\_6)}\SpecialCharTok{+} \CommentTok{\#"}
-  \FunctionTok{scale\_x\_date}\NormalTok{(}\AttributeTok{limits=}\FunctionTok{c}\NormalTok{(}\FunctionTok{as.Date}\NormalTok{(}\StringTok{"2020{-}01{-}01"}\NormalTok{), }\FunctionTok{as.Date}\NormalTok{(}\StringTok{"2022{-}11{-}01"}\NormalTok{)),}
-               \AttributeTok{date\_labels =} \StringTok{"\%b{-}\%Y"}\NormalTok{, }\AttributeTok{date\_breaks =} \StringTok{"6 months"}\NormalTok{) }\SpecialCharTok{+}
-  
-  
-  \FunctionTok{labs}\NormalTok{(}\AttributeTok{y =} \StringTok{"P (mm/d)"}\NormalTok{,  }\AttributeTok{x =} \StringTok{"Date"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{, }\AttributeTok{axis.title.x =} \FunctionTok{element\_blank}\NormalTok{())}
+\caption{Precipitation and discharge timeseries}
 
+\end{figure}%
 
+\begin{figure}[H]
 
-\CommentTok{\# Make Hydrograph :::::::::::::::::::::::::::::::::::::::::::::::::::::}
+{\centering \includegraphics{index_files/figure-pdf/unnamed-chunk-3-1.pdf}
 
-\NormalTok{hydrograph}\OtherTok{=} \FunctionTok{ggplot}\NormalTok{(DC\_Q }\SpecialCharTok{\%\textgreater{}\%}
-         \FunctionTok{filter}\NormalTok{(Site\_id }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"DC2"}\NormalTok{, }\StringTok{"DC3"}\NormalTok{)),}
-       \FunctionTok{aes}\NormalTok{(}\AttributeTok{y =}\NormalTok{ q\_md}\SpecialCharTok{*}\DecValTok{1000}\NormalTok{, }\AttributeTok{x =} \FunctionTok{as.Date}\NormalTok{(Date), }\AttributeTok{color =}\NormalTok{ Site\_id)) }\SpecialCharTok{+}
-  
-  \CommentTok{\# Add gray background bars for operations}
-  \FunctionTok{annotate}\NormalTok{(}\StringTok{"rect"}\NormalTok{, }
-           \AttributeTok{xmin =}\NormalTok{ clearcut\_start, }\AttributeTok{xmax =}\NormalTok{ clearcut\_end,}
-           \AttributeTok{ymin =} \SpecialCharTok{{-}}\ConstantTok{Inf}\NormalTok{, }\AttributeTok{ymax =} \ConstantTok{Inf}\NormalTok{,}
-           \AttributeTok{fill =} \StringTok{"gray70"}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.3}\NormalTok{) }\SpecialCharTok{+}
-  
-  \FunctionTok{annotate}\NormalTok{(}\StringTok{"rect"}\NormalTok{, }
-           \AttributeTok{xmin =}\NormalTok{ ditch\_cleaning\_start, }\AttributeTok{xmax =}\NormalTok{ ditch\_cleaning\_end,}
-           \AttributeTok{ymin =} \SpecialCharTok{{-}}\ConstantTok{Inf}\NormalTok{, }\AttributeTok{ymax =} \ConstantTok{Inf}\NormalTok{,}
-           \AttributeTok{fill =} \StringTok{"gray70"}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.3}\NormalTok{) }\SpecialCharTok{+}
-  
-  \CommentTok{\# Add the discharge lines}
-  \FunctionTok{geom\_line}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values=}\NormalTok{site\_colors\_6)}\SpecialCharTok{+} \CommentTok{\#"}
-   
-  \CommentTok{\# Add text labels for operations}
- \FunctionTok{annotate}\NormalTok{(}\StringTok{"text"}\NormalTok{, }\AttributeTok{x =}\NormalTok{ clearcut\_start }\SpecialCharTok{+}\NormalTok{ (clearcut\_end }\SpecialCharTok{{-}}\NormalTok{ clearcut\_start)}\SpecialCharTok{/}\DecValTok{2}\NormalTok{, }\AttributeTok{y =} \ConstantTok{Inf}\NormalTok{, }
-           \AttributeTok{label =} \StringTok{"Forest clear cut operations}\SpecialCharTok{\textbackslash{}n}\StringTok{(July 2020)"}\NormalTok{,}
-           \AttributeTok{vjust =} \FloatTok{1.2}\NormalTok{, }\AttributeTok{hjust =} \FloatTok{0.5}\NormalTok{, }\AttributeTok{size =} \FloatTok{3.5}\NormalTok{, }\AttributeTok{color =} \StringTok{"black"}\NormalTok{) }\SpecialCharTok{+}
-  
-  \FunctionTok{annotate}\NormalTok{(}\StringTok{"text"}\NormalTok{, }\AttributeTok{x =}\NormalTok{ ditch\_cleaning\_start }\SpecialCharTok{+}\NormalTok{ (ditch\_cleaning\_end }\SpecialCharTok{{-}}\NormalTok{    ditch\_cleaning\_start)}\SpecialCharTok{/}\DecValTok{2}\NormalTok{, }\AttributeTok{y =} \ConstantTok{Inf}\NormalTok{, }
-           \AttributeTok{label =} \StringTok{"Ditch cleaning operations}\SpecialCharTok{\textbackslash{}n}\StringTok{(September 2021)"}\NormalTok{,}
-           \AttributeTok{vjust =} \FloatTok{1.2}\NormalTok{, }\AttributeTok{hjust =} \FloatTok{0.5}\NormalTok{, }\AttributeTok{size =} \FloatTok{3.5}\NormalTok{, }\AttributeTok{color =} \StringTok{"black"}\NormalTok{) }\SpecialCharTok{+}
-  
-  \FunctionTok{scale\_x\_date}\NormalTok{(}\AttributeTok{limits=}\FunctionTok{c}\NormalTok{(}\FunctionTok{as.Date}\NormalTok{(}\StringTok{"2020{-}01{-}01"}\NormalTok{), }\FunctionTok{as.Date}\NormalTok{(}\StringTok{"2022{-}11{-}01"}\NormalTok{)),}
-                 \AttributeTok{date\_labels =} \StringTok{"\%b{-}\%Y"}\NormalTok{, }\AttributeTok{date\_breaks =} \StringTok{"6 months"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{labs}\NormalTok{(}\AttributeTok{y =} \StringTok{"q (mm/d)"}\NormalTok{,   }\AttributeTok{x =} \StringTok{"Date"}\NormalTok{,  }\AttributeTok{color =} \StringTok{"Stream"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{, }\AttributeTok{axis.title.x =} \FunctionTok{element\_blank}\NormalTok{())}
+}
 
+\caption{C concentration and radiocarbon content timeseries coloured by
+sites}
 
-
-\FunctionTok{ggarrange}\NormalTok{(precipitation, hydrograph,}
-          \AttributeTok{ncol=}\DecValTok{1}\NormalTok{, }\AttributeTok{align=}\StringTok{"v"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{index_files/figure-pdf/unnamed-chunk-2-1.pdf}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# Timeseries 14C per site, CO2 and DOC seperately}
-\NormalTok{plot\_timeseries }\OtherTok{=} \ControlFlowTok{function}\NormalTok{(data, y\_var,labs\_y) \{}
-  \FunctionTok{ggplot}\NormalTok{(data, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{Date, }\AttributeTok{y=}\SpecialCharTok{!!}\FunctionTok{sym}\NormalTok{(y\_var), }\AttributeTok{group=}\NormalTok{Site\_id, }\AttributeTok{color=}\NormalTok{Site\_id)) }\SpecialCharTok{+}
-    \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{data=}\NormalTok{data[}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(data[[y\_var]]), ]) }\SpecialCharTok{+}
-    \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{size=}\DecValTok{3}\NormalTok{) }\SpecialCharTok{+}
-  
-  \CommentTok{\# Add gray background bars for operations}
-  \FunctionTok{annotate}\NormalTok{(}\StringTok{"rect"}\NormalTok{, }
-           \AttributeTok{xmin =}\NormalTok{ clearcut\_start, }\AttributeTok{xmax =}\NormalTok{ clearcut\_end,}
-           \AttributeTok{ymin =} \SpecialCharTok{{-}}\ConstantTok{Inf}\NormalTok{, }\AttributeTok{ymax =} \ConstantTok{Inf}\NormalTok{,}
-           \AttributeTok{fill =} \StringTok{"gray70"}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.3}\NormalTok{) }\SpecialCharTok{+}
-  
-  \FunctionTok{annotate}\NormalTok{(}\StringTok{"rect"}\NormalTok{, }
-           \AttributeTok{xmin =}\NormalTok{ ditch\_cleaning\_start, }\AttributeTok{xmax =}\NormalTok{ ditch\_cleaning\_end,}
-           \AttributeTok{ymin =} \SpecialCharTok{{-}}\ConstantTok{Inf}\NormalTok{, }\AttributeTok{ymax =} \ConstantTok{Inf}\NormalTok{,}
-           \AttributeTok{fill =} \StringTok{"gray70"}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.3}\NormalTok{) }\SpecialCharTok{+}
-    
-    \FunctionTok{scale\_x\_date}\NormalTok{(}\AttributeTok{limits=}\FunctionTok{c}\NormalTok{(}\FunctionTok{as.Date}\NormalTok{(}\StringTok{"2020{-}01{-}01"}\NormalTok{), }\FunctionTok{as.Date}\NormalTok{(}\StringTok{"2022{-}11{-}01"}\NormalTok{)),}
-                 \AttributeTok{date\_labels =} \StringTok{"\%m{-}\%Y"}\NormalTok{, }\AttributeTok{date\_breaks =} \StringTok{"3 months"}\NormalTok{) }\SpecialCharTok{+}
-    \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values=}\FunctionTok{c}\NormalTok{(site\_colors\_6))}\SpecialCharTok{+}
-    \FunctionTok{labs}\NormalTok{(}\AttributeTok{y=}\NormalTok{labs\_y)}\SpecialCharTok{+}
-    
-    \FunctionTok{theme}\NormalTok{( }\CommentTok{\# set margins to align combined plots }
-      \AttributeTok{plot.margin =} \FunctionTok{margin}\NormalTok{(}\FloatTok{5.5}\NormalTok{, }\FloatTok{5.5}\NormalTok{, }\FloatTok{5.5}\NormalTok{, }\FloatTok{5.5}\NormalTok{, }\StringTok{"pt"}\NormalTok{),}
-      \AttributeTok{axis.text.x =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{10}\NormalTok{),}
-      \AttributeTok{axis.title.x =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{11}\NormalTok{),}
-      \AttributeTok{panel.grid.major =} \FunctionTok{element\_line}\NormalTok{(}\AttributeTok{size =} \FloatTok{0.5}\NormalTok{),}
-      \AttributeTok{panel.grid.minor =} \FunctionTok{element\_line}\NormalTok{(}\AttributeTok{size =} \FloatTok{0.25}\NormalTok{)}
-\NormalTok{    )}
-
-\NormalTok{\}}
-
-
-
-\CommentTok{\#Concentration timeseries}
-\NormalTok{timeserie\_14CDOC }\OtherTok{=}\NormalTok{ ggExtra}\SpecialCharTok{::}\FunctionTok{ggMarginal}\NormalTok{(}
-  \FunctionTok{plot\_timeseries}\NormalTok{(DC\_Q, }\StringTok{"DOC\_14C\_Modern"}\NormalTok{, }\StringTok{"14C{-}DOC (\%)"}\NormalTok{)}\SpecialCharTok{+}
-  \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{limits=}\FunctionTok{c}\NormalTok{(}\DecValTok{95}\NormalTok{,}\DecValTok{115}\NormalTok{))}\SpecialCharTok{+}
-  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{, }\AttributeTok{axis.title.x =} \FunctionTok{element\_blank}\NormalTok{()),}
-  \AttributeTok{margins=}\FunctionTok{c}\NormalTok{(}\StringTok{"y"}\NormalTok{), }\AttributeTok{type =} \StringTok{"boxplot"}\NormalTok{, }\AttributeTok{groupColour =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{groupFill =} \ConstantTok{TRUE}\NormalTok{ )}
-
-
-\NormalTok{timeserie\_DOC }\OtherTok{=}\NormalTok{ ggExtra}\SpecialCharTok{::}\FunctionTok{ggMarginal}\NormalTok{(}
-  \FunctionTok{plot\_timeseries}\NormalTok{(DC\_Q, }\StringTok{"DOC\_mgL"}\NormalTok{, }\StringTok{"DOC (mg/L)"}\NormalTok{)}\SpecialCharTok{+}
-  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"top"}\NormalTok{, }\AttributeTok{axis.title.x =} \FunctionTok{element\_blank}\NormalTok{()),}
-  \AttributeTok{margins=}\FunctionTok{c}\NormalTok{(}\StringTok{"y"}\NormalTok{), }\AttributeTok{type =} \StringTok{"boxplot"}\NormalTok{, }\AttributeTok{groupColour =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{groupFill =} \ConstantTok{TRUE}\NormalTok{ )}
-
-
-\NormalTok{timeserie\_14CCO2 }\OtherTok{=}\NormalTok{ ggExtra}\SpecialCharTok{::}\FunctionTok{ggMarginal}\NormalTok{(}
-  \FunctionTok{plot\_timeseries}\NormalTok{(DC\_Q, }\StringTok{"CO2\_14C\_Modern"}\NormalTok{, }\StringTok{"14C{-}CO2 (\%)"}\NormalTok{)}\SpecialCharTok{+}
-  \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{limits=}\FunctionTok{c}\NormalTok{(}\DecValTok{95}\NormalTok{,}\DecValTok{115}\NormalTok{))}\SpecialCharTok{+}
-   \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{, }\AttributeTok{axis.title.x =} \FunctionTok{element\_blank}\NormalTok{()),}
-  \AttributeTok{margins=}\FunctionTok{c}\NormalTok{(}\StringTok{"y"}\NormalTok{), }\AttributeTok{type =} \StringTok{"boxplot"}\NormalTok{, }\AttributeTok{groupColour =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{groupFill =} \ConstantTok{TRUE}\NormalTok{ )}
-
-\NormalTok{timeserie\_CO2 }\OtherTok{=}\NormalTok{ ggExtra}\SpecialCharTok{::}\FunctionTok{ggMarginal}\NormalTok{(}
-  \FunctionTok{plot\_timeseries}\NormalTok{(DC\_Q, }\StringTok{"CO2\_mgL"}\NormalTok{, }\StringTok{"CO2 (mg/L)"}\NormalTok{)}\SpecialCharTok{+}
-     \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{, }\AttributeTok{axis.title.x =} \FunctionTok{element\_blank}\NormalTok{()),}
-  \AttributeTok{margins=}\FunctionTok{c}\NormalTok{(}\StringTok{"y"}\NormalTok{), }\AttributeTok{type =} \StringTok{"boxplot"}\NormalTok{, }\AttributeTok{groupColour =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{groupFill =} \ConstantTok{TRUE}\NormalTok{ )}
-
-
-\CommentTok{\# Combine four plts}
-\FunctionTok{library}\NormalTok{(gridExtra)}
-
-
-
-\NormalTok{final\_plot }\OtherTok{\textless{}{-}} \FunctionTok{grid.arrange}\NormalTok{(}
-\NormalTok{  timeserie\_DOC,}
-\NormalTok{  timeserie\_CO2,}
-\NormalTok{  timeserie\_14CDOC,}
-\NormalTok{  timeserie\_14CCO2,}
-  \AttributeTok{ncol =} \DecValTok{1}\NormalTok{,}
-  \AttributeTok{heights =} \FunctionTok{c}\NormalTok{( }\FloatTok{0.75}\NormalTok{, }\FloatTok{0.5}\NormalTok{, }\FloatTok{0.5}\NormalTok{, }\FloatTok{0.55}\NormalTok{)}
-\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{index_files/figure-pdf/unnamed-chunk-3-1.pdf}
+\end{figure}%
 
 \paragraph{Dunn's test \textbar{} ¹⁴C and {[}C{]} \textasciitilde{}
 Site}\label{dunns-test-uxb9ux2074c-and-c-site}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(dunn.test)}
-\FunctionTok{library}\NormalTok{(multcompView)}
-\FunctionTok{library}\NormalTok{(PMCMR)}
-\CommentTok{\# Perform the test and get multcomp letters}
-\NormalTok{DOCSites\_letters }\OtherTok{=} \FunctionTok{multcompLetters}\NormalTok{(}\FunctionTok{get.pvalues}\NormalTok{(PMCMRplus}\SpecialCharTok{::}\FunctionTok{kwAllPairsDunnTest}\NormalTok{(}
-\NormalTok{          DC\_Q}\SpecialCharTok{$}\NormalTok{DOC\_mgL }\SpecialCharTok{\textasciitilde{}}\NormalTok{ DC\_Q}\SpecialCharTok{$}\NormalTok{Site\_id, }\AttributeTok{p.adjust=}\StringTok{"bonf"}\NormalTok{)),}
-          \AttributeTok{threshold=}\FloatTok{0.05}\NormalTok{)}\SpecialCharTok{$}\NormalTok{Letters}
-
-\NormalTok{DOC\_14C\_Sites\_letters }\OtherTok{=} \FunctionTok{multcompLetters}\NormalTok{(}\FunctionTok{get.pvalues}\NormalTok{(PMCMRplus}\SpecialCharTok{::}\FunctionTok{kwAllPairsDunnTest}\NormalTok{(}
-\NormalTok{          DC\_Q}\SpecialCharTok{$}\NormalTok{DOC\_14C\_Modern }\SpecialCharTok{\textasciitilde{}}\NormalTok{ DC\_Q}\SpecialCharTok{$}\NormalTok{Site\_id, }\AttributeTok{p.adjust=}\StringTok{"bonf"}\NormalTok{)),}
-          \AttributeTok{threshold=}\FloatTok{0.05}\NormalTok{)}\SpecialCharTok{$}\NormalTok{Letters}
-        
-\NormalTok{CO2Sites\_letters }\OtherTok{=} \FunctionTok{multcompLetters}\NormalTok{(}\FunctionTok{get.pvalues}\NormalTok{(PMCMRplus}\SpecialCharTok{::}\FunctionTok{kwAllPairsDunnTest}\NormalTok{(}
-\NormalTok{          DC\_Q}\SpecialCharTok{$}\NormalTok{CO2\_mgL }\SpecialCharTok{\textasciitilde{}}\NormalTok{ DC\_Q}\SpecialCharTok{$}\NormalTok{Site\_id, }\AttributeTok{p.adjust=}\StringTok{"bonf"}\NormalTok{)),}
-          \AttributeTok{threshold=}\FloatTok{0.05}\NormalTok{)}\SpecialCharTok{$}\NormalTok{Letters}
-
-\NormalTok{CO2\_C14\_Sites\_letters }\OtherTok{=} \FunctionTok{multcompLetters}\NormalTok{(}\FunctionTok{get.pvalues}\NormalTok{(PMCMRplus}\SpecialCharTok{::}\FunctionTok{kwAllPairsDunnTest}\NormalTok{(}
-\NormalTok{          DC\_Q}\SpecialCharTok{$}\NormalTok{CO2\_14C\_Modern }\SpecialCharTok{\textasciitilde{}}\NormalTok{ DC\_Q}\SpecialCharTok{$}\NormalTok{Site\_id, }\AttributeTok{p.adjust=}\StringTok{"bonf"}\NormalTok{)),}
-          \AttributeTok{threshold=}\FloatTok{0.05}\NormalTok{)}\SpecialCharTok{$}\NormalTok{Letters}
-
-        
-\CommentTok{\# Combine into a data frame}
-\NormalTok{combined\_dunns\_results }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}
-  \AttributeTok{Site =} \FunctionTok{names}\NormalTok{(DOCSites\_letters),}
-  \StringTok{"[DOC]"} \OtherTok{=} \FunctionTok{as.character}\NormalTok{(DOCSites\_letters),}
-  \StringTok{"14C{-}DOC"} \OtherTok{=} \FunctionTok{as.character}\NormalTok{(DOC\_14C\_Sites\_letters),}
-  \StringTok{"[CO2]"} \OtherTok{=} \FunctionTok{as.character}\NormalTok{(CO2Sites\_letters[}\FunctionTok{names}\NormalTok{(DOCSites\_letters)]),}
-  \StringTok{"14C{-}CO2"} \OtherTok{=} \FunctionTok{as.character}\NormalTok{(CO2\_C14\_Sites\_letters[}\FunctionTok{names}\NormalTok{(DOCSites\_letters)]),}
-  \AttributeTok{check.names =} \ConstantTok{FALSE}
-\NormalTok{)}
-
-\FunctionTok{print}\NormalTok{(combined\_dunns\_results)}
-\end{Highlighting}
-\end{Shaded}
+\begin{verbatim}
+# A tibble: 6 x 5
+  Site  `[DOC]` `14C-DOC` `[CO2]` `14C-CO2`
+  <fct>   <dbl>     <dbl>   <dbl>     <dbl>
+1 C2       23.2      106.    2.29     103. 
+2 C1       22.5      104.    0.73      99.0
+3 DC2      39.1      107.    2.17     104. 
+4 DC4      44.1      107.    4.43     102. 
+5 DC1      21.4      107.    1.66     104. 
+6 DC3      22.0      106.    1.26     103. 
+\end{verbatim}
 
 \begin{verbatim}
   Site [DOC] 14C-DOC [CO2] 14C-CO2
@@ -577,23 +368,37 @@ Site}\label{dunns-test-uxb9ux2074c-and-c-site}
 6  DC3     a      ab    cd     abc
 \end{verbatim}
 
-\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, opacityback=0, arc=.35mm, left=2mm, toprule=.15mm, colback=white, coltitle=black, breakable, rightrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Interpretation}, colframe=quarto-callout-note-color-frame, toptitle=1mm, bottomrule=.15mm, bottomtitle=1mm, titlerule=0mm, leftrule=.75mm]
+\begin{tcolorbox}[enhanced jigsaw, coltitle=black, opacitybacktitle=0.6, left=2mm, bottomtitle=1mm, colback=white, toprule=.15mm, arc=.35mm, toptitle=1mm, leftrule=.75mm, rightrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, breakable, titlerule=0mm, bottomrule=.15mm, colframe=quarto-callout-note-color-frame, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Interpretation}, opacityback=0]
 
-There is no visible differences in the CO2 and DOC concentration and 14C
-content trend over time.
+\textbf{Trend:}
 
-The only noticeable effect was at DC4, where there was a clear peak in
-DOC and CO2 concentration in the stream during clearcut opperations. CO2
-and DOC concentration at this site is consistently higher than the other
-sites.
+\begin{itemize}
+\item
+  No obvious trends over time in C concentration or 14C content
+\item
+  There was a clear peak in DOC and CO2 concentration at DC4 during
+  clearcut opperations.
+\end{itemize}
+
+\textbf{Differences between sites:}
+
+\begin{itemize}
+\item
+  CO2 and DOC concentration at DC4 is consistently higher than the other
+  sites, followed with DC2, and DC1 and DC3.
+\item
+  14C-DOC is not different across sites
+\item
+  14C-CO2 is significantly lower at DC4, followed with DC3 and DC2, DC1
+  which is significantly higher
+\end{itemize}
 
 \end{tcolorbox}
 
-\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, opacityback=0, arc=.35mm, left=2mm, toprule=.15mm, colback=white, coltitle=black, breakable, rightrule=.15mm, colbacktitle=quarto-callout-important-color!10!white, title=\textcolor{quarto-callout-important-color}{\faExclamation}\hspace{0.5em}{Q data}, colframe=quarto-callout-important-color-frame, toptitle=1mm, bottomrule=.15mm, bottomtitle=1mm, titlerule=0mm, leftrule=.75mm]
+\begin{tcolorbox}[enhanced jigsaw, coltitle=black, opacitybacktitle=0.6, left=2mm, bottomtitle=1mm, colback=white, toprule=.15mm, arc=.35mm, toptitle=1mm, leftrule=.75mm, rightrule=.15mm, colbacktitle=quarto-callout-warning-color!10!white, breakable, titlerule=0mm, bottomrule=.15mm, colframe=quarto-callout-warning-color-frame, title=\textcolor{quarto-callout-warning-color}{\faExclamationTriangle}\hspace{0.5em}{Q data}, opacityback=0]
 
-The database contains DC3 and DC2 data, one ditch cleaned while the
-other only clearcut. The C2 data is available but only compiled for the
-14C point measurements.
+The database contains DC3 and DC2 flow data, one ditch cleaned while the
+other only clearcut. Other timeseries are incomplete.
 
 \end{tcolorbox}
 
@@ -601,99 +406,33 @@ other only clearcut. The C2 data is available but only compiled for the
 treatments}\label{differences-across-treatments}
 
 Is there a significant change in the median \textsuperscript{14}C
-content of CO\textsubscript{2} and DOC between sites or treatment based
+content of CO\textsubscript{2} and DOC between sites or treatment, based
 on their distribution ?
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# Make a scatterplot to distinguish the grouping across sites}
-\NormalTok{density\_14Cscatter\_sites }\OtherTok{=} 
-\NormalTok{  ggExtra}\SpecialCharTok{::}\FunctionTok{ggMarginal}\NormalTok{(}
-  
-            \FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data=}\NormalTok{DC\_Q,}
-                 \FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{DOC\_mgL, }\AttributeTok{y=}\NormalTok{CO2\_mgL\_filled, }
-                    \AttributeTok{color=}\NormalTok{Treatment))}\SpecialCharTok{+}
-            \FunctionTok{stat\_density\_2d}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{fill =}\NormalTok{ Treatment), }\AttributeTok{geom =} \StringTok{"polygon"}\NormalTok{, }\AttributeTok{linewidth=}\DecValTok{0}\NormalTok{,}
-                             \AttributeTok{alpha =} \FloatTok{0.2}\NormalTok{)}\SpecialCharTok{+} 
-            \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{size=}\DecValTok{1}\NormalTok{)}\SpecialCharTok{+}
-            \FunctionTok{geom\_abline}\NormalTok{(}\AttributeTok{intercept=}\DecValTok{0}\NormalTok{,}\AttributeTok{slope=}\DecValTok{1}\NormalTok{, }\AttributeTok{linetype=}\StringTok{"dotted"}\NormalTok{)}\SpecialCharTok{+}
-            \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values=}\FunctionTok{c}\NormalTok{(treatments\_colors))}\SpecialCharTok{+}
-            \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values=}\FunctionTok{c}\NormalTok{(treatments\_colors))}\SpecialCharTok{+}
-            \FunctionTok{scale\_y\_log10}\NormalTok{()}\SpecialCharTok{+}
-              \FunctionTok{scale\_x\_log10}\NormalTok{()}\SpecialCharTok{+}
-            \FunctionTok{labs}\NormalTok{(}\AttributeTok{x=}\FunctionTok{bquote}\NormalTok{(}\StringTok{"DOC (mg L"}\SpecialCharTok{\^{}{-}}\DecValTok{1}\SpecialCharTok{*}\StringTok{")"}\NormalTok{), }
-                   \AttributeTok{y=}\FunctionTok{bquote}\NormalTok{(}\StringTok{"CO"}\NormalTok{[}\DecValTok{2}\NormalTok{]}\SpecialCharTok{*} \StringTok{" (mg L"}\SpecialCharTok{\^{}{-}}\DecValTok{1}\SpecialCharTok{*}\StringTok{")"}\NormalTok{))}\SpecialCharTok{+}
-              \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{), }
-            \AttributeTok{type =} \StringTok{"boxplot"}\NormalTok{, }\AttributeTok{groupColour =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{groupFill =} \ConstantTok{TRUE}\NormalTok{ ) }
+\begin{figure}[H]
 
+{\centering \includegraphics{index_files/figure-pdf/unnamed-chunk-6-1.pdf}
 
-\CommentTok{\# Make a scatterplot to distinguish the grouping across treatment}
-\NormalTok{density\_14Cscatter\_treatment }\OtherTok{=} 
-\NormalTok{ggExtra}\SpecialCharTok{::}\FunctionTok{ggMarginal}\NormalTok{(}
-  
-            \FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data=}\NormalTok{DC\_Q,}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{DOC\_14C\_Modern, }\AttributeTok{y=}\NormalTok{CO2\_14C\_Modern, }
-                    \AttributeTok{color=}\NormalTok{Treatment))}\SpecialCharTok{+}
-               \FunctionTok{stat\_density\_2d}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{fill =}\NormalTok{ Treatment), }\AttributeTok{geom =} \StringTok{"polygon"}\NormalTok{, }\AttributeTok{linewidth=}\DecValTok{0}\NormalTok{,}
-                             \AttributeTok{alpha =} \FloatTok{0.2}\NormalTok{)}\SpecialCharTok{+} 
-            \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{size=}\DecValTok{2}\NormalTok{)}\SpecialCharTok{+}
-            \FunctionTok{geom\_abline}\NormalTok{(}\AttributeTok{intercept=}\DecValTok{0}\NormalTok{,}\AttributeTok{slope=}\DecValTok{1}\NormalTok{, }\AttributeTok{linetype=}\StringTok{"dotted"}\NormalTok{)}\SpecialCharTok{+}
-            \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values=}\FunctionTok{c}\NormalTok{(treatments\_colors))}\SpecialCharTok{+}
-            \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values=}\FunctionTok{c}\NormalTok{(treatments\_colors))}\SpecialCharTok{+}
-            \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{limit=}\FunctionTok{c}\NormalTok{(}\DecValTok{95}\NormalTok{,}\DecValTok{115}\NormalTok{))}\SpecialCharTok{+}
-            \FunctionTok{labs}\NormalTok{(}\AttributeTok{x=}\FunctionTok{bquote}\NormalTok{(}\StringTok{"∆"}\SpecialCharTok{\^{}}\DecValTok{14}\SpecialCharTok{*}\StringTok{"C{-}DOC (\% modern)"}\NormalTok{), }
-                   \AttributeTok{y=}\FunctionTok{bquote}\NormalTok{(}\StringTok{"∆"}\SpecialCharTok{\^{}}\DecValTok{14}\SpecialCharTok{*}\StringTok{"C{-}CO"}\NormalTok{[}\DecValTok{2}\NormalTok{]}\SpecialCharTok{*}\StringTok{" (\% modern)"}\NormalTok{))}\SpecialCharTok{+}
-              \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"bottom"}\NormalTok{), }
-            \AttributeTok{type =} \StringTok{"boxplot"}\NormalTok{, }\AttributeTok{groupColour =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{groupFill =} \ConstantTok{TRUE}\NormalTok{ )}
-            
+}
 
+\caption{relationship between C concentration and radiocarbon content of
+CO2 and DOC coloured by treatment}
 
-\FunctionTok{ggarrange}\NormalTok{(density\_14Cscatter\_sites,}
-\NormalTok{density\_14Cscatter\_treatment, }\AttributeTok{nrow=}\DecValTok{2}\NormalTok{, }\AttributeTok{align=}\StringTok{"hv"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
+\end{figure}%
 
-\includegraphics{index_files/figure-pdf/unnamed-chunk-5-1.pdf}
+ANOVA
+
+\begin{verbatim}
+ANOVA Table (type II tests)
+
+                    Effect DFn DFd       F        p p<.05   ges
+1           CO2_mgL_filled   1 317 459.060 1.36e-63     * 0.592
+2                Treatment   2 317  29.092 2.51e-12     * 0.155
+3 CO2_mgL_filled:Treatment   2 317   9.272 1.22e-04     * 0.055
+\end{verbatim}
 
 \paragraph{Dunn's test \textbar{} ¹⁴C et {[}C{]}\textasciitilde{}
 Treatment}\label{dunns-test-uxb9ux2074c-et-c-treatment}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(dunn.test)}
-\FunctionTok{library}\NormalTok{(multcompView)}
-\FunctionTok{library}\NormalTok{(PMCMR)}
-
-\CommentTok{\# Perform the test and get multcomp letters}
-\NormalTok{DOCTreatment\_letters }\OtherTok{=} \FunctionTok{multcompLetters}\NormalTok{(}\FunctionTok{get.pvalues}\NormalTok{(PMCMRplus}\SpecialCharTok{::}\FunctionTok{kwAllPairsDunnTest}\NormalTok{(}
-\NormalTok{          DC\_Q}\SpecialCharTok{$}\NormalTok{DOC\_mgL }\SpecialCharTok{\textasciitilde{}}\NormalTok{ DC\_Q}\SpecialCharTok{$}\NormalTok{Treatment, }\AttributeTok{p.adjust=}\StringTok{"bonf"}\NormalTok{)),}
-          \AttributeTok{threshold=}\FloatTok{0.05}\NormalTok{)}\SpecialCharTok{$}\NormalTok{Letters}
-        
-\NormalTok{DOC\_C14\_Treatment\_letters }\OtherTok{=} \FunctionTok{multcompLetters}\NormalTok{(}\FunctionTok{get.pvalues}\NormalTok{(PMCMRplus}\SpecialCharTok{::}\FunctionTok{kwAllPairsDunnTest}\NormalTok{(}
-\NormalTok{          DC\_Q}\SpecialCharTok{$}\NormalTok{DOC\_14C\_Modern }\SpecialCharTok{\textasciitilde{}}\NormalTok{ DC\_Q}\SpecialCharTok{$}\NormalTok{Treatment, }\AttributeTok{p.adjust=}\StringTok{"bonf"}\NormalTok{)),}
-          \AttributeTok{threshold=}\FloatTok{0.05}\NormalTok{)}\SpecialCharTok{$}\NormalTok{Letters}
-        
-\NormalTok{CO2Treatment\_letters }\OtherTok{=} \FunctionTok{multcompLetters}\NormalTok{(}\FunctionTok{get.pvalues}\NormalTok{(PMCMRplus}\SpecialCharTok{::}\FunctionTok{kwAllPairsDunnTest}\NormalTok{(}
-\NormalTok{          DC\_Q}\SpecialCharTok{$}\NormalTok{CO2\_mgL }\SpecialCharTok{\textasciitilde{}}\NormalTok{ DC\_Q}\SpecialCharTok{$}\NormalTok{Treatment, }\AttributeTok{p.adjust=}\StringTok{"bonf"}\NormalTok{)),}
-          \AttributeTok{threshold=}\FloatTok{0.05}\NormalTok{)}\SpecialCharTok{$}\NormalTok{Letters}
-
-\NormalTok{CO2\_C14\_Treatment\_letters }\OtherTok{=} \FunctionTok{multcompLetters}\NormalTok{(}\FunctionTok{get.pvalues}\NormalTok{(PMCMRplus}\SpecialCharTok{::}\FunctionTok{kwAllPairsDunnTest}\NormalTok{(}
-\NormalTok{          DC\_Q}\SpecialCharTok{$}\NormalTok{CO2\_14C\_Modern }\SpecialCharTok{\textasciitilde{}}\NormalTok{ DC\_Q}\SpecialCharTok{$}\NormalTok{Treatment, }\AttributeTok{p.adjust=}\StringTok{"bonf"}\NormalTok{)),}
-          \AttributeTok{threshold=}\FloatTok{0.05}\NormalTok{)}\SpecialCharTok{$}\NormalTok{Letters}
-
-        
-\CommentTok{\# Combine into a data frame}
-\NormalTok{combined\_dunns\_results }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}
-  \AttributeTok{Site =} \FunctionTok{names}\NormalTok{(DOC\_C14\_Treatment\_letters),}
-  \StringTok{"14C{-}DOC"} \OtherTok{=} \FunctionTok{as.character}\NormalTok{(DOC\_C14\_Treatment\_letters),}
-  \StringTok{"[DOC]"} \OtherTok{=} \FunctionTok{as.character}\NormalTok{(DOCTreatment\_letters),}
-  \StringTok{"14C{-}CO2"} \OtherTok{=} \FunctionTok{as.character}\NormalTok{(CO2\_C14\_Treatment\_letters[}\FunctionTok{names}\NormalTok{(DOC\_C14\_Treatment\_letters)]),}
-  \StringTok{"[CO2]"} \OtherTok{=} \FunctionTok{as.character}\NormalTok{(CO2Treatment\_letters[}\FunctionTok{names}\NormalTok{(DOC\_C14\_Treatment\_letters)]),}
-  \AttributeTok{check.names =} \ConstantTok{FALSE}
-\NormalTok{)}
-
-\FunctionTok{print}\NormalTok{(combined\_dunns\_results)}
-\end{Highlighting}
-\end{Shaded}
 
 \begin{verbatim}
             Site 14C-DOC [DOC] 14C-CO2 [CO2]
@@ -702,28 +441,34 @@ Treatment}\label{dunns-test-uxb9ux2074c-et-c-treatment}
 3 Ditch cleaning       b     a       b     a
 \end{verbatim}
 
-\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, opacityback=0, arc=.35mm, left=2mm, toprule=.15mm, colback=white, coltitle=black, breakable, rightrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Interpretation}, colframe=quarto-callout-note-color-frame, toptitle=1mm, bottomrule=.15mm, bottomtitle=1mm, titlerule=0mm, leftrule=.75mm]
+\begin{tcolorbox}[enhanced jigsaw, coltitle=black, opacitybacktitle=0.6, left=2mm, bottomtitle=1mm, colback=white, toprule=.15mm, arc=.35mm, toptitle=1mm, leftrule=.75mm, rightrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, breakable, titlerule=0mm, bottomrule=.15mm, colframe=quarto-callout-note-color-frame, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Interpretation}, opacityback=0]
 
-\textbf{Site effect}
+\textbf{Treatment} \textbf{effect on C concentrations:}
 
 \begin{itemize}
 \item
-  on \textsuperscript{14}C-DOC , differences more or less match
-  treatment pairs (C1+C2, DC2+DC4, DC1+DC3), in three groups
+  The DOC concentrations are significantly higher following clearcut
+  treatment compared with ditchcleaned and pristine conditions (short
+  term effect of ditch cleaning can compensate?)
 \item
-  on \textsuperscript{14}C-CO\textsubscript{2}, is significantly lower
-  in DC4 and C1, 5 groups .
+  The CO2 concentration do not differ significantly across treatment
+\item
+  The relationship between CO2 and DOC concentration is positive for
+  pristine condition, but slope becomes less significant with clearcut
+  and not significant (slope =0) with ditch cleaning. Hence the DOC
+  concentration continues to vary across a wide range but the CO2
+  becomes more stable.
 \end{itemize}
 
-\textbf{Treatment} \textbf{effect}
+\textbf{Treatment} \textbf{effect on 14 content}
 
 \begin{itemize}
 \item
   The \textsuperscript{14}C-DOC is significantly lower in the pristine
   (group a) compared with clearcut and ditch cleaning sites.
 \item
-  The \textsuperscript{14}C-CO\textsubscript{2} is significantly lower
-  in the pristine compared with clearcut and ditch cleaning.
+  The \textsuperscript{14}C-CO\textsubscript{2} is doesn't differ
+  significantly across treatments
 \end{itemize}
 
 \end{tcolorbox}
@@ -737,67 +482,74 @@ concentrations}\label{hydrological-control-over-c-concentrations}
 Is the radiocarbon age or concentration of DOC and CO\textsubscript{2}
 controled by runoff, and does this relationship changes after treatment?
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# Hydrological control over  DOC concentration}
-\NormalTok{hydro\_resp\_DOC}\OtherTok{=}
-  \FunctionTok{ggplot}\NormalTok{(DC\_Q,}
-       \FunctionTok{aes}\NormalTok{(}\AttributeTok{y=}\NormalTok{DOC\_mgL, }\AttributeTok{x=}\NormalTok{q\_md\_filled}\SpecialCharTok{*}\DecValTok{1000}\NormalTok{, }\AttributeTok{color=}\NormalTok{Site\_id))}\SpecialCharTok{+} 
-  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{size=}\DecValTok{1}\NormalTok{, }\AttributeTok{show.legend =}\NormalTok{ F)}\SpecialCharTok{+}
-  \FunctionTok{scale\_x\_log10}\NormalTok{()}\SpecialCharTok{+}
-  \FunctionTok{scale\_y\_log10}\NormalTok{()}\SpecialCharTok{+}
-  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method=}\StringTok{"lm"}\NormalTok{, }\AttributeTok{se=}\NormalTok{F, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{color=}\NormalTok{Site\_id), }\AttributeTok{show.legend =}\NormalTok{ T)}\SpecialCharTok{+}
-  \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values=}\NormalTok{site\_colors\_6)}\SpecialCharTok{+}
-  \FunctionTok{stat\_regline\_equation}\NormalTok{(}\AttributeTok{label.y.npc =} \StringTok{"top"}\NormalTok{, }\AttributeTok{label.x.npc =} \StringTok{"left"}\NormalTok{,}
-  \FunctionTok{aes}\NormalTok{(}\AttributeTok{label =}  \FunctionTok{paste}\NormalTok{(..eq.label.., ..adj.rr.label.., }
-                     \AttributeTok{sep =} \StringTok{"\textasciitilde{}\textasciitilde{}\textasciitilde{}\textasciitilde{}"}\NormalTok{), }\AttributeTok{color =}\NormalTok{ Site\_id), }
-                      \AttributeTok{show.legend =}\NormalTok{ F, }\AttributeTok{size=}\DecValTok{3}\NormalTok{)}\SpecialCharTok{+}
-  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x=}\StringTok{"q (mm/d)"}\NormalTok{, }
-       \AttributeTok{y=}\FunctionTok{bquote}\NormalTok{(}\StringTok{"DOC (mg/L)"}\NormalTok{))}\SpecialCharTok{+}
-  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"top"}\NormalTok{, }\AttributeTok{base\_size=}\DecValTok{8}\NormalTok{)}
+\begin{figure}[H]
 
+{\centering \includegraphics{index_files/figure-pdf/unnamed-chunk-9-1.pdf}
 
+}
 
+\caption{relationship between C concetration and discharge coloured by
+site and treatment}
 
-\CommentTok{\# Hydrological control over CO2 concentration}
-\NormalTok{hydro\_resp\_CO2}\OtherTok{=}
-  \FunctionTok{ggplot}\NormalTok{(DC\_Q,}
-       \FunctionTok{aes}\NormalTok{(}\AttributeTok{y=}\NormalTok{CO2\_mgL, }\AttributeTok{x=}\NormalTok{q\_md\_filled}\SpecialCharTok{*}\DecValTok{1000}\NormalTok{, }\AttributeTok{color=}\NormalTok{Site\_id))}\SpecialCharTok{+} 
-  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{size=}\DecValTok{1}\NormalTok{, }\AttributeTok{show.legend =}\NormalTok{ F)}\SpecialCharTok{+}
-  \FunctionTok{scale\_x\_log10}\NormalTok{()}\SpecialCharTok{+}
-  \FunctionTok{scale\_y\_log10}\NormalTok{()}\SpecialCharTok{+}
-  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method=}\StringTok{"lm"}\NormalTok{, }\AttributeTok{se=}\NormalTok{F, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{color=}\NormalTok{Site\_id), }\AttributeTok{show.legend =}\NormalTok{ T)}\SpecialCharTok{+}
-  \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values=}\NormalTok{site\_colors\_6)}\SpecialCharTok{+} \CommentTok{\#"}
-  
-  \FunctionTok{stat\_regline\_equation}\NormalTok{(}\AttributeTok{label.y.npc =} \StringTok{"top"}\NormalTok{, }\AttributeTok{label.x.npc =} \StringTok{"left"}\NormalTok{,}
-  \FunctionTok{aes}\NormalTok{(}\AttributeTok{label =}  \FunctionTok{paste}\NormalTok{(..eq.label.., ..adj.rr.label.., }
-                     \AttributeTok{sep =} \StringTok{"\textasciitilde{}\textasciitilde{}\textasciitilde{}\textasciitilde{}"}\NormalTok{), }\AttributeTok{color =}\NormalTok{ Site\_id), }
-                      \AttributeTok{show.legend =}\NormalTok{ F, }\AttributeTok{size=}\DecValTok{3}\NormalTok{)}\SpecialCharTok{+}
-  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x=}\StringTok{"q (mm/d)"}\NormalTok{, }
-       \AttributeTok{y=}\FunctionTok{bquote}\NormalTok{(}\StringTok{"CO"}\NormalTok{[}\DecValTok{2}\NormalTok{]}\SpecialCharTok{*}\StringTok{" (mg/L)"}\NormalTok{))}\SpecialCharTok{+}
-  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"top"}\NormalTok{, }\AttributeTok{base\_size=}\DecValTok{8}\NormalTok{)}
+\end{figure}%
 
+\paragraph{ANCOVA test}\label{ancova-test}
 
+Is there a significant difference in the hydrological response of
+\textbf{DOC} concentrations between \emph{Treatments or Sites}?
 
-\FunctionTok{ggarrange}\NormalTok{(hydro\_resp\_DOC, }
-\NormalTok{          hydro\_resp\_CO2, }
-          \AttributeTok{nrow=}\DecValTok{2}\NormalTok{, }\AttributeTok{common.legend =}\NormalTok{ T)}
-\end{Highlighting}
-\end{Shaded}
+\begin{verbatim}
+ANOVA Table (type II tests)
 
-\includegraphics{index_files/figure-pdf/unnamed-chunk-7-1.pdf}
+                 Effect DFn DFd      F        p p<.05   ges
+1           q_md_filled   1 307  3.090 8.00e-02       0.010
+2             Treatment   2 307 20.164 5.92e-09     * 0.116
+3 q_md_filled:Treatment   2 307  0.389 6.78e-01       0.003
+\end{verbatim}
 
-\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, opacityback=0, arc=.35mm, left=2mm, toprule=.15mm, colback=white, coltitle=black, breakable, rightrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Interpretation}, colframe=quarto-callout-note-color-frame, toptitle=1mm, bottomrule=.15mm, bottomtitle=1mm, titlerule=0mm, leftrule=.75mm]
+\begin{verbatim}
+ANOVA Table (type II tests)
 
-Carbon concentration in streams are mostly hydrology independant.
+               Effect DFn DFd      F        p p<.05      ges
+1         q_md_filled   1 301  0.177 6.74e-01       0.000589
+2             Site_id   5 301 26.589 3.00e-22     * 0.306000
+3 q_md_filled:Site_id   5 301  5.631 5.58e-05     * 0.086000
+\end{verbatim}
 
-Relationships are significant, for :
+Is there a significant difference in the hydrological response of
+\textbf{CO2} concentrations between \emph{Treatments or Sites}?
+
+\begin{verbatim}
+ANOVA Table (type II tests)
+
+                 Effect DFn DFd     F     p p<.05   ges
+1           q_md_filled   1 115 6.981 0.009     * 0.057
+2             Treatment   2 115 1.602 0.206       0.027
+3 q_md_filled:Treatment   2 115 1.804 0.169       0.030
+\end{verbatim}
+
+\begin{verbatim}
+ANOVA Table (type II tests)
+
+               Effect DFn DFd      F        p p<.05   ges
+1         q_md_filled   1 109  7.711 6.00e-03     * 0.066
+2             Site_id   5 109 20.742 1.64e-14     * 0.488
+3 q_md_filled:Site_id   5 109  3.247 9.00e-03     * 0.130
+\end{verbatim}
+
+\begin{tcolorbox}[enhanced jigsaw, coltitle=black, opacitybacktitle=0.6, left=2mm, bottomtitle=1mm, colback=white, toprule=.15mm, arc=.35mm, toptitle=1mm, leftrule=.75mm, rightrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, breakable, titlerule=0mm, bottomrule=.15mm, colframe=quarto-callout-note-color-frame, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Interpretation}, opacityback=0]
+
+DOC and CO2 concentrations are not controled by Discharge
 
 \begin{itemize}
 \item
-  {[}DC4{]} DOC (negative) and CO2 (negative)
+  Q \textbf{doesn't} have a significant effect on DOC concentration, but
+  treatment and site do (intercept difference). Significant interaction
+  between Q and Site (slope difference)
 \item
-  {[}C2{]} CO2 (negative), but not DOC.
+  Q doesnt have a significant effect on CO2 concentration, nor does
+  treatment. Site effect causes a signficant effect on intercept and
+  slope (interaction)
 \end{itemize}
 
 \end{tcolorbox}
@@ -805,34 +557,18 @@ Relationships are significant, for :
 \subsubsection{\texorpdfstring{Hydrological controls over
 \textsuperscript{14}C-content}{Hydrological controls over 14C-content}}\label{hydrological-controls-over-14c-content}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\#Scatter coloured by Treatment}
-\FunctionTok{ggplot}\NormalTok{( DC\_Q }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{pivot\_longer}\NormalTok{(}
-                     \AttributeTok{cols =} \FunctionTok{c}\NormalTok{(CO2\_14C\_Modern, DOC\_14C\_Modern),}
-                     \AttributeTok{names\_to =} \StringTok{"Carbon\_specie"}\NormalTok{,}
-                     \AttributeTok{values\_to =} \StringTok{"C14\_value"}
-\NormalTok{                   ),}
-       \FunctionTok{aes}\NormalTok{(}\AttributeTok{y=}\NormalTok{C14\_value, }\AttributeTok{x=}\NormalTok{q\_md\_filled}\SpecialCharTok{*}\DecValTok{1000}\NormalTok{, }\AttributeTok{fill=}\NormalTok{Treatment, }\AttributeTok{color=}\NormalTok{Treatment))}\SpecialCharTok{+}
-  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{size=}\DecValTok{3}\NormalTok{)}\SpecialCharTok{+}
-  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method=}\StringTok{"glm"}\NormalTok{, }\AttributeTok{se=}\NormalTok{F, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{color=}\NormalTok{Treatment), }\AttributeTok{show.legend =}\NormalTok{ F)}\SpecialCharTok{+}
-  \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values=}\NormalTok{treatments\_colors)}\SpecialCharTok{+} 
-  \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values=}\NormalTok{treatments\_colors)}\SpecialCharTok{+} 
-  
-  \FunctionTok{stat\_regline\_equation}\NormalTok{(}
-  \AttributeTok{label.y.npc =} \StringTok{"top"}\NormalTok{, }\AttributeTok{label.x.npc =} \StringTok{"left"}\NormalTok{,}
-  \FunctionTok{aes}\NormalTok{(}\AttributeTok{label =}  \FunctionTok{paste}\NormalTok{(..eq.label.., ..adj.rr.label.., }
-                     \AttributeTok{sep =} \StringTok{"\textasciitilde{}\textasciitilde{}\textasciitilde{}\textasciitilde{}"}\NormalTok{), }\AttributeTok{color =}\NormalTok{ Treatment), }
-  \AttributeTok{show.legend =}\NormalTok{ F, }\AttributeTok{size=}\DecValTok{4}\NormalTok{)}\SpecialCharTok{+}
-  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x=}\StringTok{"q (m/d)"}\NormalTok{, }\AttributeTok{y=}\FunctionTok{bquote}\NormalTok{(}\StringTok{"∆"}\SpecialCharTok{\^{}}\DecValTok{14}\SpecialCharTok{*}\StringTok{"C (\% modern)"}\NormalTok{), }\AttributeTok{shape=}\StringTok{"Watershed ID"}\NormalTok{)}\SpecialCharTok{+}
-  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{Carbon\_specie, }\AttributeTok{scale=}\StringTok{"fixed"}\NormalTok{, }\AttributeTok{nrow=}\DecValTok{1}\NormalTok{)}\SpecialCharTok{+}
-  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"top"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
+\begin{figure}[H]
 
-\includegraphics{index_files/figure-pdf/unnamed-chunk-8-1.pdf}
+{\centering \includegraphics{index_files/figure-pdf/unnamed-chunk-12-1.pdf}
 
-\paragraph{ANCOVA test}\label{ancova-test}
+}
+
+\caption{relationship between radiocarbon content of CO2 and DOC and
+discharge, coloured by treatment}
+
+\end{figure}%
+
+\paragraph{ANCOVA test}\label{ancova-test-1}
 
 Is there a significant difference in the hydrological response of
 \textbf{14C-DOC} between \emph{Treatments}?
@@ -858,33 +594,35 @@ ANOVA Table (type II tests)
 3 q_md_filled:Treatment   2  52 0.237 0.790       0.009
 \end{verbatim}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\#Scatter coloured by sites}
-\FunctionTok{ggplot}\NormalTok{( DC\_Q }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{pivot\_longer}\NormalTok{(}
-                     \AttributeTok{cols =} \FunctionTok{c}\NormalTok{(CO2\_14C\_Modern, DOC\_14C\_Modern),}
-                     \AttributeTok{names\_to =} \StringTok{"Carbon\_specie"}\NormalTok{,}
-                     \AttributeTok{values\_to =} \StringTok{"C14\_value"}
-\NormalTok{                   ),}
-       \FunctionTok{aes}\NormalTok{(}\AttributeTok{y=}\NormalTok{C14\_value, }\AttributeTok{x=}\NormalTok{q\_md\_filled}\SpecialCharTok{*}\DecValTok{1000}\NormalTok{, }\AttributeTok{fill=}\NormalTok{Site\_id, }\AttributeTok{color=}\NormalTok{Site\_id))}\SpecialCharTok{+}
-  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{size=}\DecValTok{3}\NormalTok{)}\SpecialCharTok{+}
-  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method=}\StringTok{"glm"}\NormalTok{, }\AttributeTok{se=}\NormalTok{F, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{color=}\NormalTok{Site\_id), }\AttributeTok{show.legend =}\NormalTok{ F)}\SpecialCharTok{+}
-  \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values=}\NormalTok{site\_colors\_6)}\SpecialCharTok{+} 
-  \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values=}\NormalTok{site\_colors\_6)}\SpecialCharTok{+} 
-  \FunctionTok{stat\_regline\_equation}\NormalTok{(}
-  \AttributeTok{label.y.npc =} \StringTok{"top"}\NormalTok{, }\AttributeTok{label.x.npc =} \StringTok{"left"}\NormalTok{,}
-  \FunctionTok{aes}\NormalTok{(}\AttributeTok{label =}  \FunctionTok{paste}\NormalTok{(..eq.label.., ..adj.rr.label.., }
-                     \AttributeTok{sep =} \StringTok{"\textasciitilde{}\textasciitilde{}\textasciitilde{}\textasciitilde{}"}\NormalTok{), }\AttributeTok{color =}\NormalTok{ Site\_id), }
-  \AttributeTok{show.legend =}\NormalTok{ F, }\AttributeTok{size=}\DecValTok{4}\NormalTok{)}\SpecialCharTok{+}
-  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x=}\StringTok{"q (m/d)"}\NormalTok{, }\AttributeTok{y=}\FunctionTok{bquote}\NormalTok{(}\StringTok{"∆"}\SpecialCharTok{\^{}}\DecValTok{14}\SpecialCharTok{*}\StringTok{"C (\% modern)"}\NormalTok{), }\AttributeTok{shape=}\StringTok{"Watershed ID"}\NormalTok{)}\SpecialCharTok{+}
-  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{Carbon\_specie, }\AttributeTok{scale=}\StringTok{"fixed"}\NormalTok{, }\AttributeTok{nrow=}\DecValTok{1}\NormalTok{)}\SpecialCharTok{+}
-  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"top"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
+\paragraph{Linear mixed effect model}\label{linear-mixed-effect-model}
 
-\includegraphics{index_files/figure-pdf/unnamed-chunk-11-1.pdf}
+\begin{verbatim}
 
-\paragraph{ANCOVA test}\label{ancova-test-1}
+Call:
+glm(formula = DOC_14C_Modern ~ q_md_filled * Treatment, data = DC_Q)
+
+Coefficients:
+                                     Estimate Std. Error t value Pr(>|t|)    
+(Intercept)                         1.034e+02  4.459e-01 231.992  < 2e-16 ***
+q_md_filled                         1.156e+04  3.017e+03   3.834 0.000298 ***
+TreatmentClearcut                   2.739e+00  5.805e-01   4.718  1.4e-05 ***
+TreatmentDitch cleaning             2.063e+00  8.153e-01   2.530 0.013958 *  
+q_md_filled:TreatmentClearcut       8.617e+03  8.217e+03   1.049 0.298432    
+q_md_filled:TreatmentDitch cleaning 6.027e+03  9.444e+03   0.638 0.525695    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for gaussian family taken to be 2.491009)
+
+    Null deviance: 281.24  on 67  degrees of freedom
+Residual deviance: 154.44  on 62  degrees of freedom
+  (4341 observations deleted due to missingness)
+AIC: 262.76
+
+Number of Fisher Scoring iterations: 2
+\end{verbatim}
+
+\paragraph{ANCOVA test}\label{ancova-test-2}
 
 Is there a significant difference in the hydrological response of
 \textbf{14C-DOC} between \emph{Sites}?
@@ -898,24 +636,23 @@ ANOVA Table (type II tests)
 3 q_md_filled:Site_id   5  56  1.194 3.24e-01       0.096
 \end{verbatim}
 
-\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, opacityback=0, arc=.35mm, left=2mm, toprule=.15mm, colback=white, coltitle=black, breakable, rightrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Interpretation}, colframe=quarto-callout-note-color-frame, toptitle=1mm, bottomrule=.15mm, bottomtitle=1mm, titlerule=0mm, leftrule=.75mm]
+\begin{tcolorbox}[enhanced jigsaw, coltitle=black, opacitybacktitle=0.6, left=2mm, bottomtitle=1mm, colback=white, toprule=.15mm, arc=.35mm, toptitle=1mm, leftrule=.75mm, rightrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, breakable, titlerule=0mm, bottomrule=.15mm, colframe=quarto-callout-note-color-frame, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Interpretation}, opacityback=0]
 
-q has a significant effect on 14C-DOC, but not 14C-CO2
-
-there is a significant effect of both Treatment and Sites in the model
-(intercept differences), but no significant interaction (slope
-differences).
-
-The intercept shifts from 100\%modern in pristine sites, to 110\%modern
-in clearcut+ditchcleaned sites.
-
-\end{tcolorbox}
-
-\paragraph{Linear mixed effect model}\label{linear-mixed-effect-model}
-
-\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, opacityback=0, arc=.35mm, left=2mm, toprule=.15mm, colback=white, coltitle=black, breakable, rightrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Interpretation}, colframe=quarto-callout-note-color-frame, toptitle=1mm, bottomrule=.15mm, bottomtitle=1mm, titlerule=0mm, leftrule=.75mm]
-
-Make linear mixed effect model.
+\begin{itemize}
+\item
+  q has a significant effect on 14C-DOC, but not on 14C-CO2
+\item
+  (LME) there is a significant effect of both \textbf{Treatment}
+  \textbf{14C-DOC} in the model (intercept differences), but no
+  significant interaction (slope differences). No significant effect of
+  Site\_id
+\item
+  The intercept shifts from 100\%modern in pristine sites, to
+  110\%modern in clearcut+ditchcleaned sites.
+\item
+  Site\_id explains only 13\% of the variance (LME), not a significant
+  predictor.
+\end{itemize}
 
 \end{tcolorbox}
 
@@ -923,61 +660,21 @@ Make linear mixed effect model.
 \textsuperscript{14}C-CO\textsubscript{2} - Keeling
 plots}{Biological controls over 14C-CO2 - Keeling plots}}\label{biological-controls-over-14c-co2---keeling-plots}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{DC\_Q}\SpecialCharTok{$}\NormalTok{CO2\_mgL\_filled\_keeling}\OtherTok{=} \DecValTok{1}\SpecialCharTok{/}\NormalTok{DC\_Q}\SpecialCharTok{$}\NormalTok{CO2\_mgL\_filled}
-\NormalTok{DC\_Q}\SpecialCharTok{$}\NormalTok{CO2\_mgL\_filled\_keeling }\OtherTok{=} \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{is.infinite}\NormalTok{ (DC\_Q}\SpecialCharTok{$}\NormalTok{CO2\_mgL\_filled\_keeling), }\ConstantTok{NA}\NormalTok{, DC\_Q}\SpecialCharTok{$}\NormalTok{CO2\_mgL\_filled\_keeling)}
+\begin{figure}[H]
 
+{\centering \includegraphics{index_files/figure-pdf/unnamed-chunk-17-1.pdf}
 
-\NormalTok{keeling}\OtherTok{=} \FunctionTok{ggplot}\NormalTok{(}\CommentTok{\#data = DC\_Q,}
-\NormalTok{  DC\_Q }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{pivot\_longer}\NormalTok{(}
-                     \AttributeTok{cols =} \FunctionTok{c}\NormalTok{(CO2\_14C\_Modern, d13C\_CO2),}
-                     \AttributeTok{names\_to =} \StringTok{"Carbon\_isotope"}\NormalTok{,}
-                     \AttributeTok{values\_to =} \StringTok{"isotope\_value"}
-\NormalTok{                   ),}
-       \FunctionTok{aes}\NormalTok{(}\AttributeTok{y=}\NormalTok{isotope\_value, }\AttributeTok{x=}\NormalTok{CO2\_mgL\_filled\_keeling, }
-           \AttributeTok{color=}\NormalTok{Treatment))}\SpecialCharTok{+}
-  
-    \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method=}\StringTok{"glm"}\NormalTok{, }\AttributeTok{se=}\NormalTok{F, }
-                \AttributeTok{show.legend =}\NormalTok{ F)}\SpecialCharTok{+} 
-    \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{Carbon\_isotope, }\AttributeTok{scale=}\StringTok{"free"}\NormalTok{, }\AttributeTok{nrow=}\DecValTok{2}\NormalTok{)}\SpecialCharTok{+}
-    \FunctionTok{stat\_regline\_equation}\NormalTok{(}
-    \AttributeTok{label.y.npc =} \StringTok{"top"}\NormalTok{, }\AttributeTok{label.x.npc =} \StringTok{"left"}\NormalTok{, }\CommentTok{\#0.5}
-    \FunctionTok{aes}\NormalTok{(}\AttributeTok{label =}  \FunctionTok{paste}\NormalTok{(..eq.label.., ..adj.rr.label.., }\AttributeTok{sep =} \StringTok{"\textasciitilde{}\textasciitilde{}\textasciitilde{}\textasciitilde{}"}\NormalTok{)), }\AttributeTok{show.legend =}\NormalTok{ F, }\AttributeTok{size=}\DecValTok{4}\NormalTok{)}\SpecialCharTok{+}
-    
-  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ treatments\_colors) }\SpecialCharTok{+}
-  \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ treatments\_colors) }\SpecialCharTok{+}
-  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"right"}\NormalTok{) }
-  
+}
 
-\NormalTok{keeling}
-\end{Highlighting}
-\end{Shaded}
+\caption{Keeling plot of CO2 isotope ratio, stable and radiogenic,
+coloured by treatment}
 
-\includegraphics{index_files/figure-pdf/unnamed-chunk-14-1.pdf}
+\end{figure}%
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\#ggExtra::ggMarginal(keeling, }
-\CommentTok{\#                    type = "boxplot", }
-\CommentTok{\#                    groupColour = TRUE, }
-\CommentTok{\#                    groupFill = TRUE,}
-\CommentTok{\#                    alpha = 0.5)}
-\end{Highlighting}
-\end{Shaded}
+\paragraph{ANCOVA test}\label{ancova-test-3}
 
-\paragraph{ANCOVA test}\label{ancova-test-2}
-
-Does the keeling for d13C-CO2 varies significantly between treatment or
-sites?
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\#Run ANCOVA test {-} Difference in hydro. response between Sites}
-\NormalTok{DC\_Q }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{anova\_test}\NormalTok{(d13C\_CO2 }\SpecialCharTok{\textasciitilde{}}\NormalTok{ CO2\_mgL\_filled\_keeling}\SpecialCharTok{*}\NormalTok{Treatment)}
-\end{Highlighting}
-\end{Shaded}
+Does the keeling relationship for \textbf{d13C-CO2} varies significantly
+between treatment?
 
 \begin{verbatim}
 ANOVA Table (type II tests)
@@ -988,30 +685,8 @@ ANOVA Table (type II tests)
 3 CO2_mgL_filled_keeling:Treatment   2  51   0.018 9.83e-01       0.000687
 \end{verbatim}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{DC\_Q }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{anova\_test}\NormalTok{(d13C\_CO2 }\SpecialCharTok{\textasciitilde{}}\NormalTok{ CO2\_mgL\_filled\_keeling}\SpecialCharTok{*}\NormalTok{Site\_id)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-ANOVA Table (type II tests)
-
-                          Effect DFn DFd      F        p p<.05   ges
-1         CO2_mgL_filled_keeling   1  45 20.763 3.96e-05     * 0.316
-2                        Site_id   5  45  0.471 7.96e-01       0.050
-3 CO2_mgL_filled_keeling:Site_id   5  45  0.515 7.63e-01       0.054
-\end{verbatim}
-
-Does the keeling for 14C-CO2 varies significantly between treatment or
-sites?
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\#Run ANCOVA test {-} Difference in hydro. response between Sites}
-\NormalTok{DC\_Q }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{anova\_test}\NormalTok{(CO2\_14C\_Modern }\SpecialCharTok{\textasciitilde{}}\NormalTok{ CO2\_mgL\_filled\_keeling}\SpecialCharTok{*}\NormalTok{Treatment)}
-\end{Highlighting}
-\end{Shaded}
+Does the keeling relationship for \textbf{14C-CO2} varies significantly
+between treatment?
 
 \begin{verbatim}
 ANOVA Table (type II tests)
@@ -1022,31 +697,23 @@ ANOVA Table (type II tests)
 3 CO2_mgL_filled_keeling:Treatment   2  50 3.347 0.043     * 0.118000
 \end{verbatim}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{DC\_Q }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{anova\_test}\NormalTok{(CO2\_14C\_Modern }\SpecialCharTok{\textasciitilde{}}\NormalTok{ CO2\_mgL\_filled\_keeling}\SpecialCharTok{*}\NormalTok{Site\_id)}
-\end{Highlighting}
-\end{Shaded}
+\begin{tcolorbox}[enhanced jigsaw, coltitle=black, opacitybacktitle=0.6, left=2mm, bottomtitle=1mm, colback=white, toprule=.15mm, arc=.35mm, toptitle=1mm, leftrule=.75mm, rightrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, breakable, titlerule=0mm, bottomrule=.15mm, colframe=quarto-callout-note-color-frame, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Interpretation}, opacityback=0]
 
-\begin{verbatim}
-ANOVA Table (type II tests)
-
-                          Effect DFn DFd     F     p p<.05   ges
-1         CO2_mgL_filled_keeling   1  44 3.052 0.088       0.065
-2                        Site_id   5  44 2.896 0.024     * 0.248
-3 CO2_mgL_filled_keeling:Site_id   5  44 1.960 0.104       0.182
-\end{verbatim}
-
-\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, opacityback=0, arc=.35mm, left=2mm, toprule=.15mm, colback=white, coltitle=black, breakable, rightrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Interpretation}, colframe=quarto-callout-note-color-frame, toptitle=1mm, bottomrule=.15mm, bottomtitle=1mm, titlerule=0mm, leftrule=.75mm]
-
-The keeling plot suggests that the source of CO2 is the same across all
-sites and treatments (-25‰) (no signficant effect of slope or intercept
-across sites or treatment)
-
-The 14C source, however, is not controled by CO2 concentration, but
-still reveals a significant interaction between Treatment on the slope,
-and site on the intercept. changes with treatments, from 100\%modern for
-pristine and clearcut sites, but 94 for clearcut+ditchcleaned
+\begin{itemize}
+\item
+  The keeling plot suggests that CO2 concentration has a significant
+  effect on both d13C-value and 14C-concent, which supports the idea of
+  a biological control.
+\item
+  But this relationship doesn't change signficantly with treatment.
+  Perhaps the sample size is not enough to identify a meaningful effect
+\item
+  The d13C source of CO2 is (-25‰) (no signficant effect of slope or
+  intercept across sites or treatment)
+\item
+  The 14C source of CO2 is between 99, 100m and 94. Which are large
+  differences, but don't appear as significant effects in the model.
+\end{itemize}
 
 \end{tcolorbox}
 

@@ -34,24 +34,21 @@ ggplot( DC_Q,
 
 
 # Generalized Linear Mixed Models (GLMM) 
+#library(lme4)
+#glmer_14CCO2 <- glmer(CO2_14C_Modern ~ CO2_mgL_filled_keeling * Treatment + (1|Site_id), 
+#                   , data = DC_Q)
+#summary(glmer_14CCO2)
+#Site random effect nearly zero (0.0057 vs 0.029 residual) - we can use regular GLM:
+#glm_14CCO2 <- glm(CO2_14C_Modern ~ CO2_mgL_filled_keeling * Treatment, 
+#                     , data = DC_Q)
 
-library(lme4)
-model_CO2 <- glmer(CO2_14C_Modern ~ CO2_mgL_filled* Treatment + (1|Site_id), 
-                   family = Gamma(link = "log"), data = DC_Q)
-model_CO2
-#Site random effect nearly zero (0.0057 vs 0.029 residual) - consider using regular GLM:
+#summary(glm_14CCO2)
 
-model_glm_CO2 <- glm(CO2_14C_Modern ~ CO2_mgL_filled * Treatment, 
-                     family = Gamma(link = "log"), 
-                     data = filter(DC_Q, Site_id %in% c("DC1","DC2", "DC3", "DC4","C2","C1" )))
-
-summary(model_glm_CO2)
-
-Anova(model_glm_CO2, type = "III")
+#Anova(glm_14CCO2, type = "III")
 
 # Get treatment differences
-library(emmeans)
-emmeans(model_glm_CO2, pairwise ~ Treatment)
+#library(emmeans)
+#emmeans(glm_14CCO2, pairwise ~ Treatment)
 
 
 # Results show that the age of CO2 is affected by treatment, while controling for Site_id, but the age of CO2 is still independant from the CO2 concentration.

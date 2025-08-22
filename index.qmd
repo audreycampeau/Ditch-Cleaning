@@ -11,7 +11,7 @@ date: "`r Sys.Date()`"
 format:
   html:
     theme: cosmo
-    keep-tex: true    
+    keep-tex: true
     code-fold: true
     code-summary: "👈 see code here"
     toc: true
@@ -20,6 +20,19 @@ format:
     fig-width: 8
     fig-height: 6
     fig-cap-location: bottom
+  pdf:
+    documentclass: article
+    toc: true
+    toc-depth: 2
+    number-sections: true
+    fig-width: 6
+    fig-height: 4
+    fig-cap-location: bottom
+    keep-tex: true
+    echo: false        # Hide code in PDF only
+    warning: false
+    message: false
+    
 bibliography: references.bib
 ---
 
@@ -68,10 +81,6 @@ DOC is controled more by *hydrological processes*, which determines what materia
     -   Two sites, DC1 and DC3, were also ditch cleaned - in September 2021.
 
     -   The treatments are named as follow (pristine, clear-cut and ditch cleaning)
-
-## Map of the study sites (draw schematic instead)
-
-![Map of the infrastructure and catchment delineation for each site in the Trollberget ExperimentalArea](Trollberget_All%20infrastructure_plusPlanned_aerial_dc%20catchments.jpg){fig-align="center"}
 
 ## Field measurements:
 
@@ -146,7 +155,7 @@ theme_set(theme_bw(base_size = 16))
 
 ## Hydrographs and carbon concentrations
 
-```{r, warning=F, message=F, fig.height=4}
+```{r, warning=F, message=F, fig.height=4, fig.cap="Precipitation and discharge timeseries"}
 
 
 # Define operation periods for treatments::::::::::::::::::::::::::::::::::::::::::
@@ -228,7 +237,7 @@ ggarrange(precipitation, hydrograph,
 
 ```
 
-```{r, warning=F, message=F, fig.height=10}
+```{r, warning=F, message=F,fig.height=10, fig.cap="C concentration and radiocarbon content timeseries coloured by sites"}
 
 # Timeseries 14C per site, CO2 and DOC seperately
 plot_timeseries = function(data, y_var,labs_y) {
@@ -320,6 +329,24 @@ final_plot <- grid.arrange(
 
 #### Dunn's test \| ¹⁴C and \[C\] \~ Site
 
+```{r}
+# Calculate medians for each variable by Site_id
+combined_medians <- DC_Q %>%
+  group_by(Site_id) %>%
+  summarise(
+    "[DOC]" = round(median(DOC_mgL, na.rm = TRUE), 2),
+    "14C-DOC" = round(median(DOC_14C_Modern, na.rm = TRUE),2),
+    "[CO2]" = round(median(CO2_mgL, na.rm = TRUE), 2),
+    "14C-CO2" = round(median(CO2_14C_Modern, na.rm = TRUE),2),
+    .groups = 'drop'
+  ) %>%
+  rename(Site = Site_id)
+
+knitr::kable(combined_medians, 
+             caption = "Median by site for DOC and CO2 concentration and 14C-content")
+
+```
+
 ```{r,warning =F, message=F}
 
 library(dunn.test)
@@ -353,8 +380,8 @@ combined_dunns_results <- data.frame(
   check.names = FALSE
 )
 
-print(combined_dunns_results)
-
+knitr::kable(combined_dunns_results, 
+             caption = "Grouping letters for dunn's test result")
 ```
 
 ::: callout-note
@@ -376,7 +403,7 @@ print(combined_dunns_results)
 :::
 
 ::: callout-warning
-## Q data
+#### Q data
 
 The database contains DC3 and DC2 flow data, one ditch cleaned while the other only clearcut. Other timeseries are incomplete.
 :::
@@ -385,7 +412,7 @@ The database contains DC3 and DC2 flow data, one ditch cleaned while the other o
 
 Is there a significant change in the median ^14^C content of CO~2~ and DOC between sites or treatment, based on their distribution ?
 
-```{r, warning =F, message=F, fig.height=8}
+```{r, warning =F, message=F,fig.height=8, fig.cap="relationship between C concentration and radiocarbon content of CO2 and DOC coloured by treatment"}
 
 # Make a scatterplot to distinguish the grouping across sites
 density_14Cscatter_sites = 
@@ -398,10 +425,18 @@ density_14Cscatter_sites =
                              alpha = 0.2)+ 
             geom_point(size=1)+
             geom_abline(intercept=0,slope=1, linetype="dotted")+
+            geom_smooth(method="glm", se=F, aes(color=Treatment), show.legend = T)+
+  
+            stat_regline_equation(label.y.npc = "top", label.x.npc = "left",
+            aes(label =  paste(..eq.label.., ..adj.rr.label.., 
+                               sep = "~~~~"), color = Treatment), 
+                                show.legend = F, size=3)+
+    
             scale_color_manual(values=c(treatments_colors))+
             scale_fill_manual(values=c(treatments_colors))+
             scale_y_log10()+
               scale_x_log10()+
+            
             labs(x=bquote("DOC (mg L"^-1*")"), 
                    y=bquote("CO"[2]* " (mg L"^-1*")"))+
               theme(legend.position = "none"), 
@@ -421,8 +456,8 @@ ggExtra::ggMarginal(
             scale_color_manual(values=c(treatments_colors))+
             scale_fill_manual(values=c(treatments_colors))+
             scale_y_continuous(limit=c(95,115))+
-            labs(x=bquote("∆"^14*"C-DOC (% modern)"), 
-                   y=bquote("∆"^14*"C-CO"[2]*" (% modern)"))+
+            labs(x=bquote(Delta^14*"C-DOC (% modern)"), 
+                   y=bquote(Delta^14*"C-CO"[2]*" (% modern)"))+
               theme(legend.position = "bottom"), 
             type = "boxplot", groupColour = TRUE, groupFill = TRUE )
             
@@ -433,7 +468,35 @@ density_14Cscatter_treatment, nrow=2, align="hv")
 
 ```
 
+#### ANCOVA \| \[CO2\] \~ \[DOC\] / Treatment
+
+```{r,warning=F }
+#Run ANCOVA test - Difference in hydro. response between treatments
+
+
+knitr::kable(DC_Q  %>%  anova_test(DOC_mgL ~ CO2_mgL_filled*Treatment), 
+             caption = "Ancova test results: DOC ~ CO2 x Treatment")
+```
+
 #### Dunn's test \| ¹⁴C et \[C\]\~ Treatment
+
+```{r}
+# Calculate medians for each variable by Site_id
+combined_medians <- DC_Q %>%
+  group_by(Treatment) %>%
+  summarise(
+    "14C-DOC" = round(median(DOC_14C_Modern, na.rm = TRUE),2),
+     "[DOC]" = round(median(DOC_mgL, na.rm = TRUE), 2),
+    "14C-CO2" = round(median(CO2_14C_Modern, na.rm = TRUE),2),
+    "[CO2]" = round(median(CO2_mgL, na.rm = TRUE), 2),
+    .groups = 'drop'
+  ) %>%
+  rename(Site = Treatment)
+
+knitr::kable(combined_medians, 
+             caption = "Median by treatment for DOC and CO2 concentration and 14C-content")
+
+```
 
 ```{r,warning =F, message=F}
 library(dunn.test)
@@ -468,25 +531,28 @@ combined_dunns_results <- data.frame(
   check.names = FALSE
 )
 
-print(combined_dunns_results)
 
+knitr::kable(combined_dunns_results, 
+             caption = "Grouping letters for dunns test C concentration and 14C content by treatment")
 
 ```
 
 ::: callout-note
 ##### Interpretation
 
-**Treatment** **effect on 14 content**
-
--   The ^14^C-DOC is significantly lower in the pristine (group a) compared with clearcut and ditch cleaning sites.
-
--   The ^14^C-CO~2~ is doesn't differ significantly across treatments
-
 **Treatment** **effect on C concentrations:**
 
 -   The DOC concentrations are significantly higher following clearcut treatment compared with ditchcleaned and pristine conditions (short term effect of ditch cleaning can compensate?)
 
 -   The CO2 concentration do not differ significantly across treatment
+
+-   The relationship between CO2 and DOC concentration is positive for pristine condition, but slope becomes less significant with clearcut and not significant (slope =0) with ditch cleaning. Hence the DOC concentration continues to vary across a wide range but the CO2 becomes more stable.
+
+**Treatment** **effect on 14 content**
+
+-   The ^14^C-DOC is significantly lower in the pristine (group a) compared with clearcut and ditch cleaning sites.
+
+-   The ^14^C-CO~2~ is doesn't differ significantly across treatments
 :::
 
 ## Relationships - controls on C sources, age and concentrations
@@ -495,13 +561,41 @@ print(combined_dunns_results)
 
 Is the radiocarbon age or concentration of DOC and CO~2~ controled by runoff, and does this relationship changes after treatment?
 
-```{r, warning=F, message=F, fig.height=8}
+```{r, warning=F, message=F, fig.height=8, fig.cap="relationship between C concetration and discharge coloured by site and treatment"}
 
-# Hydrological control over  DOC concentration
-hydro_resp_DOC=
-  ggplot(DC_Q,
-       aes(y=DOC_mgL, x=q_md_filled*1000, color=Treatment))+ 
+# Hydrological control over  C concentration by Site
+hydro_resp_C_site=
+  ggplot(DC_Q %>% pivot_longer(
+                     cols = c(DOC_mgL, CO2_mgL),
+                     names_to = "Carbon_species",
+                     values_to = "C_mgL"
+                   ),
+       aes(y=C_mgL, x=q_md_filled*1000, color=Site_id))+ 
   geom_point(size=1, show.legend = F)+
+  facet_wrap(~Carbon_species)+
+  scale_x_log10()+
+  scale_y_log10()+
+  geom_smooth(method="lm", se=F, aes(color=Site_id), show.legend = T)+
+  scale_color_manual(values=site_colors_6)+
+  stat_regline_equation(label.y.npc = "top", label.x.npc = "left",
+  aes(label =  paste(..eq.label.., ..adj.rr.label.., 
+                     sep = "~~~~"), color = Site_id), 
+                      show.legend = F, size=3)+
+  labs(x="q (mm/d)", 
+       y=bquote("C (mg/L)"))+
+  theme(legend.position = "top", base_size=8)
+
+
+# Hydrological control over C concentration by treatment
+hydro_resp_C_treatment=
+  ggplot(DC_Q %>% pivot_longer(
+                     cols = c(DOC_mgL, CO2_mgL),
+                     names_to = "Carbon_species",
+                     values_to = "C_mgL"
+                   ),
+       aes(y=C_mgL, x=q_md_filled*1000, color=Treatment))+ 
+  geom_point(size=1, show.legend = F)+
+  facet_wrap(~Carbon_species)+
   scale_x_log10()+
   scale_y_log10()+
   geom_smooth(method="lm", se=F, aes(color=Treatment), show.legend = T)+
@@ -511,62 +605,58 @@ hydro_resp_DOC=
                      sep = "~~~~"), color = Treatment), 
                       show.legend = F, size=3)+
   labs(x="q (mm/d)", 
-       y=bquote("DOC (mg/L)"))+
+       y=bquote("C (mg/L)"))+
   theme(legend.position = "top", base_size=8)
 
 
 
 
-# Hydrological control over CO2 concentration
-hydro_resp_CO2=
-  ggplot(DC_Q,
-       aes(y=CO2_mgL, x=q_md_filled*1000, color=Treatment))+ 
-  geom_point(size=1, show.legend = F)+
-  scale_x_log10()+
-  scale_y_log10()+
-  geom_smooth(method="lm", se=F, aes(color=Treatment), show.legend = T)+
-  scale_color_manual(values=treatments_colors)+ #"
-  
-  stat_regline_equation(label.y.npc = "top", label.x.npc = "left",
-  aes(label =  paste(..eq.label.., ..adj.rr.label.., 
-                     sep = "~~~~"), color = Treatment), 
-                      show.legend = F, size=3)+
-  labs(x="q (mm/d)", 
-       y=bquote("CO"[2]*" (mg/L)"))+
-  theme(legend.position = "top", base_size=8)
 
-
-
-ggarrange(hydro_resp_DOC, 
-          hydro_resp_CO2, 
-          nrow=2, common.legend = T)
+ggarrange(hydro_resp_C_site, 
+          hydro_resp_C_treatment, 
+          nrow=2, common.legend = F)
 
 ```
 
 #### ANCOVA test
 
-Is there a significant difference in the hydrological response of C concentrations between *Treatments*?
+Is there a significant difference in the hydrological response of **DOC** concentrations between *Treatments or Sites*?
 
-```{r, warning=F, echo=FALSE}
+```{r, warning=F}
 #Run ANCOVA test - Difference in hydro. response between treatments
-DC_Q  %>%  anova_test(DOC_mgL ~ q_md_filled*Treatment)
-DC_Q  %>%  anova_test(DOC_mgL ~ q_md_filled*Site_id)
 
-DC_Q  %>%  anova_test(CO2_mgL ~ q_md_filled*Treatment)
-DC_Q  %>%  anova_test(CO2_mgL ~ q_md_filled*Site_id)
+knitr::kable(DC_Q  %>%  anova_test(DOC_mgL ~ q_md_filled*Treatment), 
+             caption = "ANCOVA test results - DOC * q / treatment")
+
+knitr::kable(DC_Q  %>%  anova_test(DOC_mgL ~ q_md_filled*Site_id), 
+             caption = "ANCOVA test results - DOC * q / Site")
+```
+
+Is there a significant difference in the hydrological response of **CO2** concentrations between *Treatments or Sites*?
+
+```{r, warning=F}
+#Run ANCOVA test - Difference in hydro. response between treatments
+knitr::kable(DC_Q  %>%  anova_test(CO2_mgL ~ q_md_filled*Site_id), 
+             caption = "ANCOVA test results - CO2 * q / treatment")
+
+knitr::kable(DC_Q  %>%  anova_test(CO2_mgL ~ q_md_filled*Site_id), 
+             caption = "ANCOVA test results - CO2 * q / treatment")
+
 ```
 
 ::: callout-note
 #### Interpretation
 
+DOC and CO2 concentrations are not controled by Discharge
+
 -   Q **doesn't** have a significant effect on DOC concentration, but treatment and site do (intercept difference). Significant interaction between Q and Site (slope difference)
 
--   Q has a significant effect on CO2 concentration, but not treatment. Site effect causes a signficant effect on intercept and slope (interaction)
+-   Q doesnt have a significant effect on CO2 concentration, nor does treatment. Site effect causes a signficant effect on intercept and slope (interaction)
 :::
 
 ### Hydrological controls over ^14^C-content
 
-```{r, warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE, fig.cap="relationship between radiocarbon content of CO2 and DOC and discharge, coloured by treatment"}
 #Scatter coloured by Treatment
 ggplot( DC_Q %>% pivot_longer(
                      cols = c(CO2_14C_Modern, DOC_14C_Modern),
@@ -584,7 +674,7 @@ ggplot( DC_Q %>% pivot_longer(
   aes(label =  paste(..eq.label.., ..adj.rr.label.., 
                      sep = "~~~~"), color = Treatment), 
   show.legend = F, size=4)+
-  labs(x="q (m/d)", y=bquote("∆"^14*"C (% modern)"), shape="Watershed ID")+
+  labs(x="q (m/d)", y=bquote(Delta^14*"C (% modern)"), shape="Watershed ID")+
   facet_wrap(~Carbon_specie, scale="fixed", nrow=1)+
   theme(legend.position = "top")
 
@@ -599,37 +689,16 @@ Is there a significant difference in the hydrological response of **14C-DOC** be
 
 ```{r, warning=F, echo=FALSE}
 #Run ANCOVA test - Difference in hydro. response between treatments
-DC_Q  %>%  anova_test(DOC_14C_Modern ~ q_md_filled*Treatment)
-
+knitr::kable(DC_Q  %>%  anova_test(DOC_14C_Modern ~ q_md_filled*Treatment), 
+             caption = "Ancova test results: 14C-DOC ~ q x Treatment")
 ```
 
 Is there a significant difference in the hydrological response of **14C-CO2** between *Treatments*?
 
 ```{r, warning=F, echo=FALSE}
 #Run ANCOVA test - Difference in hydro. response between treatments
-DC_Q%>% anova_test(CO2_14C_Modern ~ q_md_filled*Treatment)
-```
-
-```{r, warning=FALSE, message=FALSE}
-#Scatter coloured by sites
-#ggplot( DC_Q %>% pivot_longer(
-#                     cols = c(CO2_14C_Modern, DOC_14C_Modern),
- #                    names_to = "Carbon_specie",
-#                     values_to = "C14_value"
-#                   ),
-#       aes(y=C14_value, x=q_md_filled*1000, fill=Site_id, color=Site_id))+
- # geom_point(size=3)+
-#  geom_smooth(method="glm", se=F, aes(color=Site_id), show.legend = F)+
-#  scale_color_manual(values=site_colors_6)+ 
-#  scale_fill_manual(values=site_colors_6)+ 
-#  stat_regline_equation(
-#  label.y.npc = "top", label.x.npc = "left",
-#  aes(label =  paste(..eq.label.., ..adj.rr.label.., 
-#                     sep = "~~~~"), color = Site_id), 
-#  show.legend = F, size=4)+
-#  labs(x="q (m/d)", y=bquote("∆"^14*"C (% modern)"), shape="Watershed ID")+
-#  facet_wrap(~Carbon_specie, scale="fixed", nrow=1)+
-#  theme(legend.position = "top")
+knitr::kable(DC_Q  %>%  anova_test(CO2_14C_Modern ~ q_md_filled*Treatment), 
+             caption = "Ancova test results: 14C-CO2 ~ q x Treatment")
 ```
 
 #### ANCOVA test
@@ -638,7 +707,8 @@ Is there a significant difference in the hydrological response of **14C-DOC** be
 
 ```{r, warning=F, echo=FALSE}
 #Run ANCOVA test - Difference in hydro. response between Sites
-DC_Q %>% anova_test(DOC_14C_Modern ~ q_md_filled*Site_id)
+knitr::kable(DC_Q %>% anova_test(DOC_14C_Modern ~ q_md_filled*Site_id),
+             caption="ANCOVA test results, 14C-DOC * q / Site")
 
 
 ```
@@ -648,14 +718,16 @@ DC_Q %>% anova_test(DOC_14C_Modern ~ q_md_filled*Site_id)
 
 -   q has a significant effect on 14C-DOC, but not on 14C-CO2
 
--   there is a significant effect of both **Treatment** **14C-DOC** in the model (intercept differences), but no significant interaction (slope differences). No significant effect of Site_id
+-   (LME) there is a significant effect of both **Treatment** **14C-DOC** in the model (intercept differences), but no significant interaction (slope differences). No significant effect of Site_id
 
 -   The intercept shifts from 100%modern in pristine sites, to 110%modern in clearcut+ditchcleaned sites.
+
+-   Site_id explains only 13% of the variance (LME), not a significant predictor.
 :::
 
 ## Biological controls over ^14^C-CO~2~ - Keeling plots
 
-```{r, warning=F, message=F}
+```{r, warning=F, message=F, fig.height=6, fig.cap="Keeling plot of CO2 isotope ratio, stable and radiogenic, coloured by treatment"}
 
 DC_Q$CO2_mgL_filled_keeling= 1/DC_Q$CO2_mgL_filled
 DC_Q$CO2_mgL_filled_keeling = ifelse(is.infinite (DC_Q$CO2_mgL_filled_keeling), NA, DC_Q$CO2_mgL_filled_keeling)
@@ -693,7 +765,8 @@ Does the keeling relationship for **d13C-CO2** varies significantly between trea
 ```{r, warning = F, message = F}
 
 #Run ANCOVA test - Difference in hydro. response between Sites
-DC_Q %>% anova_test(d13C_CO2 ~ CO2_mgL_filled_keeling*Treatment)
+knitr::kable(DC_Q %>% anova_test(d13C_CO2 ~ CO2_mgL_filled_keeling*Treatment),
+             caption="ANCOVA test results, 13C-CO2 Keeling | Treatment") 
 #DC_Q %>% anova_test(d13C_CO2 ~ CO2_mgL_filled_keeling*Site_id)
 
 ```
@@ -702,14 +775,17 @@ Does the keeling relationship for **14C-CO2** varies significantly between treat
 
 ```{r, warning = F, message = F}
 #Run ANCOVA test - Difference in hydro. response between Sites
-DC_Q %>% anova_test(CO2_14C_Modern ~ CO2_mgL_filled_keeling*Treatment)
+knitr::kable(DC_Q %>% anova_test(CO2_14C_Modern ~ CO2_mgL_filled_keeling*Treatment),
+             caption="ANCOVA test results, 14C-CO2 Keeling | Treatment") 
 #DC_Q %>% anova_test(CO2_14C_Modern ~ CO2_mgL_filled_keeling*Site_id)
 ```
 
 ::: callout-note
 #### Interpretation
 
--   The keeling plot suggests that CO2 concentration has a significant effect on both d13C-value and 14C-concent, but this relationship doesnt change with treatment or site.
+-   The keeling plot suggests that CO2 concentration has a significant effect on both d13C-value and 14C-concent, which supports the idea of a biological control.
+
+-   But this relationship doesn't change signficantly with treatment. Perhaps the sample size is not enough to identify a meaningful effect
 
 -   The d13C source of CO2 is (-25‰) (no signficant effect of slope or intercept across sites or treatment)
 
