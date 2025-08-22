@@ -17,9 +17,11 @@ format:
     toc: true
     toc-depth: 2
     number-sections: true
+    number-depth: 5
     fig-width: 8
     fig-height: 6
-    fig-cap-location: bottom
+    fig-cap-location: margin
+  
   pdf:
     documentclass: article
     toc: true
@@ -34,6 +36,11 @@ format:
     message: false
     
 bibliography: references.bib
+crossref:
+  fig-title: "Figure"
+  tbl-title: "Table"
+  fig-prefix: "Figure"
+  tbl-prefix: "Table"
 ---
 
 # Introduction
@@ -94,6 +101,14 @@ DOC is controled more by *hydrological processes*, which determines what materia
 
     -   End 2022-10-25
 
+## Statistical analysis
+
+-   Dunn's test for non-parametric grouping
+
+-   Linear regression models, combined with ANCOVA to identify significant differences in intercept or slope.
+
+-   Linear mixed-effect models would be possible if we wanted to build a predictive model, but this is not the aim here.
+
 ```{r, warning=FALSE, message=FALSE, echo=F}
 # Import libraries
 library(tidyverse) 
@@ -153,9 +168,9 @@ theme_set(theme_bw(base_size = 16))
 
 # Results
 
-## Hydrographs and carbon concentrations
+## Hydrograph,  C concentrations and ¹⁴C-content across sites over time
 
-```{r, warning=F, message=F, fig.height=4, fig.cap="Precipitation and discharge timeseries"}
+```{r, warning=F, message=F, fig.height=4, label: fig-timeseries, fig.cap="Precipitation and discharge timeseries"}
 
 
 # Define operation periods for treatments::::::::::::::::::::::::::::::::::::::::::
@@ -389,7 +404,7 @@ knitr::kable(combined_dunns_results,
 
 **Trend:**
 
--   No obvious trends over time in C concentration or 14C content
+-   No obvious trends in C concentration or 14C content over time
 
 -   There was a clear peak in DOC and CO2 concentration at DC4 during clearcut opperations.
 
@@ -408,7 +423,7 @@ knitr::kable(combined_dunns_results,
 The database contains DC3 and DC2 flow data, one ditch cleaned while the other only clearcut. Other timeseries are incomplete.
 :::
 
-## Differences across treatments
+## Changes in C concentration or ¹⁴C-content across Treatments
 
 Is there a significant change in the median ^14^C content of CO~2~ and DOC between sites or treatment, based on their distribution ?
 
@@ -538,7 +553,11 @@ knitr::kable(combined_dunns_results,
 ```
 
 ::: callout-note
-##### Interpretation
+#### Interpretation
+
+**Relationship between CO2 and DOC concentration:**
+
+-   The relationship between CO2 and DOC concentration is positive for pristine condition, but the slope becomes less significant with clearcut (closer to 0) and not significant (slope =0) with ditch cleaning. Hence the DOC concentration continues to vary across a wide range with treatments, but the CO2 becomes more stable and independant of DOC concentration. This could be due to changes in their mobilization pathways or simply because clearcuting "removes" a CO2 source.
 
 **Treatment** **effect on C concentrations:**
 
@@ -546,20 +565,18 @@ knitr::kable(combined_dunns_results,
 
 -   The CO2 concentration do not differ significantly across treatment
 
--   The relationship between CO2 and DOC concentration is positive for pristine condition, but slope becomes less significant with clearcut and not significant (slope =0) with ditch cleaning. Hence the DOC concentration continues to vary across a wide range but the CO2 becomes more stable.
-
 **Treatment** **effect on 14 content**
 
 -   The ^14^C-DOC is significantly lower in the pristine (group a) compared with clearcut and ditch cleaning sites.
 
--   The ^14^C-CO~2~ is doesn't differ significantly across treatments
+-   The ^14^C-CO~2~ doesn't differ significantly across treatments
 :::
 
 ## Relationships - controls on C sources, age and concentrations
 
 ### Hydrological control over C concentrations
 
-Is the radiocarbon age or concentration of DOC and CO~2~ controled by runoff, and does this relationship changes after treatment?
+Is the radiocarbon age or concentration of DOC and CO~2~ controled by runoff, and does this relationship changes following treatment?
 
 ```{r, warning=F, message=F, fig.height=8, fig.cap="relationship between C concetration and discharge coloured by site and treatment"}
 
@@ -647,11 +664,13 @@ knitr::kable(DC_Q  %>%  anova_test(CO2_mgL ~ q_md_filled*Site_id),
 ::: callout-note
 #### Interpretation
 
-DOC and CO2 concentrations are not controled by Discharge
+**Hydrological response:**
 
--   Q **doesn't** have a significant effect on DOC concentration, but treatment and site do (intercept difference). Significant interaction between Q and Site (slope difference)
+-   DOC and CO2 concentrations are not controled by discharge, except for DC4 where we believe there is a wetland source that could sustain flow in lowflow conditions.
 
--   Q doesnt have a significant effect on CO2 concentration, nor does treatment. Site effect causes a signficant effect on intercept and slope (interaction)
+-   ANCOVA indicates that Q **doesn't** have a significant effect on DOC concentration, but treatment and site do (intercept difference). Significant interaction between Q and Site (slope difference)
+
+-   ANCOVA indicates that Q doesnt have a significant effect on CO2 concentration, nor does treatment. Site effect causes a signficant effect on intercept and slope (interaction)
 :::
 
 ### Hydrological controls over ^14^C-content
@@ -693,16 +712,6 @@ knitr::kable(DC_Q  %>%  anova_test(DOC_14C_Modern ~ q_md_filled*Treatment),
              caption = "Ancova test results: 14C-DOC ~ q x Treatment")
 ```
 
-Is there a significant difference in the hydrological response of **14C-CO2** between *Treatments*?
-
-```{r, warning=F, echo=FALSE}
-#Run ANCOVA test - Difference in hydro. response between treatments
-knitr::kable(DC_Q  %>%  anova_test(CO2_14C_Modern ~ q_md_filled*Treatment), 
-             caption = "Ancova test results: 14C-CO2 ~ q x Treatment")
-```
-
-#### ANCOVA test
-
 Is there a significant difference in the hydrological response of **14C-DOC** between *Sites*?
 
 ```{r, warning=F, echo=FALSE}
@@ -713,16 +722,22 @@ knitr::kable(DC_Q %>% anova_test(DOC_14C_Modern ~ q_md_filled*Site_id),
 
 ```
 
+Is there a significant difference in the hydrological response of **14C-CO2** between *Treatments*?
+
+```{r, warning=F, echo=FALSE}
+#Run ANCOVA test - Difference in hydro. response between treatments
+knitr::kable(DC_Q  %>%  anova_test(CO2_14C_Modern ~ q_md_filled*Treatment), 
+             caption = "Ancova test results: 14C-CO2 ~ q x Treatment")
+```
+
 ::: callout-note
 #### Interpretation
 
--   q has a significant effect on 14C-DOC, but not on 14C-CO2
+-   While q doesn't have a significant effect on DOC concentration, it does have a signficant effect on 14C-DOC. The 14C-content generally increases with Q, mobilizing more post-bomb C stored in soils.
 
--   (LME) there is a significant effect of both **Treatment** **14C-DOC** in the model (intercept differences), but no significant interaction (slope differences). No significant effect of Site_id
+-   Treatment has a significant effect in the ANCOVA, indicating that the intercept shift in the 14C-DOC\~q relationship, from 100%modern in pristine sites to 110%modern in clearcut+ditchcleaned sites, is significant. The effect of Site is not significant.
 
--   The intercept shifts from 100%modern in pristine sites, to 110%modern in clearcut+ditchcleaned sites.
-
--   Site_id explains only 13% of the variance (LME), not a significant predictor.
+-   Q doesnt have en effect but not on 14C-CO2
 :::
 
 ## Biological controls over ^14^C-CO~2~ - Keeling plots
@@ -783,11 +798,11 @@ knitr::kable(DC_Q %>% anova_test(CO2_14C_Modern ~ CO2_mgL_filled_keeling*Treatme
 ::: callout-note
 #### Interpretation
 
--   The keeling plot suggests that CO2 concentration has a significant effect on both d13C-value and 14C-concent, which supports the idea of a biological control.
+-   The keeling plot suggests that CO2 concentration has a significant effect on both d13C-value and 14C-concent, which supports the hypothesis of a biological control with rapid turnover.
 
--   But this relationship doesn't change signficantly with treatment. Perhaps the sample size is not enough to identify a meaningful effect
+-   This relationship doesn't change signficantly with treatment. Perhaps the sample size is not enough to identify a meaningful effect?
 
 -   The d13C source of CO2 is (-25‰) (no signficant effect of slope or intercept across sites or treatment)
 
--   The 14C source of CO2 is between 99, 100m and 94. Which are large differences, but don't appear as significant effects in the model.
+-   The 14C source of CO2 is between 99, 100m and 94. Which are large differences in 14C terms, but don't appear as significant effects in the model.
 :::

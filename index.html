@@ -113,18 +113,19 @@ div.csl-indent {
   <ul class="collapse">
   <li><a href="#study-site-and-treatment" id="toc-study-site-and-treatment" class="nav-link" data-scroll-target="#study-site-and-treatment"><span class="header-section-number">2.1</span> Study Site and Treatment:</a></li>
   <li><a href="#field-measurements" id="toc-field-measurements" class="nav-link" data-scroll-target="#field-measurements"><span class="header-section-number">2.2</span> Field measurements:</a></li>
+  <li><a href="#statistical-analysis" id="toc-statistical-analysis" class="nav-link" data-scroll-target="#statistical-analysis"><span class="header-section-number">2.3</span> Statistical analysis</a></li>
   </ul></li>
   <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results"><span class="header-section-number">3</span> Results</a>
   <ul class="collapse">
-  <li><a href="#hydrographs-and-carbon-concentrations" id="toc-hydrographs-and-carbon-concentrations" class="nav-link" data-scroll-target="#hydrographs-and-carbon-concentrations"><span class="header-section-number">3.1</span> Hydrographs and carbon concentrations</a></li>
-  <li><a href="#differences-across-treatments" id="toc-differences-across-treatments" class="nav-link" data-scroll-target="#differences-across-treatments"><span class="header-section-number">3.2</span> Differences across treatments</a></li>
+  <li><a href="#hydrograph-c-concentrations-and-¹⁴c-content-across-sites-over-time" id="toc-hydrograph-c-concentrations-and-¹⁴c-content-across-sites-over-time" class="nav-link" data-scroll-target="#hydrograph-c-concentrations-and-¹⁴c-content-across-sites-over-time"><span class="header-section-number">3.1</span> Hydrograph, C concentrations and ¹⁴C-content across sites over time</a></li>
+  <li><a href="#changes-in-c-concentration-or-¹⁴c-content-across-treatments" id="toc-changes-in-c-concentration-or-¹⁴c-content-across-treatments" class="nav-link" data-scroll-target="#changes-in-c-concentration-or-¹⁴c-content-across-treatments"><span class="header-section-number">3.2</span> Changes in C concentration or ¹⁴C-content across Treatments</a></li>
   <li><a href="#relationships---controls-on-c-sources-age-and-concentrations" id="toc-relationships---controls-on-c-sources-age-and-concentrations" class="nav-link" data-scroll-target="#relationships---controls-on-c-sources-age-and-concentrations"><span class="header-section-number">3.3</span> Relationships - controls on C sources, age and concentrations</a></li>
   <li><a href="#biological-controls-over-14c-co2---keeling-plots" id="toc-biological-controls-over-14c-co2---keeling-plots" class="nav-link" data-scroll-target="#biological-controls-over-14c-co2---keeling-plots"><span class="header-section-number">3.4</span> Biological controls over <sup>14</sup>C-CO<sub>2</sub> - Keeling plots</a></li>
   </ul></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="index.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
 </div>
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -229,12 +230,20 @@ div.csl-indent {
 </ul></li>
 </ul>
 </section>
+<section id="statistical-analysis" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="statistical-analysis"><span class="header-section-number">2.3</span> Statistical analysis</h2>
+<ul>
+<li><p>Dunn’s test for non-parametric grouping</p></li>
+<li><p>Linear regression models, combined with ANCOVA to identify significant differences in intercept or slope.</p></li>
+<li><p>Linear mixed-effect models would be possible if we wanted to build a predictive model, but this is not the aim here.</p></li>
+</ul>
 </section>
-<section id="results" class="level1" data-number="3">
+</section>
+<section id="results" class="level1 page-columns page-full" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Results</h1>
-<section id="hydrographs-and-carbon-concentrations" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="hydrographs-and-carbon-concentrations"><span class="header-section-number">3.1</span> Hydrographs and carbon concentrations</h2>
-<div class="cell">
+<section id="hydrograph-c-concentrations-and-¹⁴c-content-across-sites-over-time" class="level2 page-columns page-full" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="hydrograph-c-concentrations-and-¹⁴c-content-across-sites-over-time"><span class="header-section-number">3.1</span> Hydrograph, C concentrations and ¹⁴C-content across sites over time</h2>
+<div class="cell page-columns page-full">
 <details class="code-fold">
 <summary>👈 see code here</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define operation periods for treatments::::::::::::::::::::::::::::::::::::::::::</span></span>
@@ -314,16 +323,16 @@ div.csl-indent {
 <span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a><span class="fu">ggarrange</span>(precipitation, hydrograph,</span>
 <span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>          <span class="at">ncol=</span><span class="dv">1</span>, <span class="at">align=</span><span class="st">"v"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="768"></p>
-<figcaption>Precipitation and discharge timeseries</figcaption>
+<div class="cell-output-display page-columns page-full">
+<div class="quarto-figure quarto-figure-center page-columns page-full">
+<figure class="figure page-columns page-full">
+<p><img src="index_files/figure-html/label-fig-timeseries-1.png" class="img-fluid figure-img" width="768"></p>
+<figcaption class="margin-caption">Precipitation and discharge timeseries</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<div class="cell">
+<div class="cell page-columns page-full">
 <details class="code-fold">
 <summary>👈 see code here</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Timeseries 14C per site, CO2 and DOC seperately</span></span>
@@ -411,11 +420,11 @@ div.csl-indent {
 <span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a>  <span class="at">heights =</span> <span class="fu">c</span>( <span class="fl">0.75</span>, <span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="fl">0.55</span>)</span>
 <span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="768"></p>
-<figcaption>C concentration and radiocarbon content timeseries coloured by sites</figcaption>
+<div class="cell-output-display page-columns page-full">
+<div class="quarto-figure quarto-figure-center page-columns page-full">
+<figure class="figure page-columns page-full">
+<p><img src="index_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="768"></p>
+<figcaption class="margin-caption">C concentration and radiocarbon content timeseries coloured by sites</figcaption>
 </figure>
 </div>
 </div>
@@ -579,7 +588,7 @@ Interpretation
 <div class="callout-body-container callout-body">
 <p><strong>Trend:</strong></p>
 <ul>
-<li><p>No obvious trends over time in C concentration or 14C content</p></li>
+<li><p>No obvious trends in C concentration or 14C content over time</p></li>
 <li><p>There was a clear peak in DOC and CO2 concentration at DC4 during clearcut opperations.</p></li>
 </ul>
 <p><strong>Differences between sites:</strong></p>
@@ -605,10 +614,10 @@ Q data
 </div>
 </section>
 </section>
-<section id="differences-across-treatments" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="differences-across-treatments"><span class="header-section-number">3.2</span> Differences across treatments</h2>
+<section id="changes-in-c-concentration-or-¹⁴c-content-across-treatments" class="level2 page-columns page-full" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="changes-in-c-concentration-or-¹⁴c-content-across-treatments"><span class="header-section-number">3.2</span> Changes in C concentration or ¹⁴C-content across Treatments</h2>
 <p>Is there a significant change in the median <sup>14</sup>C content of CO<sub>2</sub> and DOC between sites or treatment, based on their distribution ?</p>
-<div class="cell">
+<div class="cell page-columns page-full">
 <details class="code-fold">
 <summary>👈 see code here</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make a scatterplot to distinguish the grouping across sites</span></span>
@@ -663,11 +672,11 @@ Q data
 <span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a><span class="fu">ggarrange</span>(density_14Cscatter_sites,</span>
 <span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>density_14Cscatter_treatment, <span class="at">nrow=</span><span class="dv">2</span>, <span class="at">align=</span><span class="st">"hv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="768"></p>
-<figcaption>relationship between C concentration and radiocarbon content of CO2 and DOC coloured by treatment</figcaption>
+<div class="cell-output-display page-columns page-full">
+<div class="quarto-figure quarto-figure-center page-columns page-full">
+<figure class="figure page-columns page-full">
+<p><img src="index_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="768"></p>
+<figcaption class="margin-caption">relationship between C concentration and radiocarbon content of CO2 and DOC coloured by treatment</figcaption>
 </figure>
 </div>
 </div>
@@ -875,27 +884,30 @@ Interpretation
 </div>
 </div>
 <div class="callout-body-container callout-body">
+<p><strong>Relationship between CO2 and DOC concentration:</strong></p>
+<ul>
+<li>The relationship between CO2 and DOC concentration is positive for pristine condition, but the slope becomes less significant with clearcut (closer to 0) and not significant (slope =0) with ditch cleaning. Hence the DOC concentration continues to vary across a wide range with treatments, but the CO2 becomes more stable and independant of DOC concentration. This could be due to changes in their mobilization pathways or simply because clearcuting “removes” a CO2 source.</li>
+</ul>
 <p><strong>Treatment</strong> <strong>effect on C concentrations:</strong></p>
 <ul>
 <li><p>The DOC concentrations are significantly higher following clearcut treatment compared with ditchcleaned and pristine conditions (short term effect of ditch cleaning can compensate?)</p></li>
 <li><p>The CO2 concentration do not differ significantly across treatment</p></li>
-<li><p>The relationship between CO2 and DOC concentration is positive for pristine condition, but slope becomes less significant with clearcut and not significant (slope =0) with ditch cleaning. Hence the DOC concentration continues to vary across a wide range but the CO2 becomes more stable.</p></li>
 </ul>
 <p><strong>Treatment</strong> <strong>effect on 14 content</strong></p>
 <ul>
 <li><p>The <sup>14</sup>C-DOC is significantly lower in the pristine (group a) compared with clearcut and ditch cleaning sites.</p></li>
-<li><p>The <sup>14</sup>C-CO<sub>2</sub> is doesn’t differ significantly across treatments</p></li>
+<li><p>The <sup>14</sup>C-CO<sub>2</sub> doesn’t differ significantly across treatments</p></li>
 </ul>
 </div>
 </div>
 </section>
 </section>
-<section id="relationships---controls-on-c-sources-age-and-concentrations" class="level2" data-number="3.3">
+<section id="relationships---controls-on-c-sources-age-and-concentrations" class="level2 page-columns page-full" data-number="3.3">
 <h2 data-number="3.3" class="anchored" data-anchor-id="relationships---controls-on-c-sources-age-and-concentrations"><span class="header-section-number">3.3</span> Relationships - controls on C sources, age and concentrations</h2>
-<section id="hydrological-control-over-c-concentrations" class="level3" data-number="3.3.1">
+<section id="hydrological-control-over-c-concentrations" class="level3 page-columns page-full" data-number="3.3.1">
 <h3 data-number="3.3.1" class="anchored" data-anchor-id="hydrological-control-over-c-concentrations"><span class="header-section-number">3.3.1</span> Hydrological control over C concentrations</h3>
-<p>Is the radiocarbon age or concentration of DOC and CO<sub>2</sub> controled by runoff, and does this relationship changes after treatment?</p>
-<div class="cell">
+<p>Is the radiocarbon age or concentration of DOC and CO<sub>2</sub> controled by runoff, and does this relationship changes following treatment?</p>
+<div class="cell page-columns page-full">
 <details class="code-fold">
 <summary>👈 see code here</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Hydrological control over  C concentration by Site</span></span>
@@ -951,11 +963,11 @@ Interpretation
 <span id="cb9-51"><a href="#cb9-51" aria-hidden="true" tabindex="-1"></a>          hydro_resp_C_treatment, </span>
 <span id="cb9-52"><a href="#cb9-52" aria-hidden="true" tabindex="-1"></a>          <span class="at">nrow=</span><span class="dv">2</span>, <span class="at">common.legend =</span> F)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="768"></p>
-<figcaption>relationship between C concetration and discharge coloured by site and treatment</figcaption>
+<div class="cell-output-display page-columns page-full">
+<div class="quarto-figure quarto-figure-center page-columns page-full">
+<figure class="figure page-columns page-full">
+<p><img src="index_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="768"></p>
+<figcaption class="margin-caption">relationship between C concetration and discharge coloured by site and treatment</figcaption>
 </figure>
 </div>
 </div>
@@ -1181,18 +1193,19 @@ Interpretation
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>DOC and CO2 concentrations are not controled by Discharge</p>
+<p><strong>Hydrological response:</strong></p>
 <ul>
-<li><p>Q <strong>doesn’t</strong> have a significant effect on DOC concentration, but treatment and site do (intercept difference). Significant interaction between Q and Site (slope difference)</p></li>
-<li><p>Q doesnt have a significant effect on CO2 concentration, nor does treatment. Site effect causes a signficant effect on intercept and slope (interaction)</p></li>
+<li><p>DOC and CO2 concentrations are not controled by discharge, except for DC4 where we believe there is a wetland source that could sustain flow in lowflow conditions.</p></li>
+<li><p>ANCOVA indicates that Q <strong>doesn’t</strong> have a significant effect on DOC concentration, but treatment and site do (intercept difference). Significant interaction between Q and Site (slope difference)</p></li>
+<li><p>ANCOVA indicates that Q doesnt have a significant effect on CO2 concentration, nor does treatment. Site effect causes a signficant effect on intercept and slope (interaction)</p></li>
 </ul>
 </div>
 </div>
 </section>
 </section>
-<section id="hydrological-controls-over-14c-content" class="level3" data-number="3.3.2">
+<section id="hydrological-controls-over-14c-content" class="level3 page-columns page-full" data-number="3.3.2">
 <h3 data-number="3.3.2" class="anchored" data-anchor-id="hydrological-controls-over-14c-content"><span class="header-section-number">3.3.2</span> Hydrological controls over <sup>14</sup>C-content</h3>
-<div class="cell">
+<div class="cell page-columns page-full">
 <details class="code-fold">
 <summary>👈 see code here</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Scatter coloured by Treatment</span></span>
@@ -1216,11 +1229,11 @@ Interpretation
 <span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Carbon_specie, <span class="at">scale=</span><span class="st">"fixed"</span>, <span class="at">nrow=</span><span class="dv">1</span>)<span class="sc">+</span></span>
 <span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="768"></p>
-<figcaption>relationship between radiocarbon content of CO2 and DOC and discharge, coloured by treatment</figcaption>
+<div class="cell-output-display page-columns page-full">
+<div class="quarto-figure quarto-figure-center page-columns page-full">
+<figure class="figure page-columns page-full">
+<p><img src="index_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="768"></p>
+<figcaption class="margin-caption">relationship between radiocarbon content of CO2 and DOC and discharge, coloured by treatment</figcaption>
 </figure>
 </div>
 </div>
@@ -1275,57 +1288,6 @@ Interpretation
 </table>
 </div>
 </div>
-<p>Is there a significant difference in the hydrological response of <strong>14C-CO2</strong> between <em>Treatments</em>?</p>
-<div class="cell">
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<caption>Ancova test results: 14C-CO2 ~ q x Treatment</caption>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Effect</th>
-<th style="text-align: right;">DFn</th>
-<th style="text-align: right;">DFd</th>
-<th style="text-align: right;">F</th>
-<th style="text-align: right;">p</th>
-<th style="text-align: left;">p&lt;.05</th>
-<th style="text-align: right;">ges</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">q_md_filled</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">37</td>
-<td style="text-align: right;">0.119</td>
-<td style="text-align: right;">0.732</td>
-<td style="text-align: left;"></td>
-<td style="text-align: right;">0.003</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Treatment</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">37</td>
-<td style="text-align: right;">0.677</td>
-<td style="text-align: right;">0.514</td>
-<td style="text-align: left;"></td>
-<td style="text-align: right;">0.035</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">q_md_filled:Treatment</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">37</td>
-<td style="text-align: right;">0.282</td>
-<td style="text-align: right;">0.598</td>
-<td style="text-align: left;"></td>
-<td style="text-align: right;">0.008</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</section>
-<section id="ancova-test-2" class="level4" data-number="3.3.2.2">
-<h4 data-number="3.3.2.2" class="anchored" data-anchor-id="ancova-test-2"><span class="header-section-number">3.3.2.2</span> ANCOVA test</h4>
 <p>Is there a significant difference in the hydrological response of <strong>14C-DOC</strong> between <em>Sites</em>?</p>
 <div class="cell">
 <div class="cell-output-display">
@@ -1374,6 +1336,54 @@ Interpretation
 </table>
 </div>
 </div>
+<p>Is there a significant difference in the hydrological response of <strong>14C-CO2</strong> between <em>Treatments</em>?</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Ancova test results: 14C-CO2 ~ q x Treatment</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Effect</th>
+<th style="text-align: right;">DFn</th>
+<th style="text-align: right;">DFd</th>
+<th style="text-align: right;">F</th>
+<th style="text-align: right;">p</th>
+<th style="text-align: left;">p&lt;.05</th>
+<th style="text-align: right;">ges</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">q_md_filled</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">0.119</td>
+<td style="text-align: right;">0.732</td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;">0.003</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Treatment</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">0.677</td>
+<td style="text-align: right;">0.514</td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;">0.035</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">q_md_filled:Treatment</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">0.282</td>
+<td style="text-align: right;">0.598</td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;">0.008</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1385,19 +1395,18 @@ Interpretation
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li><p>q has a significant effect on 14C-DOC, but not on 14C-CO2</p></li>
-<li><p>(LME) there is a significant effect of both <strong>Treatment</strong> <strong>14C-DOC</strong> in the model (intercept differences), but no significant interaction (slope differences). No significant effect of Site_id</p></li>
-<li><p>The intercept shifts from 100%modern in pristine sites, to 110%modern in clearcut+ditchcleaned sites.</p></li>
-<li><p>Site_id explains only 13% of the variance (LME), not a significant predictor.</p></li>
+<li><p>While q doesn’t have a significant effect on DOC concentration, it does have a signficant effect on 14C-DOC. The 14C-content generally increases with Q, mobilizing more post-bomb C stored in soils.</p></li>
+<li><p>Treatment has a significant effect in the ANCOVA, indicating that the intercept shift in the 14C-DOC~q relationship, from 100%modern in pristine sites to 110%modern in clearcut+ditchcleaned sites, is significant. The effect of Site is not significant.</p></li>
+<li><p>Q doesnt have en effect but not on 14C-CO2</p></li>
 </ul>
 </div>
 </div>
 </section>
 </section>
 </section>
-<section id="biological-controls-over-14c-co2---keeling-plots" class="level2" data-number="3.4">
+<section id="biological-controls-over-14c-co2---keeling-plots" class="level2 page-columns page-full" data-number="3.4">
 <h2 data-number="3.4" class="anchored" data-anchor-id="biological-controls-over-14c-co2---keeling-plots"><span class="header-section-number">3.4</span> Biological controls over <sup>14</sup>C-CO<sub>2</sub> - Keeling plots</h2>
-<div class="cell">
+<div class="cell page-columns page-full">
 <details class="code-fold">
 <summary>👈 see code here</summary>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>DC_Q<span class="sc">$</span>CO2_mgL_filled_keeling<span class="ot">=</span> <span class="dv">1</span><span class="sc">/</span>DC_Q<span class="sc">$</span>CO2_mgL_filled</span>
@@ -1426,17 +1435,17 @@ Interpretation
 <span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span> <span class="st">"1/CO2"</span>, <span class="at">y=</span><span class="st">"isotopic ratio"</span>)<span class="sc">+</span></span>
 <span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"right"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="768"></p>
-<figcaption>Keeling plot of CO2 isotope ratio, stable and radiogenic, coloured by treatment</figcaption>
+<div class="cell-output-display page-columns page-full">
+<div class="quarto-figure quarto-figure-center page-columns page-full">
+<figure class="figure page-columns page-full">
+<p><img src="index_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="768"></p>
+<figcaption class="margin-caption">Keeling plot of CO2 isotope ratio, stable and radiogenic, coloured by treatment</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<section id="ancova-test-3" class="level4" data-number="3.4.0.1">
-<h4 data-number="3.4.0.1" class="anchored" data-anchor-id="ancova-test-3"><span class="header-section-number">3.4.0.1</span> ANCOVA test</h4>
+<section id="ancova-test-2" class="level4" data-number="3.4.0.1">
+<h4 data-number="3.4.0.1" class="anchored" data-anchor-id="ancova-test-2"><span class="header-section-number">3.4.0.1</span> ANCOVA test</h4>
 <p>Does the keeling relationship for <strong>d13C-CO2</strong> varies significantly between treatment?</p>
 <div class="cell">
 <details class="code-fold">
@@ -1582,10 +1591,10 @@ Interpretation
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li><p>The keeling plot suggests that CO2 concentration has a significant effect on both d13C-value and 14C-concent, which supports the idea of a biological control.</p></li>
-<li><p>But this relationship doesn’t change signficantly with treatment. Perhaps the sample size is not enough to identify a meaningful effect</p></li>
+<li><p>The keeling plot suggests that CO2 concentration has a significant effect on both d13C-value and 14C-concent, which supports the hypothesis of a biological control with rapid turnover.</p></li>
+<li><p>This relationship doesn’t change signficantly with treatment. Perhaps the sample size is not enough to identify a meaningful effect?</p></li>
 <li><p>The d13C source of CO2 is (-25‰) (no signficant effect of slope or intercept across sites or treatment)</p></li>
-<li><p>The 14C source of CO2 is between 99, 100m and 94. Which are large differences, but don’t appear as significant effects in the model.</p></li>
+<li><p>The 14C source of CO2 is between 99, 100m and 94. Which are large differences in 14C terms, but don’t appear as significant effects in the model.</p></li>
 </ul>
 </div>
 </div>
