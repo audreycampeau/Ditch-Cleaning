@@ -77,8 +77,6 @@ DOC is controled more by *hydrological processes*, which determines what materia
 
 -   Six headwater catchments are included in this study:
 
-    -   2 pristine sites (C1 and C2)
-
     -   4 treated watersheds (DC1 to DC4).
 
 -   The DC sites received different treatments:
@@ -88,6 +86,16 @@ DOC is controled more by *hydrological processes*, which determines what materia
     -   Two sites, DC1 and DC3, were also ditch cleaned - in September 2021.
 
     -   The treatments are named as follow (pristine, clear-cut and ditch cleaning)
+
+-   Site Naming:
+
+    -   DC1: FC-DC-1
+
+    -   DC2: FC-2
+
+    -   DC3: FC-DC-3
+
+    -   DC4: FC-4
 
 ## Field measurements:
 
@@ -125,29 +133,32 @@ library(ggcorrplot)
 #Open dataset
 DC_Q <- readRDS(file= "Output/Data/DC_C_Q_Meteo_chem_14C.rds")
 DC_Q$Date <- as.Date(DC_Q$Date)
-# Remove one oulier 14C-CO2 140%modern at C2 once. 
-DC_Q$CO2_14C_Modern= ifelse(DC_Q$CO2_14C_Modern >130, NA, DC_Q$CO2_14C_Modern)
+
+#Code lines to include only DC sites in analysis 
+DC_Q = filter(DC_Q, Site_id %in% c( "DC1", "DC2",  "DC3", "DC4"))
 
 
 # Order factors site pairs 
-
   DC_Q$Site_id <- factor(DC_Q$Site_id, 
-                       levels = c("C2", "C1", "DC1", "DC2", "DC3","DC4"))
+                       levels = c( "DC1", "DC2", "DC3","DC4"))
 
-#Code lines to exclude C2 and C1 (pristine control sites) from analysis 
-DC_Q = filter(DC_Q, Site_id %in% c(#"C2", "C1", 
-                                   "DC1", "DC2",  "DC3", "DC4"))
+# Rename site Id to more meaningful names
+  
+DC_Q$Site_id <- recode(DC_Q$Site_id, DC1 = 'FC_DC1', 
+                                     DC2 = 'FC_2',
+                                     DC3 = 'FC_DC3',
+                                     DC4=  'FC_4')
 
-DC_Q_DC1and3 = filter(DC_Q, Site_id %in% c(#"C2", "C1", 
-                                    "DC1", "DC3"))
-DC_Q_DC2and4 = filter(DC_Q, Site_id %in% c(#"C2", "C1", 
-                                    "DC2", "DC4"))
+
+  # Remove one oulier 14C-CO2 140%modern at C2 once. 
+DC_Q$CO2_14C_Modern= ifelse(DC_Q$CO2_14C_Modern >130, NA, DC_Q$CO2_14C_Modern)
+
 
 # Define Color Ramp and theme
 treatments_colors <- c(
-  "Pristine" = "deepskyblue",     # light blue
-  "Clearcut" = "#CC6677",     # light red
-  "Ditch cleaning" = "#882255" # dark red
+  "Pristine" =   "#3CB7CC", # "deepskyblue",     # light blue
+  "Clearcut" = "#32A251",#"#CC6677",     # light red
+  "Ditch cleaning" = "#FF7F0F" #"#882255" # dark red
 )
 
 
@@ -157,19 +168,19 @@ site_colors_6 <- c(
 #  "C1" = "#90EE90",  # Light green
   
   # Clearcut pair - warm earth tones (your current DC1/DC2)
-  "DC2" = "#E69B00", # Light orange
-  "DC4" = "#994F00", #Dark brown
+  "FC_2" = "#E69B00", # Light orange
+  "FC_4" = "#994F00", #Dark brown
   
   # Clearcut+DitchCleaning pair - disturbed/muddy tones
-  "DC1" = "#2E5894", #Dark blue
-  "DC3" = "#7EA6E0" #Light blue
+  "FC_DC1" = "#2E5894", #Dark blue
+  "FC_DC3" = "#7EA6E0" #Light blue
 )
 
 site_symbols <- c(
-  "DC1" = 21,     
-  "DC2" = 3,     
-  "DC3" = 22,
-  "DC4" =4
+  "FC_DC1" = 21,     
+  "FC_2" = 3,     
+  "FC_DC3" = 22,
+  "FC_4" =4
 )
 
 theme_set(theme_bw(base_size = 16))
@@ -308,6 +319,9 @@ knitr::kable(combined_medians,
 library(dunn.test)
 library(multcompView)
 library(PMCMR)
+
+which(is.na(DC_Q$Site_id))
+
 # Perform the test and get multcomp letters
 DOCSites_letters = multcompLetters(get.pvalues(PMCMRplus::kwAllPairsDunnTest(
           DC_Q$DOC_mgL ~ DC_Q$Site_id, p.adjust="bonf")),
@@ -404,26 +418,26 @@ Is the radiocarbon age or concentration of DOC and CO~2~ controled by runoff, an
 
 Is there a significant difference in the hydrological response of **DOC** concentrations between *Treatments or Sites*?
 
-```{r, warning=F}
+```{r, warning=F, message = FALSE}
 #Run ANCOVA test - Difference in hydro. response between treatments
 
 knitr::kable(DC_Q%>%  
              anova_test(DOC_mgL ~ q_md_filled*Treatment), 
              caption = "ANCOVA (ALL SITES) - DOC * q / treatment")
 
-knitr::kable(filter(DC_Q, Site_id %in% c("DC1"))%>%  
+knitr::kable(filter(DC_Q, Site_id %in% c("FC_DC1"))%>%  
              anova_test(DOC_mgL ~ q_md_filled*Treatment), 
              caption = "ANCOVA (DC1) - DOC * q / treatment")
 
-knitr::kable(filter(DC_Q, Site_id %in% c("DC2"))%>%  
+knitr::kable(filter(DC_Q, Site_id %in% c("FC_2"))%>%  
              anova_test(DOC_mgL ~ q_md_filled*Treatment), 
              caption = "ANCOVA (DC2) - DOC * q / treatment")
 
-knitr::kable(filter(DC_Q, Site_id %in% c("DC3"))%>%   
+knitr::kable(filter(DC_Q, Site_id %in% c("FC_DC3"))%>%   
              anova_test(DOC_mgL ~ q_md_filled*Treatment), 
              caption = "ANCOVA (DC3) - DOC * q / treatment")
 
-knitr::kable(filter(DC_Q, Site_id %in% c("DC4"))%>%   
+knitr::kable(filter(DC_Q, Site_id %in% c("FC_4"))%>%   
              anova_test(DOC_mgL ~ q_md_filled*Treatment), 
              caption = "ANCOVA (DC4) - DOC * q / treatment")
 ```
@@ -435,19 +449,19 @@ knitr::kable(filter(DC_Q, Site_id %in% c("DC4"))%>%
 knitr::kable(DC_Q  %>%  anova_test(CO2_mgL ~ q_md_filled*Treatment), 
              caption = "ANCOVA test results - CO2 * q / treatment")
 
-knitr::kable(filter(DC_Q, Site_id %in% c("DC1"))%>%  
+knitr::kable(filter(DC_Q, Site_id %in% c("FC_DC1"))%>%  
              anova_test(CO2_mgL ~ q_md_filled*Treatment), 
              caption = "ANCOVA (DC1) - CO2 * q / treatment")
 
-knitr::kable(filter(DC_Q, Site_id %in% c("DC2"))%>%  
+knitr::kable(filter(DC_Q, Site_id %in% c("FC_2"))%>%  
              anova_test(CO2_mgL ~ q_md_filled*Treatment), 
              caption = "ANCOVA (DC2) - CO2 * q / treatment")
 
-knitr::kable(filter(DC_Q, Site_id %in% c("DC3"))%>%   
+knitr::kable(filter(DC_Q, Site_id %in% c("FC_DC3"))%>%   
              anova_test(CO2_mgL ~ q_md_filled*Treatment), 
              caption = "ANCOVA (DC3) - CO2 * q / treatment")
 
-knitr::kable(filter(DC_Q, Site_id %in% c("DC4"))%>%   
+knitr::kable(filter(DC_Q, Site_id %in% c("FC_4"))%>%   
              anova_test(CO2_mgL ~ q_md_filled*Treatment), 
              caption = "ANCOVA (DC4) - CO2 * q / treatment")
 
@@ -535,8 +549,8 @@ density_14Cscatter_treatment, nrow=2, align="hv",labels="AUTO")
 #Run ANCOVA test - Difference in hydro. response between treatments
 
 
-knitr::kable(DC_Q_DC1and3  %>%  anova_test(DOC_mgL ~ CO2_mgL_filled*Treatment), 
-             caption = "Ancova test results: DOC ~ CO2 x Treatment")
+#knitr::kable(DC_Q_DC1and3  %>%  anova_test(DOC_mgL ~ CO2_mgL_filled*Treatment), 
+#             caption = "Ancova test results: DOC ~ CO2 x Treatment")
 
 
 ```
@@ -678,7 +692,7 @@ plot_CO2_q = ggplot(DC_Q %>% filter(!is.na(CO2_14C_Modern)),
 #Exceedance probability plot ::::::::::::::::::::::::::::::::::::::::::::::
 #Database
 Wide_q=DC_wide <- DC_Q %>%
-  filter(Site_id %in% "DC3")%>%
+  filter(Site_id %in% "FC_DC3")%>%
   distinct(Date, Site_id, q_md, Treatment) %>%  # Remove any duplicate rows
   pivot_wider(
     id_cols = c(Date,Treatment),
@@ -687,17 +701,18 @@ Wide_q=DC_wide <- DC_Q %>%
     names_prefix = "q_md_"
   )
 
+
 # Calculations
 Q_DC3_rank = Wide_q%>%
   group_by(Treatment)%>%
-  mutate(rank = rank(-q_md_DC3)) %>%
-  mutate(P = 100 * (rank / (length(q_md_DC3) + 1))) %>%
+  mutate(rank = rank(-q_md_FC_DC3)) %>%
+  mutate(P = 100 * (rank / (length(q_md_FC_DC3) + 1))) %>%
   ungroup()
 
 
 # Identify dates when 14C-DOC samples were collected
 DOC_14C_samples <- DC_Q %>%
-  filter(Site_id == "DC3", !is.na(DOC_14C_Modern)) %>%
+  filter(Site_id == "FC_DC3", !is.na(DOC_14C_Modern)) %>%
   select(Date, q_md, Treatment, DOC_14C_Modern) %>%
   distinct()
 
@@ -708,7 +723,7 @@ samples_with_exceedance <- DOC_14C_samples %>%
 
 #Visualisation
 q_exceedance=ggplot(data = Q_DC3_rank) +
-  geom_line(aes(y = P, x = q_md_DC3 * 1000, color = Treatment), size = 0.75) +
+  geom_line(aes(y = P, x = q_md_FC_DC3 * 1000, color = Treatment), size = 0.75) +
   # Add points for 14C-DOC sampling dates
   geom_point(data = samples_with_exceedance,
              aes(y = P, x = q_md * 1000, color = Treatment, fill=Treatment),
@@ -871,7 +886,7 @@ knitr::kable(DC_Q %>% anova_test(CO2_14C_Modern ~ CO2_mgL_filled_keeling*Treatme
 
 
 precipitation= ggplot(DC_Q %>%
-         filter(Site_id %in% c("DC1")),
+         filter(Site_id %in% c("FC_DC1")),
        aes(y = P, x = as.Date(Date), color = Site_id)) +
   
   # Add gray background bars for operations
@@ -899,7 +914,7 @@ precipitation= ggplot(DC_Q %>%
 # Make Hydrograph :::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 hydrograph= ggplot(DC_Q %>%
-         filter(Site_id %in% c("DC2", "DC3")),
+         filter(Site_id %in% c("FC_4", "FC_DC3")),
        aes(y = q_md*1000, x = as.Date(Date), color = Site_id)) +
   
   # Add gray background bars for operations
@@ -944,7 +959,7 @@ ggarrange(precipitation, hydrograph,
 ```{r,warning=F, message=F,fig.height=4, fig.cap="Density plot of precipitation and discharge"}
 
 
-ggplot(DC_Q %>% filter(Site_id %in% c("DC2", "DC3")),
+ggplot(DC_Q %>% filter(Site_id %in% c("FC_2", "FC_DC3")),
         aes(y = q_md*1000, x = P, color = Treatment, fill=Treatment))+
   stat_density_2d(aes(fill = Treatment), geom = "polygon", linewidth=0.5,
                              alpha = 0.2)+
