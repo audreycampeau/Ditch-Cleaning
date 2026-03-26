@@ -4,9 +4,8 @@ author:
   - name: Audrey Campeau
     affiliation: Université de Montréal & SLU
     orcid: 0000-0002-9113-8915
-  - name: A. Zannella and M. Wallin
-    #affiliation: Their Institution
-    #orcid: 0000-0000-0000-0000
+  - name: Alberto Zannella , Karin Eklöf , Mark Garnett, Hjalmar Laudon, Eliza Maher Hasselquist, Marcus B. Wallin.
+
 date: "`r Sys.Date()`"
 format:
   html:
@@ -43,41 +42,11 @@ crossref:
   tbl-prefix: "Table"
 ---
 
-# Introduction
-
-## General Context
-
--   Lateral C export is a significant fraction of watershed C balance.
-
--   Forested catchments contain a large OM storage that could sustain DOC export for decades [@ledesma2013]
-
--   LCE and NEE are connected over long timescale, by hydrology [@öquist2014]
-
--   Isotopic values of C (stable and radiogenic) can inform us on the sources and age of C.
-
-## Research Question
-
--   What are the controls over the sources and age of lateral CO2 and DOC export in forested catchments?
-
--   Can a forest manipulation experiment (forest clearcut and ditch cleaning) provide new insight to test ongoing hypothesis on the controls of LCE in forested catchments?
-
-## Hypothesis
-
--   The CO2 source and age is more closely linked to the forest C sink [@campeau2019], so clearcutting the forest should have an impact on C sources and age
-
--   The DOC source and age is linked to discharge [@campeau2017] or water table position [@campeau2019], so changes in watershed hydrology, caused by clear-cutting and draining, should change the source and age of DOC.
-
-## Main Conclusion
-
-DOC is controled more by *hydrological processes*, which determines what material is being mobilised, while CO2 is controled more by *biological processes,* which fuels CO2 in the watershed. Both are therefore controled by different processes, but will likely respond to changes in climate, albeit via different drivers.
-
 # Methodology
 
+![Figure 1: Schematic of the studied catchment and their treatments](Input/TrollbergetDC.jpg){fig-align="center"}
+
 ## Study Site and Treatment:
-
--   Six headwater catchments are included in this study:
-
-    -   4 treated watersheds (DC1 to DC4).
 
 -   The DC sites received different treatments:
 
@@ -91,31 +60,11 @@ DOC is controled more by *hydrological processes*, which determines what materia
 
     -   DC1: FC-DC-1
 
-    -   DC2: FC-2
+    -   DC2: FC-1
 
-    -   DC3: FC-DC-3
+    -   DC3: FC-DC-2
 
-    -   DC4: FC-4
-
-## Field measurements:
-
--   All four sites are monitored for flow and water chemistry on a near continuous basis.
-
--   Radiocarbon and stable C isotope measurements were collected at those six sites simultaniously and throughout various treatment stages.
-
--   14C measurements
-
-    -   Start 2020-03-12
-
-    -   End 2022-10-25
-
-## Statistical analysis
-
--   Dunn's test for non-parametric grouping
-
--   Linear regression models, combined with ANCOVA to identify significant differences in intercept or slope.
-
--   Linear mixed-effect models would be possible if we wanted to build a predictive model, but this is not the aim here.
+    -   DC4: FC-2
 
 ```{r, warning=FALSE, message=FALSE, echo=F}
 # Import libraries
@@ -131,100 +80,142 @@ library(ggcorrplot)
 
 
 #Open dataset
-DC_Q <- readRDS(file= "Output/Data/DC_C_Q_Meteo_chem_14C.rds")
+DC_Q <- readRDS(file= "Output/Data/DC_Q_Meteo_chem_14C.rds")
 DC_Q$Date <- as.Date(DC_Q$Date)
 
-#Code lines to include only DC sites in analysis 
-DC_Q = filter(DC_Q, Site_id %in% c( "DC1", "DC2",  "DC3", "DC4"))
-
-
-# Order factors site pairs 
-  DC_Q$Site_id <- factor(DC_Q$Site_id, 
-                       levels = c( "DC1", "DC2", "DC3","DC4"))
 
 # Rename site Id to more meaningful names
   
 DC_Q$Site_id <- recode(DC_Q$Site_id, DC1 = 'FC_DC1', 
-                                     DC2 = 'FC_2',
-                                     DC3 = 'FC_DC3',
-                                     DC4=  'FC_4')
+                                     DC2 = 'FC_1',
+                                     DC3 = 'FC_DC2',
+                                     DC4=  'FC_2')
+
+DC_Q$Site_pairs <- recode(DC_Q$Site_id, FC_1 = 'FC', 
+                                     FC_DC1 = 'FC_DC',
+                                     FC_DC2 = 'FC_DC',
+                                     FC_2=  'FC')
 
 
-  # Remove one oulier 14C-CO2 140%modern at C2 once. 
-DC_Q$CO2_14C_Modern= ifelse(DC_Q$CO2_14C_Modern >130, NA, DC_Q$CO2_14C_Modern)
+# Order factors site pairs 
+DC_Q$Site_id <- factor(DC_Q$Site_id, 
+                       levels = c("FC_1","FC_2","FC_DC1",  "FC_DC2"))
+
+DC_Q$Site_pairs <- factor(DC_Q$Site_pairs, 
+                       levels = c("FC","FC_DC"))
+
+DC_Q$Treatment <- factor(DC_Q$Treatment, 
+                       levels = c("PreDisturbance","PostHarvest",
+                                  "PostDrainage","2yrPostHarvest"))
 
 
 # Define Color Ramp and theme
-treatments_colors <- c(
-  "Pristine" =   "#3CB7CC", # "deepskyblue",     # light blue
-  "Clearcut" = "#32A251",#"#CC6677",     # light red
-  "Ditch cleaning" = "#FF7F0F" #"#882255" # dark red
+treatment_colors <- c(
+  "PreDisturbance" =   "#3CB7CC", # "deepskyblue",     # light blue
+  "PostHarvest" = "#32A251",#"#CC6677",     # light red
+  "PostDrainage" = "#FF7F0F",
+  "2yrPostHarvest" = "darkgreen"#"#882255" # dark red
 )
 
 
-site_colors_6 <- c(
-  # Pristine sites (C2 and C1)
-#  "C2" = "#228B22",  # Forest green
-#  "C1" = "#90EE90",  # Light green
+site_colors <- c(
+  # Clearcut pair 
+  "FC_1" = "grey10",# "#9e007c", # "#228B22", # Light orange
+  "FC_2" = "grey50",#"#451159", # "#90EE90", #Dark brown
   
-  # Clearcut pair - warm earth tones (your current DC1/DC2)
-  "FC_2" = "#E69B00", # Light orange
-  "FC_4" = "#994F00", #Dark brown
-  
-  # Clearcut+DitchCleaning pair - disturbed/muddy tones
-  "FC_DC1" = "#2E5894", #Dark blue
-  "FC_DC3" = "#7EA6E0" #Light blue
+  # Clearcut+DitchCleaning pair
+  "FC_DC1" = "grey10", #"gray60", #"#E69B00", #orange
+  "FC_DC2" = "grey50" #"#ccff00" #994F00" #brown
 )
+
 
 site_symbols <- c(
-  "FC_DC1" = 21,     
-  "FC_2" = 3,     
-  "FC_DC3" = 22,
-  "FC_4" =4
+  "FC_DC1" = 21, #Filled Circles    
+  "FC_1" = 1,  # Hollow Circles   
+  "FC_DC2" = 24, # Filled Triangles (up)
+  "FC_2" =2 #Hollow triangle (up)
 )
 
-theme_set(theme_bw(base_size = 16))
+theme_set(theme_light(base_size = 16))
 
-#Present the dataset with interactivitiy
+#Present ttheme_classic2()#Present the dataset with interactivitiy
 #datatable(filter(DC_Q, !is.na(DOC_14C_Modern)), options = list(pageLength = 5), filter="top") %>%  
 #  formatStyle(columns = colnames(.$x$data), `font-size` = '10px')
 ```
 
 # Results
 
-## Figure 1: Timeseries C concentrations and ¹⁴C-content
+## Figure 2: Timeseries C concentrations and ¹⁴C-content
 
-```{r, warning=F, message=F,fig.height=10, fig.cap="C concentration and radiocarbon content timeseries coloured by sites"}
+```{r, warning=F, message=F,fig.height=10, fig.width=12, fig.cap="C concentration and radiocarbon content timeseries coloured by sites"}
 
 
 # Define operation periods for treatments::::::::::::::::::::::::::::::::::::::::::
-  
-clearcut_start <- as.Date("2020-07-01")
+predisturbance_start =  as.Date("2020-01-01") 
+predisturbance_end = as.Date("2020-08-24")
+
+clearcut_start = as.Date("2020-07-01")
 clearcut_end <- as.Date("2020-08-25")
+
+postharvest_start = as.Date("2020-08-25")
+postharvest_end= as.Date("2021-09-22")
+
 ditch_cleaning_start <- as.Date("2021-09-01")
 ditch_cleaning_end <- as.Date("2021-09-30")
 
+postditch_start = as.Date("2021-09-23")
+postditch_end= as.Date("2022-11-01") 
+
+
+
+
 
 # Timeseries 14C per site, CO2 and DOC seperately
-plot_timeseries = function(data, y_var,labs_y) {
-  ggplot(data, aes(x=Date, y=!!sym(y_var), group=Site_id, color=Site_id)) +
-    geom_line(data=data[!is.na(data[[y_var]]), ]) +
-    geom_point(size=3) +
+plot_timeseries = function(data, y_var,labs_y, 
+                           ymin_rect, ymax_rect) 
+  {
+  ggplot(data, aes(x=Date, y=!!sym(y_var), 
+                   group=Site_id, color=Site_id, 
+                   fill=Site_id, shape=Site_id)) +
   
   # Add gray background bars for operations
+
+  annotate("rect", xmin = predisturbance_start, xmax = predisturbance_end,
+           ymin = ymin_rect, ymax = ymax_rect,
+           fill = "#3CB7CC", alpha = 0.3) +
+  
+  
+    
+  annotate("rect", xmin = postharvest_start, xmax = postharvest_end,
+           ymin = ymin_rect, ymax = ymax_rect,
+           fill = "#32A251", alpha = 0.3) +  
+  
+  
+    
+  annotate("rect", xmin = postditch_start, xmax = postditch_end,
+           ymin = ymin_rect, ymax = ymax_rect,
+           fill = "#FF7F0F", alpha = 0.3) +    
+    
   annotate("rect", 
            xmin = clearcut_start, xmax = clearcut_end,
-           ymin = -Inf, ymax = Inf,
-           fill = "gray70", alpha = 0.3) +
-  
+           ymin = ymin_rect, ymax = ymax_rect,
+           fill = "#32A251",, alpha = 0.5) +
+    
   annotate("rect", 
            xmin = ditch_cleaning_start, xmax = ditch_cleaning_end,
-           ymin = -Inf, ymax = Inf,
-           fill = "gray70", alpha = 0.3) +
+           ymin = ymin_rect, ymax = ymax_rect,
+           fill = "#FF7F0F", alpha = 0.5) +
+    
+    
+     geom_line(data=data[!is.na(data[[y_var]]), ]) +
+    geom_point(size=3) +
     
     scale_x_date(limits=c(as.Date("2020-01-01"), as.Date("2022-11-01")),
                  date_labels = "%b-%Y", date_breaks = "6 months") +
-    scale_color_manual(values=c(site_colors_6))+
+    scale_color_manual(values=c(site_colors))+
+    scale_fill_manual(values=alpha(c(site_colors), 0.7))+
+
+    scale_shape_manual(values=c(site_symbols))+
     labs(y=labs_y)+
     
     theme( # set margins to align combined plots 
@@ -241,57 +232,70 @@ plot_timeseries = function(data, y_var,labs_y) {
 
 #Concentration timeseries
 
-
-timeserie_DOC = ggExtra::ggMarginal(
-  plot_timeseries(DC_Q, "DOC_mgL", "DOC (mg/L)")+
+timeserie_DOC = #ggExtra::ggMarginal(
+  plot_timeseries(DC_Q, #%>% filter(Site_pairs == "FC")
+                   "DOC_mgL", "DOC (mg/L)",
+                  ymin_rect=8, ymax_rect=310
+                  )+
     # Add text labels for operations
  annotate("text", x = clearcut_start + (clearcut_end - clearcut_start)/2, y = Inf, 
-           label = "Forest clear cut operations\n(July 2020)",
+           label = "Forest Harvest operations",
            vjust = 1.2, hjust = 0.5, size = 3.5, color = "black") +
   
   annotate("text", x = ditch_cleaning_start + (ditch_cleaning_end -    ditch_cleaning_start)/2, y = Inf, 
-           label = "Ditch cleaning operations\n(September 2021)",
+           label = "Ditch cleaning operations",
            vjust = 1.2, hjust = 0.5, size = 3.5, color = "black") +
    labs(y=bquote("DOC (mg C L"^-1*")"))+
    scale_y_log10()+
-  theme(legend.position = "top", axis.title.x = element_blank()),
-  margins=c("y"), type = "boxplot", groupColour = TRUE, groupFill = TRUE )
+  facet_wrap(~Site_pairs)+
+  theme(legend.position = "none", axis.title.x = element_blank(), axis.text.x = element_blank())#,
+  #margins=c("y"), type = "boxplot", groupColour = TRUE, groupFill = TRUE )
 
 
-timeserie_14CDOC = ggExtra::ggMarginal(
-  plot_timeseries(DC_Q, "DOC_14C_Modern", "14C-DOC (%)")+
-  scale_y_continuous(limits=c(95,115))+
-  labs(y = expression(""^14*"C-DOC (% modern)"))+
-  theme(legend.position = "none", axis.title.x = element_blank()),
-  margins=c("y"), type = "boxplot", groupColour = TRUE, groupFill = TRUE )
-
-
-
-timeserie_CO2 = ggExtra::ggMarginal(
-  plot_timeseries(DC_Q, "CO2_mgL", "CO2 (mg/L)")+
-    labs(y=bquote("CO"[2]*" (mg C L"^-1*")"))+
+timeserie_CO2 = #ggExtra::ggMarginal(
+  plot_timeseries(DC_Q, #%>% filter(Site_pairs == "FC"), 
+                  "CO2_mgL", "CO2 (mg/L)",
+                  ymin_rect=0.5, ymax_rect=32)+
+    labs(y=bquote("CO"[2]*"\n (mg C L"^-1*")"))+
      scale_y_log10()+
-     theme(legend.position = "none", axis.title.x = element_blank()),
-  margins=c("y"), type = "boxplot", groupColour = TRUE, groupFill = TRUE )
+  facet_wrap(~Site_pairs)+
+    geom_abline(y=100)+
+     theme(legend.position = "none", axis.title.x = element_blank(),axis.text.x = element_blank())#,
+  #margins=c("y"), type = "boxplot", groupColour = TRUE, groupFill = TRUE )
 
-timeserie_14CCO2 = ggExtra::ggMarginal(
-  plot_timeseries(DC_Q, "CO2_14C_Modern", "14C-CO2 (%)")+
+timeserie_14CDOC = #ggExtra::ggMarginal(
+  plot_timeseries(DC_Q, #%>% filter(Site_pairs == "FC"),
+                  "DOC_14C_Modern", "14C-DOC (%)",
+                  ymin_rect=-Inf, ymax_rect=Inf)+
   scale_y_continuous(limits=c(95,115))+
+  facet_wrap(~Site_pairs)+
+  labs(y = expression(""^14*"C-DOC (% modern)"))+
+  theme(legend.position = "none", axis.title.x = element_blank(),
+  axis.text.x = element_blank())#,
+  #margins=c("y"), type = "boxplot", groupColour = TRUE, groupFill = TRUE )
+
+timeserie_14CCO2 = #ggExtra::ggMarginal(
+  plot_timeseries(DC_Q,# %>% filter(Site_pairs == "FC"),
+                  "CO2_14C_Modern", "14C-CO2 (%)",
+                  ymin_rect=-Inf, ymax_rect=Inf)+
+  scale_y_continuous(limits=c(95,115))+
+  facet_wrap(~Site_pairs)+
     labs(y = expression(""^14*"C-CO"[2]*" (% modern)"))+
-   theme(legend.position = "none", axis.title.x = element_blank()),
-  margins=c("y"), type = "boxplot", groupColour = TRUE, groupFill = TRUE )
+   theme(legend.position = "none", axis.title.x = element_blank())#,
+  #margins=c("y"), type = "boxplot", groupColour = TRUE, groupFill = TRUE )
 
 
 # Combine four plots
-ggarrange(  timeserie_DOC,
-  timeserie_14CDOC,
-  timeserie_CO2,
-  timeserie_14CCO2,
-  ncol = 1, align='v', heights = c( 0.65, 0.5, 0.5, 0.5),
-  labels="AUTO")
+combined_timeseries= ggarrange(  timeserie_DOC,
+                                   timeserie_CO2,
+                                   timeserie_14CDOC,
+                                  timeserie_14CCO2,
+                                  ncol = 1, align='v', 
+                                 heights = c( 0.45, 0.55, 0.45, 0.55) #, #labels="AUTO"
+                               )
+combined_timeseries
 
-
-
+ggsave("Output/Figures/Figure2_timeseries.pdf", plot =combined_timeseries, height = 10, width = 12)
 ```
 
 #### Dunn's test \| ¹⁴C and \[C\] \~ Site
@@ -354,203 +358,72 @@ knitr::kable(combined_dunns_results,
              caption = "Grouping letters for dunn's test result")
 ```
 
-::: callout-note
-#### Interpretation
+## Figure 3: dotplots
 
-**Trend:**
+```{r, warning=F, message=F, width= 12, height=8}
 
--   No obvious trends in C concentration or 14C content over time
 
--   There was a clear peak in DOC and CO2 concentration at DC4 during clearcut opperations.
+dotplots_treatment_sites = function(site_pair,variable) {
+   ggplot(data = DC_Q %>% filter (Site_pairs==site_pair), 
+         aes( y={{ variable }}, color=Treatment, fill = Treatment,
+              x=Treatment
+              ) )+
+  geom_violin(aes(fill=Treatment), alpha=0.5)+
+  geom_jitter(alpha=0.8, aes(shape=Site_id))+
+  stat_summary(fun = "median", geom = "point", color = "black", size = 2)+
+    stat_summary(fun = "median", geom = "line",
+                 aes(group = 1), color = "gray30", linewidth = 0.4) +
+  scale_color_manual(values = c(treatment_colors)) +
+  scale_fill_manual(values = alpha(c(treatment_colors), 0.5)) +
+  scale_shape_manual(values= site_symbols)+
+ # facet_wrap(~Site_id, nrow=4)+
+ # scale_x_discrete(limits = rev)+
+  theme(legend.position = "none"
+        ,axis.title = element_blank(), axis.text = element_blank()
+        )
+  
+}
 
-**Differences between sites:**
 
--   CO2 and DOC concentration at DC4 is consistently higher than the other sites, followed with DC2, and DC1 and DC3.
 
--   14C-DOC is not different across sites
-
--   14C-CO2 is significantly lower at DC4, followed with DC3 and DC2, DC1 which is significantly higher
-:::
-
-::: callout-warning
-#### Q data
-
-The database contains DC3 and DC2 flow data, one ditch cleaned while the other only clearcut. Other timeseries are incomplete.
-:::
-
-## Figure 2: C \~ Q relationship
-
-Is the radiocarbon age or concentration of DOC and CO~2~ controled by runoff, and does this relationship changes following treatment?
-
-```{r, warning=F, message=F, fig.height=6, fig.width=12, fig.cap="relationship between C concetration and discharge coloured by site and treatment"}
-
-# Hydrological control over  C concentration by Site
-
-  ggplot(DC_Q %>% pivot_longer(
-                     cols = c(DOC_mgL, CO2_mgL),
-                     names_to = "Carbon_species",
-                     values_to = "C_mgL"
-                   ),
-       aes(y=C_mgL, x=q_md_filled*1000,  fill=Treatment, color=Treatment))+ 
-  geom_point(aes(shape=Site_id), size=1, alpha=0.7, show.legend = F)+
+combined_dotplots = 
+  ggarrange(
+    dotplots_treatment_sites(site_pair = "FC", variable = DOC_mgL)+
+      scale_y_log10(limits=c(8,300)),
+    
+     dotplots_treatment_sites(site_pair = "FC", variable = DOC_14C_Modern)+
+      scale_y_log10(limits=c(round(range(DC_Q$DOC_14C_Modern, na.rm=T),0))),
+    
+    dotplots_treatment_sites(site_pair = "FC", variable = CO2_mgL)+
+      scale_y_log10(limits=c(round(range(DC_Q$CO2_mgL, na.rm=T),0))),
+    
+    dotplots_treatment_sites(site_pair = "FC", variable = CO2_14C_Modern)+
+      scale_y_continuous(limits=c(round(range(DC_Q$CO2_14C_Modern, na.rm=T),0))),
+    
+   
+    
+    dotplots_treatment_sites(site_pair = "FC_DC", variable = DOC_mgL)+
+      scale_y_log10(limits=c(8,300)),
+    
+    dotplots_treatment_sites(site_pair = "FC_DC", variable = DOC_14C_Modern)+
+      scale_y_log10(limits=c(round(range(DC_Q$DOC_14C_Modern, na.rm=T),0))),
+    
+    dotplots_treatment_sites(site_pair = "FC_DC", variable = CO2_mgL)+
+      scale_y_log10(limits=c(round(range(DC_Q$CO2_mgL, na.rm=T),0))),
+    
+    dotplots_treatment_sites(site_pair = "FC_DC", variable = CO2_14C_Modern)+
+      scale_y_log10(limits=c(round(range(DC_Q$CO2_14C_Modern, na.rm=T),0))),
+    
+   
+    
+    nrow = 2, ncol = 4, align = "hv"
+  )
  
-  geom_smooth(method="lm", se=F, aes(color=Treatment), show.legend = T)+
-  stat_regline_equation(label.y.npc = "top", label.x.npc = "left",
-  aes(label =  paste(..eq.label.., ..adj.rr.label.., 
-                     sep = "~~~~"), color = Treatment), 
-                      show.legend = F, size=3)+
-  facet_grid(Carbon_species~Site_id, scale="free_y")+  
-    
-  scale_shape_manual(values=c(site_symbols))+
-  scale_x_log10(limits = c(0.02, 30))+
-  scale_y_log10()+
-  scale_color_manual(values=treatments_colors)+
-  scale_fill_manual(values=treatments_colors)+
-  
-  labs(x="q (mm/d)", y=bquote("C (mg/L)"))+
-  theme(legend.position = "top", base_size=8)
+
+combined_dotplots
 
 
-
-```
-
-#### ANCOVA test - DOC
-
-Is there a significant difference in the hydrological response of **DOC** concentrations between *Treatments or Sites*?
-
-```{r, warning=F, message = FALSE}
-#Run ANCOVA test - Difference in hydro. response between treatments
-
-knitr::kable(DC_Q%>%  
-             anova_test(DOC_mgL ~ q_md_filled*Treatment), 
-             caption = "ANCOVA (ALL SITES) - DOC * q / treatment")
-
-knitr::kable(filter(DC_Q, Site_id %in% c("FC_DC1"))%>%  
-             anova_test(DOC_mgL ~ q_md_filled*Treatment), 
-             caption = "ANCOVA (DC1) - DOC * q / treatment")
-
-knitr::kable(filter(DC_Q, Site_id %in% c("FC_2"))%>%  
-             anova_test(DOC_mgL ~ q_md_filled*Treatment), 
-             caption = "ANCOVA (DC2) - DOC * q / treatment")
-
-knitr::kable(filter(DC_Q, Site_id %in% c("FC_DC3"))%>%   
-             anova_test(DOC_mgL ~ q_md_filled*Treatment), 
-             caption = "ANCOVA (DC3) - DOC * q / treatment")
-
-knitr::kable(filter(DC_Q, Site_id %in% c("FC_4"))%>%   
-             anova_test(DOC_mgL ~ q_md_filled*Treatment), 
-             caption = "ANCOVA (DC4) - DOC * q / treatment")
-```
-
-#### ANCOVA test - CO2
-
-```{r, warning=F}
-#Run ANCOVA test - Difference in hydro. response between treatments
-knitr::kable(DC_Q  %>%  anova_test(CO2_mgL ~ q_md_filled*Treatment), 
-             caption = "ANCOVA test results - CO2 * q / treatment")
-
-knitr::kable(filter(DC_Q, Site_id %in% c("FC_DC1"))%>%  
-             anova_test(CO2_mgL ~ q_md_filled*Treatment), 
-             caption = "ANCOVA (DC1) - CO2 * q / treatment")
-
-knitr::kable(filter(DC_Q, Site_id %in% c("FC_2"))%>%  
-             anova_test(CO2_mgL ~ q_md_filled*Treatment), 
-             caption = "ANCOVA (DC2) - CO2 * q / treatment")
-
-knitr::kable(filter(DC_Q, Site_id %in% c("FC_DC3"))%>%   
-             anova_test(CO2_mgL ~ q_md_filled*Treatment), 
-             caption = "ANCOVA (DC3) - CO2 * q / treatment")
-
-knitr::kable(filter(DC_Q, Site_id %in% c("FC_4"))%>%   
-             anova_test(CO2_mgL ~ q_md_filled*Treatment), 
-             caption = "ANCOVA (DC4) - CO2 * q / treatment")
-
-```
-
-::: callout-note
-#### Interpretation
-
-**Hydrological response:**
-
--   DOC and CO2 concentrations are not controled by discharge, except for DC4 where we believe there is a wetland source that could sustain flow in lowflow conditions.
-
--   ANCOVA indicates that Q **doesn't** have a significant effect on DOC concentration, but treatment and site do (intercept difference). Significant interaction between Q and Site (slope difference)
-
--   ANCOVA indicates that Q doesnt have a significant effect on CO2 concentration, nor does treatment. Site effect causes a signficant effect on intercept and slope (interaction)
-:::
-
-## Figure 3: Scatterplot C concentration or ¹⁴C-content by treatment
-
-Is there a significant change in the median ^14^C content of CO~2~ and DOC between sites or treatment, based on their distribution ?
-
-```{r, warning =F, message=F,fig.height=9, fig.width=5, fig.cap="relationship between C concentration and radiocarbon content of CO2 and DOC coloured by treatment"}
-
-# Make a scatterplot to distinguish the grouping across sites
-density_14Cscatter_sites = 
-  ggExtra::ggMarginal(
-  
-            ggplot(data=DC_Q,
-                 aes(x=DOC_mgL, y=CO2_mgL_filled, 
-                    color=Treatment))+
-            stat_density_2d(aes(fill = Treatment), geom = "polygon", linewidth=0,
-                             alpha = 0.15)+ 
-            geom_point(aes(shape=Site_id), size=1)+
-            geom_smooth(method="glm", se=F, aes(color=Treatment), show.legend = T)+
-  
-            stat_regline_equation(label.y.npc = "top", label.x.npc = "left",
-            aes(label =  paste(..eq.label.., ..adj.rr.label.., 
-                               sep = "~~~~"), color = Treatment), 
-                                show.legend = F, size=3)+
-              scale_shape_manual(values=c(site_symbols))+
-    
-            scale_color_manual(values=c(treatments_colors))+
-            scale_fill_manual(values=c(treatments_colors))+
-            scale_y_log10()+
-              scale_x_log10()+
-            labs(x=bquote("DOC (mg L"^-1*")"), 
-                   y=bquote("CO"[2]* " (mg L"^-1*")"))+
-              theme(legend.position = "none"), 
-            type = "boxplot", groupColour = TRUE, groupFill = TRUE ) 
-
-
-
-# Make a scatterplot to distinguish the grouping across treatment
-density_14Cscatter_treatment = 
-ggExtra::ggMarginal(
-  
-            ggplot(data=DC_Q,aes(x=DOC_14C_Modern, y=CO2_14C_Modern, 
-                    color=Treatment))+
-              geom_abline(intercept=0,slope=1, linetype="dashed", color="gray30")+
-            #   stat_density_2d(aes(fill = Treatment), geom = "polygon", linewidth=0,
-             #                alpha = 0.2)+ 
-              geom_segment(aes(xend = DOC_14C_Modern, yend = DOC_14C_Modern), 
-                 alpha = 0.5, linetype = "solid", size = 0.5) +
-            geom_point(aes(shape=Site_id),size=2)+
-            scale_shape_manual(values=c(site_symbols))+
-            scale_color_manual(values=c(treatments_colors))+
-            scale_fill_manual(values=c(treatments_colors))+
-            scale_y_continuous(limit=c(95,115))+
-            scale_x_continuous(limit=c(95,115))+
-            labs(x=bquote(Delta^14*"C-DOC (% modern)"), 
-                   y=bquote(Delta^14*"C-CO"[2]*" (% modern)"))+
-              theme(legend.position = "bottom"), 
-            type = "boxplot", groupColour = TRUE, groupFill = TRUE )
-            
-
-
-ggarrange(density_14Cscatter_sites, 
-density_14Cscatter_treatment, nrow=2, align="hv",labels="AUTO")
-
-```
-
-#### ANCOVA \| \[CO2\] \~ \[DOC\] / Treatment
-
-```{r,warning=F }
-#Run ANCOVA test - Difference in hydro. response between treatments
-
-
-#knitr::kable(DC_Q_DC1and3  %>%  anova_test(DOC_mgL ~ CO2_mgL_filled*Treatment), 
-#             caption = "Ancova test results: DOC ~ CO2 x Treatment")
+ggsave("Output/Figures/Figure3_dotplots.pdf", plot =combined_dotplots, height = 6, width = 12)
 
 
 ```
@@ -559,18 +432,20 @@ density_14Cscatter_treatment, nrow=2, align="hv",labels="AUTO")
 
 ```{r,warning =F, message=F}
 # Calculate medians for each variable by Site_id
-range (DC_Q$q_md, na.rm=T)*1000
-range (DC_Q$CO2_14C_Modern, na.rm=T)
-range (DC_Q$DOC_14C_Modern, na.rm=T)
-round(range(c(DC_Q$CO2_14C_Modern-DC_Q$DOC_14C_Modern), na.rm=T),0)
+#range (DC_Q$q_int_mmd, na.rm=T)*1000
+#range (DC_Q$CO2_14C_Modern, na.rm=T)
+#range (DC_Q$DOC_14C_Modern, na.rm=T)
+#round(range(c(DC_Q$CO2_14C_Modern-DC_Q$DOC_14C_Modern), na.rm=T),0)
 
 combined_medians <- DC_Q %>%
-  group_by(Treatment) %>%
+  group_by(Site_pairs, Treatment) %>%
   summarise(
     "14C-DOC" = round(median(DOC_14C_Modern, na.rm = TRUE),2),
      "[DOC]" = round(median(DOC_mgL, na.rm = TRUE), 2),
-    "14C-CO2" = round(median(CO2_14C_Modern, na.rm = TRUE),2),
+    
     "[CO2]" = round(median(CO2_mgL, na.rm = TRUE), 2),
+    "14C-CO2" = round(median(CO2_14C_Modern, na.rm = TRUE),2),
+     #n = n(),
     .groups = 'drop'
   ) %>%
   rename(Site = Treatment)
@@ -585,212 +460,371 @@ library(dunn.test)
 library(multcompView)
 library(PMCMR)
 
-# Perform the test and get multcomp letters
-DOCTreatment_letters = multcompLetters(get.pvalues(PMCMRplus::kwAllPairsDunnTest(
-          DC_Q$DOC_mgL ~ DC_Q$Treatment, p.adjust="bonf")),
-          threshold=0.05)$Letters
-        
-DOC_C14_Treatment_letters = multcompLetters(get.pvalues(PMCMRplus::kwAllPairsDunnTest(
-          DC_Q$DOC_14C_Modern ~ DC_Q$Treatment, p.adjust="bonf")),
-          threshold=0.05)$Letters
-        
-CO2Treatment_letters = multcompLetters(get.pvalues(PMCMRplus::kwAllPairsDunnTest(
-          DC_Q$CO2_mgL ~ DC_Q$Treatment, p.adjust="bonf")),
-          threshold=0.05)$Letters
+# Function to perform the test and get multcomp letters
+Dunns_letters = function(variable, site_pair) {
+  data = DC_Q %>% filter(Site_pairs == site_pair)
+  
+  multcompLetters(
+    get.pvalues(PMCMRplus::kwAllPairsDunnTest(
+      data[[variable]] ~ data$Treatment, p.adjust = "bonf")),
+    threshold = 0.05)$Letters
+}
 
-CO2_C14_Treatment_letters = multcompLetters(get.pvalues(PMCMRplus::kwAllPairsDunnTest(
-          DC_Q$CO2_14C_Modern ~ DC_Q$Treatment, p.adjust="bonf")),
-          threshold=0.05)$Letters
+Dunns_DOC_FC= Dunns_letters(variable = "DOC_mgL", site_pair = "FC")
+Dunns_14DOC_FC= Dunns_letters(variable = "DOC_14C_Modern", site_pair = "FC")
+Dunns_CO2_FC= Dunns_letters(variable = "CO2_mgL", site_pair = "FC")
+Dunns_14CO2_FC= Dunns_letters(variable = "CO2_14C_Modern", site_pair = "FC")
+
+Dunns_DOC_FC_DC=Dunns_letters(variable = "DOC_mgL", site_pair = "FC_DC")
+Dunns_14DOC_FC_DC= Dunns_letters(variable = "DOC_14C_Modern", site_pair = "FC_DC")
+Dunns_CO2_FC_DC= Dunns_letters(variable = "CO2_mgL", site_pair = "FC_DC")
+Dunns_14CO2_FC_DC=Dunns_letters(variable = "CO2_14C_Modern", site_pair = "FC_DC")
+
 
         
 # Combine into a data frame
-combined_dunns_results <- data.frame(
-  Site = names(DOC_C14_Treatment_letters),
-  "14C-DOC" = as.character(DOC_C14_Treatment_letters),
-  "[DOC]" = as.character(DOCTreatment_letters),
-  "14C-CO2" = as.character(CO2_C14_Treatment_letters[names(DOC_C14_Treatment_letters)]),
-  "[CO2]" = as.character(CO2Treatment_letters[names(DOC_C14_Treatment_letters)]),
+combined_dunns_FC <- data.frame(
+  Site = names(Dunns_DOC_FC),
+  "[DOC]"   = as.character(Dunns_DOC_FC),
+  "14C-DOC" = as.character(Dunns_14DOC_FC[names(Dunns_DOC_FC)]),
+  "[CO2]"   = as.character(Dunns_CO2_FC[names(Dunns_DOC_FC)]),
+  "14C-CO2" = as.character(Dunns_14CO2_FC[names(Dunns_DOC_FC)]),
   check.names = FALSE
 )
 
+combined_dunns_FC_DC <- data.frame(
+  Site = names(Dunns_DOC_FC_DC),
+  "[DOC]"   = as.character(Dunns_DOC_FC_DC),
+  "14C-DOC" = as.character(Dunns_14DOC_FC_DC[names(Dunns_DOC_FC_DC)]),
+  "[CO2]"   = as.character(Dunns_CO2_FC_DC[names(Dunns_DOC_FC_DC)]),
+  "14C-CO2" = as.character(Dunns_14CO2_FC_DC[names(Dunns_DOC_FC_DC)]),
+  check.names = FALSE
+)
 
-knitr::kable(combined_dunns_results, 
-             caption = "Grouping letters for dunns test C concentration and 14C content by treatment")
+knitr::kable(combined_dunns_FC,
+             caption = "Dunn's test grouping letters by treatment — FC sites")
+
+knitr::kable(combined_dunns_FC_DC,
+             caption = "Dunn's test grouping letters by treatment — FC_DC sites")
+```
+
+## Figure 4: Scatterplot \[C\] or ¹⁴C-content by treatment
+
+```{r, warning =F, message=F,fig.height=7, fig.width=7, fig.cap="relationship between C concentration and radiocarbon content of CO2 and DOC coloured by treatment"}
+
+
+# Make plot function for DOC vs CO2 concentrations
+density_Cscatter_pairs = function(site_pair) {
+ # ggExtra::ggMarginal(
+    ggplot(data = DC_Q %>% filter(Site_pairs == site_pair),
+           aes(x = DOC_mgL, y = CO2_mgL_filled, 
+               color = Treatment, fill = Treatment)) +
+      #stat_density_2d(aes(fill = Treatment), geom = "polygon", linewidth = 0,
+      #                alpha = 0.15) +
+      geom_point(aes(shape = Site_id), size = 2) +
+      geom_smooth(method = "lm", se = F, aes(color = Treatment), show.legend = F) +
+     # stat_regline_equation(label.y.npc = "top", label.x.npc = "left",
+      #                      aes(label = paste(..eq.label.., ..adj.rr.label..,
+      #                                        sep = "~~~~"), color = Treatment),
+      #                      show.legend = F, size = 3) +
+      scale_shape_manual(values = c(site_symbols)) +
+      scale_color_manual(values = c(treatment_colors)) +
+      scale_fill_manual(values = alpha(c(treatment_colors), 0.5)) +
+      scale_y_log10(limits = c(range(DC_Q$CO2_mgL_filled, na.rm = T))) +
+      scale_x_log10(limits = c(range(DC_Q$DOC_mgL_filled, na.rm = T))) +
+      labs(x = bquote("DOC (mg L"^-1*")"),
+           y = bquote("CO"[2]*" (mg L"^-1*")")) +
+      theme(legend.position = "none")#,
+   # type = "boxplot", groupColour = TRUE, groupFill = TRUE
+  #)
+}
+
+# Create plots for both site pair
+density_Cscatter_sites_FC    = density_Cscatter_pairs("FC")
+density_Cscatter_sites_FC_DC = density_Cscatter_pairs("FC_DC")
+
+
+
+
+# Make a plot function for 14C-DOC vs 14C-CO2 
+density_14Cscatter_pairs = function(site_pair) {
+#ggExtra::ggMarginal(
+            ggplot(data=DC_Q %>% filter (Site_pairs==site_pair),
+              aes(x=DOC_14C_Modern, y=CO2_14C_Modern, 
+                    color=Treatment, fill=Treatment, shape=Site_id))+
+              geom_abline(intercept=0,slope=1, linetype="dashed", color="gray30")+
+            #   stat_density_2d(aes(fill = Treatment), geom = "polygon", linewidth=0,
+             #                alpha = 0.2)+ 
+              geom_segment(aes(xend = DOC_14C_Modern, yend = DOC_14C_Modern), 
+                 alpha = 0.5, linetype = "solid", size = 0.5) +
+            geom_point(aes(shape=Site_id),size=2)+
+            scale_shape_manual(values=c(site_symbols))+
+            scale_color_manual(values=c(treatment_colors))+
+            scale_fill_manual(values=alpha(c(treatment_colors), 0.7))+
+            scale_y_continuous(limit=c(95,115))+
+            scale_x_continuous(limit=c(95,115))+
+            labs(x=bquote(Delta^14*"C-DOC (% modern)"), 
+                   y=bquote(Delta^14*"C-CO"[2]*" (% modern)"))+
+              theme(legend.position = "none")#, 
+   #         type = "boxplot", groupColour = T, groupFill = T )
+            
+}
+  
+density_14Cscatter_treatment_FC = density_14Cscatter_pairs(c("FC"))
+density_14Cscatter_treatment_FC_DC = density_14Cscatter_pairs("FC_DC")
+    
+
+combined_CO2DOCscattters= ggarrange(density_Cscatter_sites_FC,  density_Cscatter_sites_FC_DC, 
+          density_14Cscatter_treatment_FC,  density_14Cscatter_treatment_FC_DC,
+ nrow=2, ncol=2, align="hv",labels="AUTO")
+
+combined_CO2DOCscattters
+
+ggsave("Output/Figures/Figure3_CO2DOC_scatters.pdf", plot =combined_CO2DOCscattters,
+       height= 8, width = 8)
 
 ```
 
-#### Interpretation
+#### Linear regression & ANCOVA \| \[CO2\] \~ \[DOC\] / Treatment
 
-**Relationship between CO2 and DOC concentration:**
+```{r,warning=F }
 
--   The relationship between CO2 and DOC concentration is positive for pristine condition, but the slope becomes less significant with clearcut (closer to 0) and not significant (slope =0) with ditch cleaning. Hence the DOC concentration continues to vary across a wide range with treatments, but the CO2 becomes more stable and independant of DOC concentration. This could be due to changes in their mobilization pathways or simply because clearcuting "removes" a CO2 source.
 
-**Treatment** **effect on C concentrations:**
+# Function to extract lm results for one treatment group within a site_pair
+extract_lm_results <- function(site_pair) {
+  DC_Q %>%
+    filter(Site_pairs == site_pair) %>%
+    group_by(Treatment) %>%
+    group_map(~ {
+      model <- lm(log10(CO2_mgL_filled) ~ log10(DOC_mgL), data = .x)
+      s <- summary(model)
+      coefs <- coef(model)
+      f <- s$fstatistic
+      p_val <- pf(f[1], f[2], f[3], lower.tail = FALSE)
+      
+     tibble(
+        Site_pair  = site_pair,
+        Treatment  = .y$Treatment,
+        Intercept  = round(coefs[1], 3),
+        Slope      = round(coefs[2], 3),
+        R2_adj     = round(s$adj.r.squared, 3),
+        P_value    = signif(p_val, 3)#,
+        #n          = nrow(.x)
+      )
+    }) %>%
+    bind_rows()
+}
 
--   The DOC concentrations are significantly higher following clearcut treatment compared with ditchcleaned and pristine conditions (short term effect of ditch cleaning can compensate?)
+# Run for both site pairs
+lm_results_table <- bind_rows(
+  extract_lm_results("FC"),
+  extract_lm_results("FC_DC")
+)
 
--   The CO2 concentration do not differ significantly across treatment
+knitr::kable(lm_results_table,
+             caption = "Linear regression results (log10-log10) of CO2 vs DOC by treatment and site pair")
 
-**Treatment** **effect on 14 content**
 
--   The ^14^C-DOC is significantly lower in the pristine (group a) compared with clearcut and ditch cleaning sites.
 
--   The ^14^C-CO~2~ doesn't differ significantly across treatments
+#Run ANCOVA test - Difference in hydro. response between treatments
 
-## Figure 4: 14C \~ Q relationship
 
-```{r, warning=FALSE, message=FALSE, fig.height=12, fig.width=5, fig.cap="relationship between radiocarbon content of CO2 and DOC and discharge, coloured by treatment"}
+knitr::kable(
+  DC_Q %>%
+    filter(Site_pairs == "FC") %>%
+    mutate(log_DOC = log10(DOC_mgL),
+           log_CO2 = log10(CO2_mgL_filled)) %>%
+    anova_test(log_DOC ~ log_CO2 * Treatment),
+  caption = "ANCOVA results: log10(DOC) ~ log10(CO2) × Treatment — FC sites"
+)
+
+knitr::kable(
+  DC_Q %>%
+    filter(Site_pairs == "FC_DC") %>%
+    mutate(log_DOC = log10(DOC_mgL),
+           log_CO2 = log10(CO2_mgL_filled)) %>%
+    anova_test(log_DOC ~ log_CO2 * Treatment),
+  caption = "ANCOVA results: log10(DOC) ~ log10(CO2) × Treatment — FC_DC sites"
+)
+```
+
+## Figure 5: 14C \~ Q relationship
+
+```{r, warning=FALSE, message=FALSE, fig.height=7, fig.width=7, fig.cap="relationship between radiocarbon content of CO2 and DOC and discharge, coloured by treatment"}
 #Scatter coloured by Treatment
+
+
 #14C-DOC -q scatter
-plot_DOC_q = ggplot(DC_Q %>% filter(!is.na(DOC_14C_Modern)),
-                   aes(y = DOC_14C_Modern, x = q_md_filled * 1000, 
+DOC_Q_scatters_pairs = function(site_pair) {
+  
+ ggplot(DC_Q %>% #filter(!is.na(DOC_14C_Modern))%>%
+         filter (Site_pairs==site_pair),
+                   aes(y = DOC_14C_Modern, x = q_int_mmd, 
                        fill = Treatment, color = Treatment)) +
   geom_point(aes(shape = Site_id), size = 3, show.legend = F) +
-  geom_smooth(method = "lm", se = F, aes(color = Treatment), show.legend = F) +
+  geom_smooth(method = "lm", se = F, aes(color = Treatment), show.legend = F,size=0.75) +
+  
   scale_shape_manual(values = site_symbols) +
-  scale_fill_manual(values = treatments_colors) + 
-  scale_color_manual(values = treatments_colors) + 
+  scale_fill_manual(values = alpha(treatment_colors),0.7) + 
+  scale_color_manual(values = treatment_colors) + 
   scale_x_continuous(limits = c(0, 20)) +
+  scale_y_continuous(limits = c(97.5, 110)) +
   stat_regline_equation(
     label.y.npc = "top", label.x.npc = "left",
     aes(label = paste(..eq.label.., ..adj.rr.label.., sep = "~~~~"), 
         color = Treatment), 
     show.legend = F, size = 4) +
   labs(x = "", 
-       y = bquote(Delta^14*"C-DOC (% modern)")) +
-  theme(legend.position = "none")  # Hide legend for second plot to avoid duplication
+       y = bquote("" ^14*"C-DOC (% modern)")) +
+  theme(legend.position = "none")  
+
+}
 
 
+  plot_DOC_q_FC = DOC_Q_scatters_pairs("FC") 
+   plot_DOC_q_FC_DC = DOC_Q_scatters_pairs("FC_DC")
+  
+  
 #14C-CO2 -q scatter
-plot_CO2_q = ggplot(DC_Q %>% filter(!is.na(CO2_14C_Modern)),
-                   aes(y = CO2_14C_Modern, x = q_md_filled * 1000, 
+CO2_Q_scatters_pairs = function(site_pair) { 
+  ggplot(DC_Q %>% #filter(!is.na(CO2_14C_Modern))%>%
+          filter (Site_pairs==site_pair),
+                   aes(y = CO2_14C_Modern, x = q_int_mmd, 
                        fill = Treatment, color = Treatment)) +
   geom_point(aes(shape = Site_id), size = 3, show.legend = F) +
   geom_smooth(method = "lm", se = F, aes(color = Treatment), 
-              show.legend = F, type="dashed") +
+              show.legend = F, size=0.75) +
   scale_shape_manual(values = site_symbols) +
-  scale_fill_manual(values = treatments_colors) + 
-  scale_color_manual(values = treatments_colors) + 
+  scale_fill_manual(values = alpha(treatment_colors),0.7) + 
+  scale_color_manual(values = treatment_colors) + 
   scale_x_continuous(limits = c(0, 20)) +
+    scale_y_continuous(limits = c(95, 115)) +
   stat_regline_equation(
     label.y.npc = "top", label.x.npc = "left",
     aes(label = paste(..eq.label.., ..adj.rr.label.., sep = "~~~~"), 
         color = Treatment), 
     show.legend = F, size = 4) +
   labs(x = "", 
-       y = bquote(Delta^14*"C-CO"[2]*" (% modern)")) +
+       y = bquote("" ^14*"C-CO"[2]*" (% modern)")) +
   theme(legend.position = "right")
+}
+
+plot_CO2_q_FC = CO2_Q_scatters_pairs("FC") 
+plot_CO2_q_FC_DC = CO2_Q_scatters_pairs("FC_DC")
 
 
-# Add marginal boxplots
-#plot_CO2_marginal = ggExtra::ggMarginal(plot_CO2_q, type = "boxplot", 
-#                                groupColour = TRUE, groupFill = TRUE)
-#plot_DOC_marginal = ggExtra::ggMarginal(plot_DOC_q, type = "boxplot", 
-#                                groupColour = TRUE, groupFill = TRUE)
-
-
-#Exceedance probability plot ::::::::::::::::::::::::::::::::::::::::::::::
-#Database
-Wide_q=DC_wide <- DC_Q %>%
-  filter(Site_id %in% "FC_DC3")%>%
-  distinct(Date, Site_id, q_md, Treatment) %>%  # Remove any duplicate rows
-  pivot_wider(
-    id_cols = c(Date,Treatment),
-    names_from = "Site_id",
-    values_from = "q_md",
-    names_prefix = "q_md_"
-  )
-
-
-# Calculations
-Q_DC3_rank = Wide_q%>%
-  group_by(Treatment)%>%
-  mutate(rank = rank(-q_md_FC_DC3)) %>%
-  mutate(P = 100 * (rank / (length(q_md_FC_DC3) + 1))) %>%
-  ungroup()
-
-
-# Identify dates when 14C-DOC samples were collected
-DOC_14C_samples <- DC_Q %>%
-  filter(Site_id == "FC_DC3", !is.na(DOC_14C_Modern)) %>%
-  select(Date, q_md, Treatment, DOC_14C_Modern) %>%
-  distinct()
-
-# Join with the ranked data
-samples_with_exceedance <- DOC_14C_samples %>%
-  left_join(Q_DC3_rank %>% select(Date, P), by = "Date")
-#View(samples_with_exceedance)
-
-#Visualisation
-q_exceedance=ggplot(data = Q_DC3_rank) +
-  geom_line(aes(y = P, x = q_md_FC_DC3 * 1000, color = Treatment), size = 0.75) +
-  # Add points for 14C-DOC sampling dates
-  geom_point(data = samples_with_exceedance,
-             aes(y = P, x = q_md * 1000, color = Treatment, fill=Treatment),
-             size = 3, shape = 22) +
-  #scale_x_log10() +
-  scale_y_continuous(breaks = seq(0, 100, 25)) +
-  scale_x_continuous(limits=c(0,20))+
-  scale_color_manual(values = treatments_colors) +
-  scale_fill_manual(values = treatments_colors) +
-  labs(y = "(%) exceedance probability",
-       x = "q specific (mm/d)") +
-  theme(legend.position = "none")
+ggarrange( plot_DOC_q_FC, plot_DOC_q_FC_DC, 
+           plot_CO2_q_FC, plot_CO2_q_FC_DC, labels = "AUTO", align = "hv")
 
 
 
 
 
-# Combine using ggarrange :::::::::::::::::::::::::::::::::::::::::::::::::::::
-ggarrange( plot_DOC_q, plot_CO2_q, q_exceedance,
-                          ncol = 1, nrow = 3, align="v",
-                          labels="AUTO")
+
 
 
 
 ```
 
-#### ANCOVA test
+```{r}
 
-Is there a significant difference in the hydrological response of **14C-DOC** between *Treatments*?
+
+# --- Linear regression tables ---
+
+extract_lm_results_14C <- function(site_pair, y_var) {
+  DC_Q %>%
+    filter(Site_pairs == site_pair) %>%
+    group_by(Treatment) %>%
+    group_map(~ {
+      model <- lm(.x[[y_var]] ~ .x$q_int_mmd)
+      s <- summary(model)
+      coefs <- coef(model)
+      f <- s$fstatistic
+      p_val <- if (!is.null(f)) pf(f[1], f[2], f[3], lower.tail = FALSE) else NA
+      
+      tibble(
+        Site_pair  = site_pair,
+        Treatment  = .y$Treatment,
+        Response   = y_var,
+        Intercept  = round(coefs[1], 3),
+        Slope      = round(coefs[2], 3),
+        R2_adj     = round(s$adj.r.squared, 3),
+        P_value    = signif(p_val, 3),
+        n          = nrow(.x)
+      )
+    }) %>%
+    bind_rows()
+}
+
+# Extract for all combinations
+lm_14C_results <- bind_rows(
+  extract_lm_results_14C("FC",     y_var=  "DOC_14C_Modern"),
+  extract_lm_results_14C("FC_DC",  y_var=  "DOC_14C_Modern"),
+  extract_lm_results_14C("FC",     y_var= "CO2_14C_Modern"),
+  extract_lm_results_14C("FC_DC",  y_var=  "CO2_14C_Modern")
+)
+
+knitr::kable(lm_14C_results,
+             caption = "Linear regression results: 14C ~ discharge by treatment and site pair")
+
+
+# --- ANCOVA tables ---
+
+# 14C-DOC
+knitr::kable(
+  DC_Q %>%
+    filter(Site_pairs == "FC", !is.na(DOC_14C_Modern)) %>%
+    anova_test(DOC_14C_Modern ~ q_int_mmd * Treatment),
+  caption = "ANCOVA results: 14C-DOC ~ discharge × Treatment — FC sites"
+)
+
+knitr::kable(
+  DC_Q %>%
+    filter(Site_pairs == "FC_DC", !is.na(DOC_14C_Modern)) %>%
+    anova_test(DOC_14C_Modern ~ q_int_mmd * Treatment),
+  caption = "ANCOVA results: 14C-DOC ~ discharge × Treatment — FC_DC sites"
+)
+
+# 14C-CO2
+knitr::kable(
+  DC_Q %>%
+    filter(Site_pairs == "FC", !is.na(CO2_14C_Modern)) %>%
+    anova_test(CO2_14C_Modern ~ q_int_mmd * Treatment),
+  caption = "ANCOVA results: 14C-CO2 ~ discharge × Treatment — FC sites"
+)
+
+knitr::kable(
+  DC_Q %>%
+    filter(Site_pairs == "FC_DC", !is.na(CO2_14C_Modern)) %>%
+    anova_test(CO2_14C_Modern ~ q_int_mmd * Treatment),
+  caption = "ANCOVA results: 14C-CO2 ~ discharge × Treatment — FC_DC sites"
+)
+```
+
+#### ANCOVA tests
 
 ```{r, warning=F, echo=FALSE}
 #Run ANCOVA test - Difference in hydro. response between treatments
-knitr::kable(DC_Q  %>%  anova_test(DOC_14C_Modern ~ q_md_filled*Treatment), 
+knitr::kable(DC_Q  %>%  anova_test(DOC_14C_Modern ~ q_int_mmd*Treatment), 
              caption = "Ancova test results: 14C-DOC ~ q x Treatment")
 ```
 
-Is there a significant difference in the hydrological response of **14C-DOC** between *Sites*?
-
 ```{r, warning=F, echo=FALSE}
 #Run ANCOVA test - Difference in hydro. response between Sites
-knitr::kable(DC_Q %>% anova_test(DOC_14C_Modern ~ q_md_filled*Site_id),
-             caption="ANCOVA test results, 14C-DOC * q / Site")
-
+knitr::kable(DC_Q %>% anova_test(DOC_14C_Modern ~ q_int_mmd*Site_id),
+             caption="ANCOVA test results, 14C-DOC * q x Site")
 
 ```
-
-Is there a significant difference in the hydrological response of **14C-CO2** between *Treatments*?
 
 ```{r, warning=F, echo=FALSE}
 #Run ANCOVA test - Difference in hydro. response between treatments
-knitr::kable(DC_Q  %>%  anova_test(CO2_14C_Modern ~ q_md_filled*Treatment), 
+knitr::kable(DC_Q  %>%  anova_test(CO2_14C_Modern ~ q_int_mmd*Treatment), 
              caption = "Ancova test results: 14C-CO2 ~ q x Treatment")
 ```
 
-::: callout-note
-#### Interpretation
+## Figure 6: Keeling plots - CO~2~
 
--   While q doesn't have a significant effect on DOC concentration, it does have a signficant effect on 14C-DOC. The 14C-content generally increases with Q, mobilizing more post-bomb C stored in soils.
-
--   Treatment has a significant effect in the ANCOVA, indicating that the intercept shift in the 14C-DOC\~q relationship, from 100%modern in pristine sites to 110%modern in clearcut+ditchcleaned sites, is significant. The effect of Site is not significant.
-
--   Q doesnt have en effect but not on 14C-CO2
-:::
-
-## Figure 5: Keeling plots ^14^C-CO~2~ - CO2
-
-```{r, warning=F, message=F, fig.height=8, fig.width=5, fig.cap="Keeling plot of CO2 isotope ratio, stable and radiogenic, coloured by treatment"}
+```{r, warning=F, message=F, fig.height=7, fig.width=4, fig.cap="Keeling plot of CO2 isotope ratio, stable and radiogenic, coloured by treatment"}
 
 DC_Q$CO2_mgL_filled_keeling= 1/DC_Q$CO2_mgL_filled
 DC_Q$CO2_mgL_filled_keeling = ifelse(is.infinite (DC_Q$CO2_mgL_filled_keeling), NA, DC_Q$CO2_mgL_filled_keeling)
@@ -798,87 +832,202 @@ DC_Q$CO2_mgL_filled_keeling = ifelse(is.infinite (DC_Q$CO2_mgL_filled_keeling), 
 
 
 # Create Keeling plot for 14C-CO2
-plot_14C <- ggplot(DC_Q %>% filter(!is.na(CO2_14C_Modern)), 
-                   aes(y=CO2_14C_Modern, x=CO2_mgL_filled_keeling, color=Treatment)) +
-  #stat_density_2d(aes(fill = Treatment), geom = "polygon", linewidth=0,
-  #                           alpha = 0.1)+
-  geom_smooth(method="lm", se=F, show.legend = F) + 
-  geom_point(aes(shape=Site_id), size=3) +
+plot_14C <- ggplot(DC_Q %>% filter(!is.na(CO2_14C_Modern)),
+                   #%>% filter (Site_pairs=="FC_DC"), 
+                   aes(y=CO2_14C_Modern, x=CO2_mgL_filled_keeling
+                       )) +
+  geom_smooth(method="lm", se=F, show.legend = F,size=0.75, color="black") + 
+  geom_point(aes(shape=Site_id, color=Treatment, fill=Treatment), size=3) +
   stat_regline_equation(
     label.y.npc = "top", label.x.npc = "left",
     aes(label = paste(..eq.label.., ..adj.rr.label.., sep = "~~~~")), 
     show.legend = F, size=4) +
-  scale_color_manual(values = treatments_colors) +
-  scale_fill_manual(values = treatments_colors) +
+  scale_color_manual(values = treatment_colors) +
+  scale_fill_manual(values = treatment_colors) +
   scale_shape_manual(values = site_symbols) +
   scale_x_continuous(limits=c(0,1.15))+
   labs(x = "", y = expression(""^14*"C-CO"[2]*" (% modern)")) +
   theme(legend.position = "none")
 
+
+
 # Create Keeling plot for d13C-CO2
-plot_d13C <- ggplot(DC_Q %>% filter(!is.na(d13C_CO2)), 
-                    aes(y=d13C_CO2, x=CO2_mgL_filled_keeling, color=Treatment)) +
-  geom_smooth(method="lm", se=F, show.legend = F) + 
-  geom_point(aes(shape=Site_id), size=3) +
+plot_d13C <- ggplot(DC_Q %>% filter(!is.na(d13C_CO2)),
+                         #%>% filter (Site_pairs=="FC_DC"), 
+                    aes(y=d13C_CO2, x=CO2_mgL_filled_keeling 
+                        )) +
+  geom_smooth(method="lm", se=F, show.legend = F, size=0.75,color="black") + 
+  geom_point(aes(shape=Site_id, color=Treatment,fill=Treatment), size=3) +
   stat_regline_equation(
     label.y.npc = "top", label.x.npc = "left",
     aes(label = paste(..eq.label.., ..adj.rr.label.., sep = "~~~~")), 
     show.legend = F, size=4) +
   scale_x_continuous(limits=c(0,1.15))+
-  scale_color_manual(values = treatments_colors) +
+  scale_color_manual(values = treatment_colors) +
+  scale_fill_manual(values = treatment_colors) +
   scale_shape_manual(values = site_symbols) +
-  labs(x = expression("1/CO"[2]), y = expression(delta^13*"C-CO"[2]*" (‰)")) +
-  theme(legend.position = "bottom")
+  labs( x=expression("1/CO"[2]), y=expression(delta^13*"C-CO"[2]*" (‰)"))+
+  theme(legend.position = "none")
 
-# Add marginal plots
-plot_14C_marginal <- ggExtra::ggMarginal(plot_14C, type = "boxplot", margins="y",
-                                         groupColour = TRUE, groupFill = TRUE)
-plot_d13C_marginal <- ggExtra::ggMarginal(plot_d13C, type = "boxplot", margins="y",
-                                          groupColour = TRUE, groupFill = TRUE)
 
 # Combine plots
-ggarrange(plot_14C_marginal, plot_d13C_marginal, ncol = 1, labels="AUTO",
-          heights = c(0.60,0.75))
+ggarrange(plot_14C, 
+          plot_d13C, #
+          ncol = 1, nrow=2, labels="", heights = c(0.5, 0.5)
+          )
 
 ```
 
-#### ANCOVA test
-
-Does the keeling relationship for **d13C-CO2** varies significantly between treatment?
+#### Linear regression and ANCOVA test
 
 ```{r, warning = F, message = F}
+
+
+extract_keeling_lm <- function(response_var, filter_var) {
+  model <- lm(reformulate("CO2_mgL_filled_keeling", response = response_var),
+              data = DC_Q %>% filter(!is.na(.data[[filter_var]])))
+  s <- summary(model)
+  coefs <- coef(model)
+  f <- s$fstatistic
+  p_val <- if (!is.null(f)) pf(f[1], f[2], f[3], lower.tail = FALSE) else NA
+
+  tibble(
+    Response  = response_var,
+    Intercept = round(coefs[1], 3),
+    Slope     = round(coefs[2], 3),
+    R2_adj    = round(s$adj.r.squared, 3),
+    P_value   = signif(p_val, 3),
+    n         = nrow(DC_Q %>% filter(!is.na(.data[[filter_var]])))
+  )
+}
+
+keeling_lm_results <- bind_rows(
+  extract_keeling_lm("CO2_14C_Modern", "CO2_14C_Modern"),
+  extract_keeling_lm("d13C_CO2",       "d13C_CO2")
+)
+
+knitr::kable(keeling_lm_results,
+             caption = "Keeling plot linear regression results: 14C-CO2 and d13C-CO2 vs 1/CO2")
+
+
+```
+
+```{r, warning = F, message = F}
+#Run ANCOVA test - Difference in hydro. response between Sites
+
+knitr::kable(DC_Q %>%  #filter (Site_pairs=="FC_DC") %>% 
+               anova_test(CO2_14C_Modern ~ CO2_mgL_filled_keeling*Treatment),
+             caption="ANCOVA test results, 14C-CO2 Keeling | Treatment - FC_DC ") 
 
 #Run ANCOVA test - Difference in hydro. response between Sites
 knitr::kable(DC_Q %>% anova_test(d13C_CO2 ~ CO2_mgL_filled_keeling*Treatment),
              caption="ANCOVA test results, 13C-CO2 Keeling | Treatment") 
-#DC_Q %>% anova_test(d13C_CO2 ~ CO2_mgL_filled_keeling*Site_id)
 
 ```
-
-Does the keeling relationship for **14C-CO2** varies significantly between treatment?
-
-```{r, warning = F, message = F}
-#Run ANCOVA test - Difference in hydro. response between Sites
-knitr::kable(DC_Q %>% anova_test(CO2_14C_Modern ~ CO2_mgL_filled_keeling*Treatment),
-             caption="ANCOVA test results, 14C-CO2 Keeling | Treatment") 
-#DC_Q %>% anova_test(CO2_14C_Modern ~ CO2_mgL_filled_keeling*Site_id)
-```
-
-::: callout-note
-#### Interpretation
-
--   The keeling plot suggests that CO2 concentration has a significant effect on both d13C-value and 14C-concent, which supports the hypothesis of a biological control with rapid turnover.
-
--   This relationship doesn't change signficantly with treatment. Perhaps the sample size is not enough to identify a meaningful effect?
-
--   The d13C source of CO2 is (-25‰) (no signficant effect of slope or intercept across sites or treatment)
-
--   The 14C source of CO2 is between 99, 100m and 94. Which are large differences in 14C terms, but don't appear as significant effects in the model.
-:::
 
 # Supplementary Files
 
-## Supplementary Figure S1: Hydrograph
+## Exceedance Probability
+
+```{r, warning =F, message = F, fig.height=10, fig.width=7, fig.cap="exceedance probability plot"}
+#Exceedance probability plot ::::::::::::::::::::::::::::::::::::::::::::::
+#Database
+Wide_q_FCDC=DC_wide <- DC_Q %>%
+  filter(Site_id %in% "FC_DC2")%>%
+  distinct(Date, Site_id, q_int_mmd, Treatment) %>%  # Remove any duplicate rows
+  pivot_wider(
+    id_cols = c(Date,Treatment),
+    names_from = "Site_id",
+    values_from = "q_int_mmd",
+    names_prefix = "q_"
+  )
+
+
+Wide_q_FC=DC_wide <- DC_Q %>%
+  filter(Site_id %in% "FC_1")%>%
+  distinct(Date, Site_id, q_int_mmd, Treatment) %>%  # Remove any duplicate rows
+  pivot_wider(
+    id_cols = c(Date,Treatment),
+    names_from = "Site_id",
+    values_from = "q_int_mmd",
+    names_prefix = "q_"
+  )
+
+
+# Calculations
+Q_FCDC2_rank = Wide_q_FCDC%>%
+  group_by(Treatment)%>%
+  mutate(rank = rank(-q_FC_DC2)) %>%
+  mutate(P = 100 * (rank / (length(q_FC_DC2) + 1))) %>%
+  ungroup()
+
+
+Q_FC1_rank = Wide_q_FC%>%
+  group_by(Treatment)%>%
+  mutate(rank = rank(-q_FC_1)) %>%
+  mutate(P = 100 * (rank / (length(q_FC_1) + 1))) %>%
+  ungroup()
+
+# Identify dates when 14C-DOC samples were collected
+DOC_14C_samples_FCDC <- DC_Q %>%
+  filter(Site_id == "FC_DC2", !is.na(DOC_14C_Modern)) %>%
+  select(Date, q_int_mmd, Treatment, DOC_14C_Modern) %>%
+  distinct()
+
+DOC_14C_samples_FC <- DC_Q %>%
+  filter(Site_id == "FC_1", !is.na(DOC_14C_Modern)) %>%
+  select(Date, q_int_mmd, Treatment, DOC_14C_Modern) %>%
+  distinct()
+
+
+# Join with the ranked data
+samples_with_exceedance_FCDC <- DOC_14C_samples_FCDC %>%
+  left_join(Q_FCDC2_rank %>% select(Date, P), by = "Date")
+
+# Join with the ranked data
+samples_with_exceedance_FC <- DOC_14C_samples_FC %>%
+  left_join(Q_FC1_rank %>% select(Date, P), by = "Date")
+
+#View(samples_with_exceedance)
+
+
+#__________________________________________________________________________
+#Visualisation
+q_exceedance_FCDC2=ggplot(data = Q_FCDC2_rank) +
+  geom_line(aes(y = P, x = q_FC_DC2, color = Treatment), size = 0.75) +
+  # Add points for 14C-DOC sampling dates
+  geom_point(data = samples_with_exceedance_FCDC,
+             aes(y = P, x = q_int_mmd , color = Treatment, fill=Treatment),
+             size = 3, shape = 24) +
+  #scale_x_log10() +
+  scale_y_continuous(breaks = seq(0, 100, 25)) +
+  scale_x_continuous(limits=c(0,20))+
+  scale_color_manual(values = treatment_colors) +
+  scale_fill_manual(values = alpha(treatment_colors),0.7) +
+  labs(y = "(%) exceed. probability",
+       x = "q specific (mm/d)") +
+  theme(legend.position = "none")
+
+
+
+q_exceedance_FC1=ggplot(data = Q_FC1_rank) +
+  geom_line(aes(y = P, x = q_FC_1, color = Treatment), size = 0.75) +
+  geom_point(data = samples_with_exceedance_FC,  # Add points for 14C-DOC sampling dates
+             aes(y = P, x = q_int_mmd , color = Treatment, fill=Treatment),
+             size = 3, shape = 1) +
+  #scale_x_log10() +
+  scale_y_continuous(breaks = seq(0, 100, 25)) +
+  scale_x_continuous(limits=c(0,20))+
+  scale_color_manual(values = treatment_colors) +
+  #scale_fill_manual(values = treatment_colors) +
+  labs(y = "(%) exceed. probability",
+       x = "q specific (mm/d)") +
+  theme(legend.position = "none")
+
+
+```
+
+## Hydrograph
 
 ```{r, warning=F, message=F, fig.height=7, label: fig-timeseries, fig.cap="Precipitation and discharge timeseries"}
  
@@ -887,7 +1036,7 @@ knitr::kable(DC_Q %>% anova_test(CO2_14C_Modern ~ CO2_mgL_filled_keeling*Treatme
 
 precipitation= ggplot(DC_Q %>%
          filter(Site_id %in% c("FC_DC1")),
-       aes(y = P, x = as.Date(Date), color = Site_id)) +
+       aes(y = P, x = as.Date(Date)), color=Site_id) +
   
   # Add gray background bars for operations
   annotate("rect", 
@@ -898,10 +1047,10 @@ precipitation= ggplot(DC_Q %>%
            xmin = ditch_cleaning_start, xmax = ditch_cleaning_end,
            ymin = -Inf, ymax = Inf, fill = "gray70", alpha = 0.3) +
   
-  geom_bar(stat = 'identity', width=0.2) +
+  geom_bar(stat = 'identity', width=1) +
   labs( y= "Precipitation (mm/day)") +
   scale_y_reverse()+
-  scale_color_manual(values=site_colors_6)+ #"
+  scale_color_manual(("#7EA6E0"))+ #"
   scale_x_date(limits=c(as.Date("2020-01-01"), as.Date("2022-11-01")),
                date_labels = "%b-%Y", date_breaks = "6 months") +
   
@@ -914,8 +1063,8 @@ precipitation= ggplot(DC_Q %>%
 # Make Hydrograph :::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 hydrograph= ggplot(DC_Q %>%
-         filter(Site_id %in% c("FC_4", "FC_DC3")),
-       aes(y = q_md*1000, x = as.Date(Date), color = Site_id)) +
+         filter(Site_id %in% c("FC_1", "FC_DC2")),
+       aes(y = q_int_mmd, x = as.Date(Date), color = Site_id)) +
   
   # Add gray background bars for operations
   annotate("rect", 
@@ -930,15 +1079,15 @@ hydrograph= ggplot(DC_Q %>%
   
   # Add the discharge lines
   geom_line() +
-  scale_color_manual(values=site_colors_6)+ #"
+  scale_color_manual(values=site_colors)+ #"
    
   # Add text labels for operations
  annotate("text", x = clearcut_start + (clearcut_end - clearcut_start)/2, y = Inf, 
-           label = "Forest clear cut operations\n(July 2020)",
+           label = "Forest clear cut operations",
            vjust = 1.2, hjust = 0.5, size = 3.5, color = "black") +
   
   annotate("text", x = ditch_cleaning_start + (ditch_cleaning_end -    ditch_cleaning_start)/2, y = Inf, 
-           label = "Ditch cleaning operations\n(September 2021)",
+           label = "Ditch cleaning operations",
            vjust = 1.2, hjust = 0.5, size = 3.5, color = "black") +
   
   scale_x_date(limits=c(as.Date("2020-01-01"), as.Date("2022-11-01")),
@@ -954,28 +1103,7 @@ ggarrange(precipitation, hydrograph,
 
 ```
 
-## Supplementary Figure S2: density plot, P vs R
-
-```{r,warning=F, message=F,fig.height=4, fig.cap="Density plot of precipitation and discharge"}
-
-
-ggplot(DC_Q %>% filter(Site_id %in% c("FC_2", "FC_DC3")),
-        aes(y = q_md*1000, x = P, color = Treatment, fill=Treatment))+
-  stat_density_2d(aes(fill = Treatment), geom = "polygon", linewidth=0.5,
-                             alpha = 0.2)+
-        #geom_density2d(aes(fill = Treatment), alpha=0.2)+
-scale_x_log10(limits=c(0.09,50))+
-  scale_y_log10()+
-  scale_fill_manual(values=treatments_colors)+
-   scale_color_manual(values=treatments_colors)+
-  facet_wrap(~Site_id)+
-  labs(x="precipitation (mm/d)",y="specific discharge (mm/d)" )
-         #   stat_density_2d(aes(fill = Treatment), geom = "polygon", linewidth=0,
-                             #alpha = 0.2)+
-         
-```
-
-## Supplementary Figure S3: correlation matrix
+## Correlation matrix
 
 ```{r, warning=F, message=F,fig.height=4, fig.cap="Correlation matrix Stream water chemistry timeseries"}
 
@@ -1057,40 +1185,170 @@ ggarrange(corplot_DOC,corplot_14DOC,
 
 ```
 
-## Supplementary Figure S4: overall C-q relationship model
+## C-q relationship model
 
-```{r, fig.width=5, fig.height=8,warning=F, message=F}
-# Hydrological control over C concentration overall model
-ggplot(DC_Q %>% pivot_longer(
+```{r, warning=F, message=F, fig.height=6, fig.width=12, fig.cap="relationship between C concetration and discharge coloured by site and treatment"}
+
+# Hydrological control over  C concentration by Site
+
+  ggplot(DC_Q %>% pivot_longer(
                      cols = c(DOC_mgL, CO2_mgL),
                      names_to = "Carbon_species",
                      values_to = "C_mgL"
                    ),
-       aes(y=C_mgL, x=q_md_filled*1000,  fill=Treatment, color=Treatment))+ 
-  geom_point(aes(shape=Site_id), size=1, alpha=0.7, show.legend = F)+
+       aes(y=C_mgL, x=q_int_mmd, color=Treatment, fill=Treatment, shape=Site_id))+ 
+  geom_point( size=2, alpha=0.7, show.legend = F)+
  
-  geom_smooth(method="lm", se=F, aes(color=Treatment), show.legend = T)+
+  geom_smooth(method="lm", se=F, show.legend = F)+
   stat_regline_equation(label.y.npc = "top", label.x.npc = "left",
   aes(label =  paste(..eq.label.., ..adj.rr.label.., 
                      sep = "~~~~"), color = Treatment), 
                       show.legend = F, size=3)+
-  facet_wrap(~Carbon_species, scale="free_y", nrow=2)+  
+  facet_grid(Carbon_species~Site_id, scale="free_y")+  
     
   scale_shape_manual(values=c(site_symbols))+
-  scale_x_log10()+
+  scale_x_log10(limits = c(0.02, 40))+
   scale_y_log10()+
-  scale_color_manual(values=treatments_colors)+
-  scale_fill_manual(values=treatments_colors)+
+  scale_color_manual(values=treatment_colors)+
+  scale_fill_manual(values=treatment_colors)+
   
   labs(x="q (mm/d)", y=bquote("C (mg/L)"))+
   theme(legend.position = "top", base_size=8)
+
+
+
+```
+
+#### Linear regressions
+
+```{r}
+lm_C_q_results <- DC_Q %>%
+  pivot_longer(cols = c(DOC_mgL, CO2_mgL),
+               names_to = "Carbon_species",
+               values_to = "C_mgL") %>%
+  filter(!is.na(C_mgL), !is.na(q_int_mmd), C_mgL > 0, q_int_mmd > 0) %>%
+  group_by(Carbon_species, Site_id, Treatment) %>%
+  group_modify(~ {
+    data <- .x
+    
+    if (nrow(data) < 3) {
+      return(tibble(Intercept = NA, Slope = NA, R2_adj = NA, P_value = NA, n = nrow(data)))
+    }
+    
+    model <- lm(log10(C_mgL) ~ log10(q_int_mmd), data = data)
+    s <- summary(model)
+    coefs <- coef(model)
+    f <- s$fstatistic
+    p_val <- if (!is.null(f)) pf(f[1], f[2], f[3], lower.tail = FALSE) else NA
+    
+    tibble(
+      Intercept = round(coefs[1], 3),
+      Slope     = round(coefs[2], 3),
+      R2_adj    = round(s$adj.r.squared, 3),
+      P_value   = signif(p_val, 3),
+      n         = nrow(data)
+    )
+  }) %>%
+  ungroup() %>%
+  arrange(Carbon_species, Site_id, Treatment)
+
+knitr::kable(lm_C_q_results,
+             caption = "Linear regression results (log10-log10): C concentration ~ discharge by species, site and treatment")
+```
+
+#### ANCOVA test - DOC-q
+
+Is there a significant difference in the hydrological response of **DOC** concentrations between *Treatments or Sites*?
+
+```{r, warning=F, message = FALSE}
+#Run ANCOVA test - Difference in hydro. response between treatments
+
+knitr::kable(DC_Q%>%  
+             anova_test(DOC_mgL ~ q_int_mmd*Treatment), 
+             caption = "ANCOVA (ALL SITES) - DOC * q / treatment")
+
+
+knitr::kable(filter(DC_Q, Site_id %in% c("FC_1"))%>%  
+             anova_test(DOC_mgL ~ q_int_mmd*Treatment), 
+             caption = "ANCOVA (FC_1) - DOC * q / treatment")
+
+knitr::kable(filter(DC_Q, Site_id %in% c("FC_2"))%>%   
+             anova_test(DOC_mgL ~ q_int_mmd*Treatment), 
+             caption = "ANCOVA (FC_2) - DOC * q / treatment")
+
+knitr::kable(filter(DC_Q, Site_id %in% c("FC_DC1"))%>%  
+             anova_test(DOC_mgL ~ q_int_mmd*Treatment), 
+             caption = "ANCOVA (FC_DC1) - DOC * q / treatment")
+
+
+knitr::kable(filter(DC_Q, Site_id %in% c("FC_DC2"))%>%   
+             anova_test(DOC_mgL ~ q_int_mmd*Treatment), 
+             caption = "ANCOVA (FC_DC2) - DOC * q / treatment")
+
+
+
+```
+
+#### ANCOVA test - CO2-q
+
+```{r, warning=F}
+#Run ANCOVA test - Difference in hydro. response between treatments
+knitr::kable(DC_Q  %>%  anova_test(CO2_mgL ~ q_int_mmd*Treatment), 
+             caption = "ANCOVA test results - CO2 * q / treatment")
+
+knitr::kable(filter(DC_Q, Site_id %in% c("FC_1"))%>%   
+             anova_test(CO2_mgL ~ q_int_mmd*Treatment), 
+             caption = "ANCOVA (FC_1) - CO2 * q / treatment")
+
+knitr::kable(filter(DC_Q, Site_id %in% c("FC_2"))%>%  
+             anova_test(CO2_mgL ~ q_int_mmd*Treatment), 
+             caption = "ANCOVA (FC_2) - CO2 * q / treatment")
+
+knitr::kable(filter(DC_Q, Site_id %in% c("FC_DC1"))%>%  
+             anova_test(CO2_mgL ~ q_int_mmd*Treatment), 
+             caption = "ANCOVA (FC_DC1) - CO2 * q / treatment")
+
+
+knitr::kable(filter(DC_Q, Site_id %in% c("FC_DC2"))%>%   
+             anova_test(CO2_mgL ~ q_int_mmd*Treatment), 
+             caption = "ANCOVA (FC_DC2) - CO2 * q / treatment")
+
+
+
+```
+
+```{r fig.height=8, fig.width=5, message=FALSE, warning=FALSE}
+# Hydrological control over C concentration overall model
+#ggplot(DC_Q %>% pivot_longer(
+#                     cols = c(DOC_mgL, CO2_mgL),
+#                     names_to = "Carbon_species",
+#                     values_to = "C_mgL"
+#                   ),
+#       aes(y=C_mgL, x=q_int_mmd*1000,  fill=Treatment, color=Treatment))+ 
+#  geom_point(aes(shape=Site_id), size=2, alpha=0.7, show.legend = F)+
+ 
+#  geom_smooth(method="lm", se=F, aes(color=Treatment), show.legend = T)+
+#  stat_regline_equation(label.y.npc = "top", label.x.npc = "left",
+#  aes(label =  paste(..eq.label.., ..adj.rr.label.., 
+#                     sep = "~~~~"), color = Treatment), 
+#                      show.legend = F, size=3)+
+#  facet_wrap(~Carbon_species, scale="free_y", nrow=2)+  
+    
+#  scale_shape_manual(values=c(site_symbols))+
+#  scale_x_log10()+
+#  scale_y_log10()+
+#  scale_color_manual(values=treatment_colors)+
+#  scale_fill_manual(values=treatment_colors)+
+  
+#  labs(x="q (mm/d)", y=bquote("C (mg/L)"))+
+#  theme(legend.position = "top", base_size=8)
 
 
 ```
 
 # Summary tables
 
-```{r,warning=F, message=F, echo=T}
+```{r,warning=F, message=F, echo=F}
 
 library(lubridate)
 

@@ -6,16 +6,18 @@
 
 
 #DC_Q=readRDS( "Output/Data/DC_Q_Meteo_chem_14C.rds")
-DC_Q=readRDS( "Output/Data/DC_C_Q_Meteo_chem_14C.rds")
+DC_Q=readRDS( "Output/Data/DC_Q_Meteo_chem_14C.rds")
 
 DC_Q$Date=as.Date(DC_Q$Date)
+
+
 
 # Remove one oulier 14C-CO2 140%modern at C2 once. 
 DC_Q$CO2_14C_Modern= ifelse(DC_Q$CO2_14C_Modern >130, NA, DC_Q$CO2_14C_Modern)
 
 # Order factors site pairs 
 DC_Q$Site_id <- factor(DC_Q$Site_id, 
-                       levels = c("C2", "C1", "DC2", "DC4", "DC1", "DC3"))
+                       levels = c( "DC2", "DC4", "DC1", "DC3"))
 
 
 DC_Q$CO2_mgL_filled_keeling= 1/DC_Q$CO2_mgL_filled

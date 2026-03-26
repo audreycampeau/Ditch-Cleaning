@@ -82,14 +82,9 @@ write.csv(DC_Q_14C_short, "Output/Data/DC_Q_14C.csv")
 
 # Add C1 and C2 data
 #file.choose()
-library(readxl)
-C1_C2= read_xlsx("/Users/audreycampeau/Documents/DATA/TROLLBERGET DITCH/R/Input/C2_C1_Database.xlsx", sheet=1)
-
-
-colnames(C1_C2)= colnames(DC_all)
-
-
-DC_C_all= rbind(DC_all, C1_C2)
-
-saveRDS(DC_C_all, "Output/Data/DC_C_Q_Meteo_chem_14C.rds")
+#library(readxl)
+#C1_C2= read_xlsx("/Users/audreycampeau/Documents/DATA/TROLLBERGET DITCH/R/Input/C2_C1_Database.xlsx", sheet=1)
+#colnames(C1_C2)= colnames(DC_all)
+#DC_C_all= rbind(DC_all, C1_C2)
+#saveRDS(DC_C_all, "Output/Data/DC_C_Q_Meteo_chem_14C.rds")
 
