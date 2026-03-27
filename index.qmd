@@ -292,8 +292,8 @@ combined_timeseries= ggarrange(  timeserie_DOC,
                                    timeserie_CO2,
                                    timeserie_14CDOC,
                                   timeserie_14CCO2,
-                                  ncol = 1, align='v', 
-                                 heights = c( 0.45, 0.55, 0.45, 0.55) #, #labels="AUTO"
+                                  ncol = 1, align='v'#, 
+                                 #heights = c( 0.45, 0.55, 0.45, 0.55) #, #labels="AUTO"
                                )
 combined_timeseries
 
