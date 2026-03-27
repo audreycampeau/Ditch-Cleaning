@@ -270,6 +270,7 @@ timeserie_14CDOC = #ggExtra::ggMarginal(
   scale_y_continuous(limits=c(95,115))+
   facet_wrap(~Site_pairs)+
   labs(y = expression(""^14*"C-DOC (% modern)"))+
+  geom_hline(yintercept =100, linetype="dotted", color="grey30")+
   theme(legend.position = "none", axis.title.x = element_blank(),
   axis.text.x = element_blank())#,
   #margins=c("y"), type = "boxplot", groupColour = TRUE, groupFill = TRUE )
@@ -280,6 +281,7 @@ timeserie_14CCO2 = #ggExtra::ggMarginal(
                   ymin_rect=-Inf, ymax_rect=Inf)+
   scale_y_continuous(limits=c(95,115))+
   facet_wrap(~Site_pairs)+
+  geom_hline(yintercept =100, linetype="dotted", color="grey30")+
     labs(y = expression(""^14*"C-CO"[2]*" (% modern)"))+
    theme(legend.position = "none", axis.title.x = element_blank())#,
   #margins=c("y"), type = "boxplot", groupColour = TRUE, groupFill = TRUE )
@@ -580,7 +582,7 @@ combined_CO2DOCscattters= ggarrange(density_Cscatter_sites_FC,  density_Cscatter
 
 combined_CO2DOCscattters
 
-ggsave("Output/Figures/Figure3_CO2DOC_scatters.pdf", plot =combined_CO2DOCscattters,
+ggsave("Output/Figures/Figure4_CO2DOC_scatters.pdf", plot =combined_CO2DOCscattters,
        height= 8, width = 8)
 
 ```
@@ -713,14 +715,15 @@ plot_CO2_q_FC = CO2_Q_scatters_pairs("FC")
 plot_CO2_q_FC_DC = CO2_Q_scatters_pairs("FC_DC")
 
 
-ggarrange( plot_DOC_q_FC, plot_DOC_q_FC_DC, 
+combined_14C_q=ggarrange( plot_DOC_q_FC, plot_DOC_q_FC_DC, 
            plot_CO2_q_FC, plot_CO2_q_FC_DC, labels = "AUTO", align = "hv")
 
 
+combined_14C_q
 
 
-
-
+ggsave("Output/Figures/Figure5_14C_q_scatters.pdf", plot =combined_14C_q,
+       height= 8, width = 8)
 
 
 
@@ -871,10 +874,14 @@ plot_d13C <- ggplot(DC_Q %>% filter(!is.na(d13C_CO2)),
 
 
 # Combine plots
-ggarrange(plot_14C, 
+combined_keeling= ggarrange(plot_14C, 
           plot_d13C, #
           ncol = 1, nrow=2, labels="", heights = c(0.5, 0.5)
           )
+
+combined_keeling
+ggsave("Output/Figures/Figure5_keeling.pdf", plot =combined_keeling,
+       height= 8, width = 8)
 
 ```
 
@@ -929,7 +936,7 @@ knitr::kable(DC_Q %>% anova_test(d13C_CO2 ~ CO2_mgL_filled_keeling*Treatment),
 
 ## Exceedance Probability
 
-```{r, warning =F, message = F, fig.height=10, fig.width=7, fig.cap="exceedance probability plot"}
+```{r, warning =F, message = F, fig.height=4, fig.width=8, fig.cap="exceedance probability plot"}
 #Exceedance probability plot ::::::::::::::::::::::::::::::::::::::::::::::
 #Database
 Wide_q_FCDC=DC_wide <- DC_Q %>%
@@ -1001,7 +1008,7 @@ q_exceedance_FCDC2=ggplot(data = Q_FCDC2_rank) +
              size = 3, shape = 24) +
   #scale_x_log10() +
   scale_y_continuous(breaks = seq(0, 100, 25)) +
-  scale_x_continuous(limits=c(0,20))+
+  scale_x_continuous(limits=c(0,60))+
   scale_color_manual(values = treatment_colors) +
   scale_fill_manual(values = alpha(treatment_colors),0.7) +
   labs(y = "(%) exceed. probability",
@@ -1017,20 +1024,46 @@ q_exceedance_FC1=ggplot(data = Q_FC1_rank) +
              size = 3, shape = 1) +
   #scale_x_log10() +
   scale_y_continuous(breaks = seq(0, 100, 25)) +
-  scale_x_continuous(limits=c(0,20))+
+  scale_x_continuous(limits=c(0,60))+
   scale_color_manual(values = treatment_colors) +
   #scale_fill_manual(values = treatment_colors) +
   labs(y = "(%) exceed. probability",
        x = "q specific (mm/d)") +
   theme(legend.position = "none")
 
+exceedanceprob_plot= ggarrange(q_exceedance_FC1, q_exceedance_FCDC2,
+          nrow=1, labels = "AUTO")
 
+exceedanceprob_plot
+
+ggsave("Output/Figures/SupFigure_exceedprob.pdf", plot =exceedanceprob_plot, height = 4, width = 8)
 ```
 
 ## Hydrograph
 
 ```{r, warning=F, message=F, fig.height=7, label: fig-timeseries, fig.cap="Precipitation and discharge timeseries"}
  
+
+# Define operation periods for treatments::::::::::::::::::::::::::::::::::::::::::
+predisturbance_start =  as.Date("2020-01-01") 
+predisturbance_end = as.Date("2020-08-24")
+
+clearcut_start = as.Date("2020-07-01")
+clearcut_end <- as.Date("2020-08-25")
+
+postharvest_start = as.Date("2020-08-25")
+postharvest_end= as.Date("2021-09-22")
+
+ditch_cleaning_start <- as.Date("2021-09-01")
+ditch_cleaning_end <- as.Date("2021-09-30")
+
+postditch_start = as.Date("2021-09-23")
+postditch_end= as.Date("2022-11-01") 
+
+
+
+  
+
 # Make the precipitation graph :::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
@@ -1039,13 +1072,32 @@ precipitation= ggplot(DC_Q %>%
        aes(y = P, x = as.Date(Date)), color=Site_id) +
   
   # Add gray background bars for operations
+  annotate("rect", xmin = predisturbance_start, xmax = predisturbance_end,
+           ymin = -Inf, ymax = Inf,
+           fill = "#3CB7CC", alpha = 0.3) +
+  
+  
+    
+  annotate("rect", xmin = postharvest_start, xmax = postharvest_end,
+           ymin = -Inf, ymax = Inf,
+           fill = "#32A251", alpha = 0.3) +  
+  
+  
+    
+  annotate("rect", xmin = postditch_start, xmax = postditch_end,
+           ymin = -Inf, ymax = Inf,
+           fill = "#FF7F0F", alpha = 0.3) +    
+    
   annotate("rect", 
            xmin = clearcut_start, xmax = clearcut_end,
-           ymin = -Inf, ymax = Inf, fill = "gray70", alpha = 0.3) +
-  
+           ymin = -Inf, ymax = Inf,
+           fill = "#32A251",, alpha = 0.5) +
+    
   annotate("rect", 
            xmin = ditch_cleaning_start, xmax = ditch_cleaning_end,
-           ymin = -Inf, ymax = Inf, fill = "gray70", alpha = 0.3) +
+           ymin = -Inf, ymax = Inf,
+           fill = "#FF7F0F", alpha = 0.5) +
+  
   
   geom_bar(stat = 'identity', width=1) +
   labs( y= "Precipitation (mm/day)") +
@@ -1066,16 +1118,32 @@ hydrograph= ggplot(DC_Q %>%
          filter(Site_id %in% c("FC_1", "FC_DC2")),
        aes(y = q_int_mmd, x = as.Date(Date), color = Site_id)) +
   
-  # Add gray background bars for operations
+ # Add recy background for operations
+  annotate("rect", xmin = predisturbance_start, xmax = predisturbance_end,
+           ymin = -Inf, ymax = Inf,
+           fill = "#3CB7CC", alpha = 0.3) +
+  
+  
+    
+  annotate("rect", xmin = postharvest_start, xmax = postharvest_end,
+           ymin = -Inf, ymax = Inf,
+           fill = "#32A251", alpha = 0.3) +  
+  
+  
+    
+  annotate("rect", xmin = postditch_start, xmax = postditch_end,
+           ymin = -Inf, ymax = Inf,
+           fill = "#FF7F0F", alpha = 0.3) +    
+    
   annotate("rect", 
            xmin = clearcut_start, xmax = clearcut_end,
            ymin = -Inf, ymax = Inf,
-           fill = "gray70", alpha = 0.3) +
-  
+           fill = "#32A251",, alpha = 0.5) +
+    
   annotate("rect", 
            xmin = ditch_cleaning_start, xmax = ditch_cleaning_end,
            ymin = -Inf, ymax = Inf,
-           fill = "gray70", alpha = 0.3) +
+           fill = "#FF7F0F", alpha = 0.5) +
   
   # Add the discharge lines
   geom_line() +
@@ -1093,19 +1161,21 @@ hydrograph= ggplot(DC_Q %>%
   scale_x_date(limits=c(as.Date("2020-01-01"), as.Date("2022-11-01")),
                  date_labels = "%b-%Y", date_breaks = "6 months") +
   labs(y = "specific discharge (mm/d)",   x = "Date",  color = "Stream") +
-  theme(legend.position = "top", axis.title.x = element_blank())
+  theme(legend.position = "none", axis.title.x = element_blank())
 
 
 
-ggarrange(precipitation, hydrograph,
+hydrogram=ggarrange(precipitation, hydrograph,
           ncol=1, align="v", labels="AUTO")
 
+hydrogram
 
+ggsave("Output/Figures/SupFigure_hydrogram.pdf", plot =hydrogram, height = 7, width = 8)
 ```
 
 ## Correlation matrix
 
-```{r, warning=F, message=F,fig.height=4, fig.cap="Correlation matrix Stream water chemistry timeseries"}
+```{r, warning=F, message=F,fig.height=6, fig.width =6, fig.cap="Correlation matrix Stream water chemistry timeseries"}
 
 # Correlation matrix for DOC concentration across sites over time
 DC_wide_DOC <- DC_Q %>%
@@ -1172,17 +1242,19 @@ cor_matrix_DOC_14C <- cor(DC_wide_DOC_14C[, -1],
 
 #___________________________________________________________________________________
 
-corplot_DOC=ggcorrplot(cor_matrix_DOC, method="square", type="upper", lab=T,insig = "blank",outline.col = "white", title = "[DOC]")
-corplot_14DOC=ggcorrplot(cor_matrix_DOC_14C, method="square", type="upper", lab=T,insig = "blank",outline.col = "white", title = "14C-DOC")
-corplot_CO2=ggcorrplot(cor_matrix_CO2, method="square", type="upper", lab=T,insig = "blank",outline.col = "white", title = "[CO2]")
-corplot_14CO2=ggcorrplot(cor_matrix_CO2_14C, method="square", type="upper", lab=T,insig = "blank",outline.col = "white",title = "14C-CO2")
+corplot_DOC=ggcorrplot(cor_matrix_DOC, method="circle", type="upper", lab=T,insig = "blank",outline.col = "white", title = "[DOC]")
+corplot_14DOC=ggcorrplot(cor_matrix_DOC_14C, method="circle", type="upper", lab=T,insig = "blank",outline.col = "white", title = "14C-DOC")
+corplot_CO2=ggcorrplot(cor_matrix_CO2, method="circle", type="upper", lab=T,insig = "blank",outline.col = "white", title = "[CO2]")
+corplot_14CO2=ggcorrplot(cor_matrix_CO2_14C, method="circle", type="upper", lab=T,insig = "blank",outline.col = "white",title = "14C-CO2")
 
 
-ggarrange(corplot_DOC,corplot_14DOC,
+combined_cormatrix= ggarrange(corplot_DOC,corplot_14DOC,
           corplot_CO2, corplot_14CO2,
           labels = "AUTO", nrow=2, ncol=2)
 
+combined_cormatrix
 
+ggsave("Output/Figures/SupFigure_corrmatrix.pdf", plot =combined_cormatrix, height = 6, width = 6)
 ```
 
 ## C-q relationship model
@@ -1191,7 +1263,7 @@ ggarrange(corplot_DOC,corplot_14DOC,
 
 # Hydrological control over  C concentration by Site
 
-  ggplot(DC_Q %>% pivot_longer(
+grid_cq_scatters=  ggplot(DC_Q %>% pivot_longer(
                      cols = c(DOC_mgL, CO2_mgL),
                      names_to = "Carbon_species",
                      values_to = "C_mgL"
@@ -1200,10 +1272,10 @@ ggarrange(corplot_DOC,corplot_14DOC,
   geom_point( size=2, alpha=0.7, show.legend = F)+
  
   geom_smooth(method="lm", se=F, show.legend = F)+
-  stat_regline_equation(label.y.npc = "top", label.x.npc = "left",
-  aes(label =  paste(..eq.label.., ..adj.rr.label.., 
-                     sep = "~~~~"), color = Treatment), 
-                      show.legend = F, size=3)+
+  #stat_regline_equation(label.y.npc = "top", label.x.npc = "left",
+  #aes(label =  paste(..eq.label.., ..adj.rr.label.., 
+  #                   sep = "~~~~"), color = Treatment), 
+  #                    show.legend = F, size=3)+
   facet_grid(Carbon_species~Site_id, scale="free_y")+  
     
   scale_shape_manual(values=c(site_symbols))+
@@ -1215,7 +1287,9 @@ ggarrange(corplot_DOC,corplot_14DOC,
   labs(x="q (mm/d)", y=bquote("C (mg/L)"))+
   theme(legend.position = "top", base_size=8)
 
-
+grid_cq_scatters
+  
+ggsave("Output/Figures/SupFigure_c_q_scatters.pdf", plot =grid_cq_scatters, height = 6, width = 12)
 
 ```
 
