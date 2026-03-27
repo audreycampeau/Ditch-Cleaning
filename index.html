@@ -8,7 +8,7 @@
 
 <meta name="author" content="Audrey Campeau">
 <meta name="author" content="Alberto Zannella , Karin Eklöf , Mark Garnett, Hjalmar Laudon, Eliza Maher Hasselquist, Marcus B. Wallin.">
-<meta name="dcterms.date" content="2026-03-26">
+<meta name="dcterms.date" content="2026-03-27">
 
 <title>Forest management experiment reveals divergent controls on the sources and age of lateral DOC and CO₂ export in boreal streams</title>
 <style>
@@ -141,7 +141,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">March 26, 2026</p>
+      <p class="date">March 27, 2026</p>
     </div>
   </div>
   
@@ -329,8 +329,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-140"><a href="#cb1-140" aria-hidden="true" tabindex="-1"></a>                                   timeserie_CO2,</span>
 <span id="cb1-141"><a href="#cb1-141" aria-hidden="true" tabindex="-1"></a>                                   timeserie_14CDOC,</span>
 <span id="cb1-142"><a href="#cb1-142" aria-hidden="true" tabindex="-1"></a>                                  timeserie_14CCO2,</span>
-<span id="cb1-143"><a href="#cb1-143" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">ncol =</span> <span class="dv">1</span>, <span class="at">align=</span><span class="st">'v'</span>, </span>
-<span id="cb1-144"><a href="#cb1-144" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">heights =</span> <span class="fu">c</span>( <span class="fl">0.45</span>, <span class="fl">0.55</span>, <span class="fl">0.45</span>, <span class="fl">0.55</span>) <span class="co">#, #labels="AUTO"</span></span>
+<span id="cb1-143"><a href="#cb1-143" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">ncol =</span> <span class="dv">1</span>, <span class="at">align=</span><span class="st">'v'</span><span class="co">#, </span></span>
+<span id="cb1-144"><a href="#cb1-144" aria-hidden="true" tabindex="-1"></a>                                 <span class="co">#heights = c( 0.45, 0.55, 0.45, 0.55) #, #labels="AUTO"</span></span>
 <span id="cb1-145"><a href="#cb1-145" aria-hidden="true" tabindex="-1"></a>                               )</span>
 <span id="cb1-146"><a href="#cb1-146" aria-hidden="true" tabindex="-1"></a>combined_timeseries</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
@@ -506,7 +506,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="figure-3-dotplots" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="figure-3-dotplots"><span class="header-section-number">2.2</span> Figure 3: dotplots</h2>
-<div class="cell" width="12" height="8">
+<div class="cell" width="16" height="6">
 <details class="code-fold">
 <summary>👈 see code here</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>dotplots_treatment_sites <span class="ot">=</span> <span class="cf">function</span>(site_pair,variable) {</span>
@@ -525,7 +525,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a> <span class="co"># facet_wrap(~Site_id, nrow=4)+</span></span>
 <span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a> <span class="co"># scale_x_discrete(limits = rev)+</span></span>
 <span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span></span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>        ,<span class="at">axis.title =</span> <span class="fu">element_blank</span>(), <span class="at">axis.text =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>        ,<span class="at">axis.title.x  =</span> <span class="fu">element_blank</span>(), <span class="at">axis.text.x =</span> <span class="fu">element_blank</span>()</span>
 <span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>        )</span>
 <span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>}</span>

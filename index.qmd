@@ -362,7 +362,7 @@ knitr::kable(combined_dunns_results,
 
 ## Figure 3: dotplots
 
-```{r, warning=F, message=F, width= 12, height=8}
+```{r, warning=F, message=F, width= 16, height=6}
 
 
 dotplots_treatment_sites = function(site_pair,variable) {
@@ -381,7 +381,7 @@ dotplots_treatment_sites = function(site_pair,variable) {
  # facet_wrap(~Site_id, nrow=4)+
  # scale_x_discrete(limits = rev)+
   theme(legend.position = "none"
-        ,axis.title = element_blank(), axis.text = element_blank()
+        ,axis.title.x  = element_blank(), axis.text.x = element_blank()
         )
   
 }
