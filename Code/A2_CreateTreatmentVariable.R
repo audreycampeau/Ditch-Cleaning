@@ -18,36 +18,53 @@
 library(dplyr)
 
 
+#predisturbance_start =  as.Date("2020-01-01") 
+#predisturbance_end = as.Date("2020-08-24")
+
+#clearcut_start = as.Date("2020-07-01")
+#clearcut_end <- as.Date("2020-08-25")
+
+#postharvest_start = as.Date("2020-08-25")
+#postharvest_end= as.Date("2021-09-22")
+
+#ditch_cleaning_start <- as.Date("2021-09-01")
+#ditch_cleaning_end <- as.Date("2021-09-30")
+
+#postditch_start = as.Date("2021-09-23")
+#postditch_end= as.Date("2022-11-01") 
+
+
+
 #Create a new variable called Treatment
 #range of dates "2018-12-18" "2023-10-25"
 
 DC1_Q_Meteo=DC1_Q_Meteo %>%
   mutate(Treatment = case_when(
-    between(Date, as.Date("2018-12-18"), as.Date("2020-08-24")) ~ "PreDisturbance",
-    between(Date, as.Date("2020-08-25"), as.Date("2021-09-22")) ~ "PostHarvest",
-    between(Date, as.Date("2021-09-23"), as.Date("2023-10-25")) ~ "PostDrainage"
+    between(Date, as.Date("2018-12-18"), as.Date("2020-07-14")) ~ "PreDisturbance",
+    between(Date, as.Date("2020-07-15"), as.Date("2021-09-13")) ~ "PostHarvest",
+    between(Date, as.Date("2021-09-14"), as.Date("2023-10-25")) ~ "PostDrainage"
   ))
 
 DC3_Q_Meteo=DC3_Q_Meteo %>%
   mutate(Treatment = case_when(
-    between(Date, as.Date("2018-12-18"), as.Date("2020-08-24")) ~ "PreDisturbance",
-    between(Date, as.Date("2020-08-25"), as.Date("2021-09-22")) ~ "PostHarvest",
-    between(Date, as.Date("2021-09-23"), as.Date("2023-10-25")) ~ "PostDrainage"
+    between(Date, as.Date("2018-12-18"), as.Date("2020-07-14")) ~ "PreDisturbance",
+    between(Date, as.Date("2020-07-15"), as.Date("2021-09-13")) ~ "PostHarvest",
+    between(Date, as.Date("2021-09-14"), as.Date("2023-10-25")) ~ "PostDrainage"
   ))
 
 
 DC2_Q_Meteo=DC2_Q_Meteo %>%
   mutate(Treatment = case_when(
-    between(Date, as.Date("2018-12-18"), as.Date("2020-08-24")) ~ "PreDisturbance",
-    between(Date, as.Date("2020-08-25"), as.Date("2021-09-22")) ~ "PostHarvest",
-    between(Date, as.Date("2021-09-23"), as.Date("2023-10-25")) ~ "2yrPostHarvest"
+    between(Date, as.Date("2018-12-18"), as.Date("2020-07-14")) ~ "PreDisturbance",
+    between(Date, as.Date("2020-07-15"), as.Date("2021-09-13")) ~ "PostHarvest",
+    between(Date, as.Date("2021-09-14"), as.Date("2023-10-25")) ~ "2yrPostHarvest"
   ))
 
 DC4_Q_Meteo =DC4_Q_Meteo %>%
   mutate(Treatment = case_when(
-    between(Date, as.Date("2018-12-18"), as.Date("2020-08-24")) ~ "PreDisturbance",
-    between(Date, as.Date("2020-08-25"), as.Date("2021-09-22")) ~ "PostHarvest",
-    between(Date, as.Date("2021-09-23"), as.Date("2023-10-25")) ~ "2yrPostHarvest"
+    between(Date, as.Date("2018-12-18"), as.Date("2020-07-14")) ~ "PreDisturbance",
+    between(Date, as.Date("2020-07-15"), as.Date("2021-09-13")) ~ "PostHarvest",
+    between(Date, as.Date("2021-09-14"), as.Date("2023-10-25")) ~ "2yrPostHarvest"
   ))
 
 

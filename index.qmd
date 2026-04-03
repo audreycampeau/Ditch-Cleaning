@@ -108,6 +108,9 @@ DC_Q$Treatment <- factor(DC_Q$Treatment,
                        levels = c("PreDisturbance","PostHarvest",
                                   "PostDrainage","2yrPostHarvest"))
 
+DC_Q$Treatment_3class <- recode(DC_Q$Treatment, PostDrainage = 'PostDrain_2yrsPostHarv', 
+                                     '2yrPostHarvest' = 'PostDrain_2yrsPostHarv')
+
 
 # Define Color Ramp and theme
 treatment_colors <- c(
@@ -120,12 +123,12 @@ treatment_colors <- c(
 
 site_colors <- c(
   # Clearcut pair 
-  "FC_1" = "grey10",# "#9e007c", # "#228B22", # Light orange
-  "FC_2" = "grey50",#"#451159", # "#90EE90", #Dark brown
+  "FC_1" = "grey11",# "#9e007c", # "#228B22", # Light orange
+  "FC_2" = "grey51",#"#451159", # "#90EE90", #Dark brown
   
   # Clearcut+DitchCleaning pair
-  "FC_DC1" = "grey10", #"gray60", #"#E69B00", #orange
-  "FC_DC2" = "grey50" #"#ccff00" #994F00" #brown
+  "FC_DC1" = "steelblue4", #"gray60", #"#E69B00", #orange
+  "FC_DC2" = "steelblue1" #"#ccff00" #994F00" #brown
 )
 
 
@@ -152,18 +155,18 @@ theme_set(theme_light(base_size = 16))
 
 # Define operation periods for treatments::::::::::::::::::::::::::::::::::::::::::
 predisturbance_start =  as.Date("2020-01-01") 
-predisturbance_end = as.Date("2020-08-24")
+predisturbance_end = as.Date("2020-07-13")
 
 clearcut_start = as.Date("2020-07-01")
 clearcut_end <- as.Date("2020-08-25")
 
-postharvest_start = as.Date("2020-08-25")
-postharvest_end= as.Date("2021-09-22")
+postharvest_start = as.Date("2020-07-14")
+postharvest_end= as.Date("2021-09-13")
 
 ditch_cleaning_start <- as.Date("2021-09-01")
 ditch_cleaning_end <- as.Date("2021-09-30")
 
-postditch_start = as.Date("2021-09-23")
+postditch_start = as.Date("2021-09-14")
 postditch_end= as.Date("2022-11-01") 
 
 
@@ -208,7 +211,7 @@ plot_timeseries = function(data, y_var,labs_y,
     
     
      geom_line(data=data[!is.na(data[[y_var]]), ]) +
-    geom_point(size=3) +
+    geom_point(size=3, aes(color = Treatment)) +
     
     scale_x_date(limits=c(as.Date("2020-01-01"), as.Date("2022-11-01")),
                  date_labels = "%b-%Y", date_breaks = "6 months") +
@@ -232,7 +235,7 @@ plot_timeseries = function(data, y_var,labs_y,
 
 #Concentration timeseries
 
-timeserie_DOC = #ggExtra::ggMarginal(
+timeserie_DOC = ggExtra::ggMarginal(
   plot_timeseries(DC_Q, #%>% filter(Site_pairs == "FC")
                    "DOC_mgL", "DOC (mg/L)",
                   ymin_rect=8, ymax_rect=310
@@ -247,44 +250,44 @@ timeserie_DOC = #ggExtra::ggMarginal(
            vjust = 1.2, hjust = 0.5, size = 3.5, color = "black") +
    labs(y=bquote("DOC (mg C L"^-1*")"))+
    scale_y_log10()+
-  facet_wrap(~Site_pairs)+
-  theme(legend.position = "none", axis.title.x = element_blank(), axis.text.x = element_blank())#,
-  #margins=c("y"), type = "boxplot", groupColour = TRUE, groupFill = TRUE )
+  #facet_wrap(~Site_pairs)+
+  theme(legend.position = "none", axis.title.x = element_blank(), axis.text.x = element_blank()),
+  margins=c("y"), type = "boxplot", groupColour = TRUE, groupFill = TRUE )
 
 
-timeserie_CO2 = #ggExtra::ggMarginal(
+timeserie_CO2 = ggExtra::ggMarginal(
   plot_timeseries(DC_Q, #%>% filter(Site_pairs == "FC"), 
                   "CO2_mgL", "CO2 (mg/L)",
                   ymin_rect=0.5, ymax_rect=32)+
     labs(y=bquote("CO"[2]*"\n (mg C L"^-1*")"))+
      scale_y_log10()+
-  facet_wrap(~Site_pairs)+
+ # facet_wrap(~Site_pairs)+
     geom_abline(y=100)+
-     theme(legend.position = "none", axis.title.x = element_blank(),axis.text.x = element_blank())#,
-  #margins=c("y"), type = "boxplot", groupColour = TRUE, groupFill = TRUE )
+     theme(legend.position = "none", axis.title.x = element_blank(),axis.text.x = element_blank()),
+  margins=c("y"), type = "boxplot", groupColour = TRUE, groupFill = TRUE )
 
-timeserie_14CDOC = #ggExtra::ggMarginal(
+timeserie_14CDOC = ggExtra::ggMarginal(
   plot_timeseries(DC_Q, #%>% filter(Site_pairs == "FC"),
                   "DOC_14C_Modern", "14C-DOC (%)",
                   ymin_rect=-Inf, ymax_rect=Inf)+
   scale_y_continuous(limits=c(95,115))+
-  facet_wrap(~Site_pairs)+
+  #facet_wrap(~Site_pairs)+
   labs(y = expression(""^14*"C-DOC (% modern)"))+
   geom_hline(yintercept =100, linetype="dotted", color="grey30")+
   theme(legend.position = "none", axis.title.x = element_blank(),
-  axis.text.x = element_blank())#,
-  #margins=c("y"), type = "boxplot", groupColour = TRUE, groupFill = TRUE )
+  axis.text.x = element_blank()),
+  margins=c("y"), type = "boxplot", groupColour = TRUE, groupFill = TRUE )
 
-timeserie_14CCO2 = #ggExtra::ggMarginal(
+timeserie_14CCO2 = ggExtra::ggMarginal(
   plot_timeseries(DC_Q,# %>% filter(Site_pairs == "FC"),
                   "CO2_14C_Modern", "14C-CO2 (%)",
                   ymin_rect=-Inf, ymax_rect=Inf)+
   scale_y_continuous(limits=c(95,115))+
-  facet_wrap(~Site_pairs)+
+  #facet_wrap(~Site_pairs)+
   geom_hline(yintercept =100, linetype="dotted", color="grey30")+
     labs(y = expression(""^14*"C-CO"[2]*" (% modern)"))+
-   theme(legend.position = "none", axis.title.x = element_blank())#,
-  #margins=c("y"), type = "boxplot", groupColour = TRUE, groupFill = TRUE )
+   theme(legend.position = "none", axis.title.x = element_blank()),
+  margins=c("y"), type = "boxplot", groupColour = TRUE, groupFill = TRUE )
 
 
 # Combine four plots
@@ -326,7 +329,7 @@ library(dunn.test)
 library(multcompView)
 library(PMCMR)
 
-which(is.na(DC_Q$Site_id))
+
 
 # Perform the test and get multcomp letters
 DOCSites_letters = multcompLetters(get.pvalues(PMCMRplus::kwAllPairsDunnTest(
@@ -394,13 +397,13 @@ combined_dotplots =
       scale_y_log10(limits=c(8,300)),
     
      dotplots_treatment_sites(site_pair = "FC", variable = DOC_14C_Modern)+
-      scale_y_log10(limits=c(round(range(DC_Q$DOC_14C_Modern, na.rm=T),0))),
+      scale_y_continuous(limits=c(95,115)),
     
     dotplots_treatment_sites(site_pair = "FC", variable = CO2_mgL)+
-      scale_y_log10(limits=c(round(range(DC_Q$CO2_mgL, na.rm=T),0))),
+      scale_y_log10(limits=c(0.8,30)),
     
     dotplots_treatment_sites(site_pair = "FC", variable = CO2_14C_Modern)+
-      scale_y_continuous(limits=c(round(range(DC_Q$CO2_14C_Modern, na.rm=T),0))),
+      scale_y_continuous(limits=c(95,115)),
     
    
     
@@ -408,13 +411,13 @@ combined_dotplots =
       scale_y_log10(limits=c(8,300)),
     
     dotplots_treatment_sites(site_pair = "FC_DC", variable = DOC_14C_Modern)+
-      scale_y_log10(limits=c(round(range(DC_Q$DOC_14C_Modern, na.rm=T),0))),
+      scale_y_continuous(limits=c(95,115)),
     
     dotplots_treatment_sites(site_pair = "FC_DC", variable = CO2_mgL)+
-      scale_y_log10(limits=c(round(range(DC_Q$CO2_mgL, na.rm=T),0))),
+      scale_y_log10(limits=c(0.8,30)),
     
     dotplots_treatment_sites(site_pair = "FC_DC", variable = CO2_14C_Modern)+
-      scale_y_log10(limits=c(round(range(DC_Q$CO2_14C_Modern, na.rm=T),0))),
+      scale_y_continuous(limits=c(95,115)),
     
    
     
@@ -425,7 +428,7 @@ combined_dotplots =
 combined_dotplots
 
 
-ggsave("Output/Figures/Figure3_dotplots.pdf", plot =combined_dotplots, height = 6, width = 12)
+ggsave("Output/Figures/Figure3_dotplots.pdf", plot =combined_dotplots, height = 5, width = 12)
 
 
 ```
@@ -510,15 +513,181 @@ knitr::kable(combined_dunns_FC_DC,
              caption = "Dunn's test grouping letters by treatment — FC_DC sites")
 ```
 
+```{r, width=16, height=6, warning =F, message =F}
+
+
+
+Dotplot_bySite=ggarrange(
+  
+ggplot(data = DC_Q, 
+         aes( y=DOC_mgL, x=Site_id
+              ) )+
+  geom_violin(aes(fill=Treatment), alpha=0.5)+
+  geom_jitter(alpha=0.8, aes(shape=Site_id, color=Treatment, fill = Treatment))+
+  stat_summary(fun = "median", geom = "point", color = "black", size = 2)+
+    stat_summary(fun = "median", geom = "line",
+                 aes(group = 1), color = "gray30", linewidth = 0.4) +
+  scale_color_manual(values = c(treatment_colors)) +
+  scale_fill_manual(values = alpha(c(treatment_colors), 0.5)) +
+  scale_shape_manual(values= site_symbols)+
+  facet_wrap(~Treatment_3class, nrow=3)+
+  scale_y_log10(limits=c(8,300))+
+  theme(legend.position = "none")
+        
+,
+ggplot(data = DC_Q, 
+         aes( y=DOC_14C_Modern, 
+              x=Site_id
+              ) )+
+  geom_violin(aes(fill=Treatment), alpha=0.5)+
+  geom_jitter(alpha=0.8, aes(shape=Site_id,color=Treatment, fill = Treatment))+
+  stat_summary(fun = "median", geom = "point", color = "black", size = 2)+
+    stat_summary(fun = "median", geom = "line",
+                 aes(group = 1), color = "gray30", linewidth = 0.4) +
+  scale_color_manual(values = c(treatment_colors)) +
+  scale_fill_manual(values = alpha(c(treatment_colors), 0.5)) +
+  scale_shape_manual(values= site_symbols)+
+  scale_y_continuous(limits=c(95,115))+
+  facet_wrap(~Treatment_3class, nrow=3)+
+  theme(legend.position = "none")
+,
+
+
+
+ggplot(data = DC_Q, 
+         aes( y=CO2_mgL, 
+              x=Site_id
+              ) )+
+  geom_violin(aes(fill=Treatment), alpha=0.5)+
+  geom_jitter(alpha=0.8, aes(shape=Site_id,color=Treatment, fill = Treatment))+
+  stat_summary(fun = "median", geom = "point", color = "black", size = 2)+
+    stat_summary(fun = "median", geom = "line",
+                 aes(group = 1), color = "gray30", linewidth = 0.4) +
+  scale_color_manual(values = c(treatment_colors)) +
+  scale_fill_manual(values = alpha(c(treatment_colors), 0.5)) +
+  scale_shape_manual(values= site_symbols)+
+  facet_wrap(~Treatment_3class, nrow=3)+
+  scale_y_log10(limits=c(0.8,30))+
+  theme(legend.position = "none")
+        #,axis.title.x  = element_blank(), axis.text.x = element_blank()
+        #)
+
+,
+ggplot(data = DC_Q, 
+         aes( y=CO2_14C_Modern, 
+              x=Site_id
+              ) )+
+  geom_violin(aes(fill=Treatment), alpha=0.5)+
+  geom_jitter(alpha=0.8, aes(shape=Site_id,color=Treatment, fill = Treatment))+
+  stat_summary(fun = "median", geom = "point", color = "black", size = 2)+
+    stat_summary(fun = "median", geom = "line",
+                 aes(group = 1), color = "gray30", linewidth = 0.4) +
+  scale_color_manual(values = c(treatment_colors)) +
+  scale_fill_manual(values = alpha(c(treatment_colors), 0.5)) +
+  scale_shape_manual(values= site_symbols)+
+  facet_wrap(~Treatment_3class, nrow=3)+
+  scale_y_continuous(limits=c(95,115))+
+  #scale_y_log10()+
+  theme(legend.position = "none")
+        #,axis.title.x  = element_blank(), axis.text.x = element_blank()
+        #)
+
+,
+ncol=4, common.legend = F)
+
+Dotplot_bySite
+ggsave("Output/Figures/Figure3_dotplots_bysite.pdf", plot =Dotplot_bySite, height = 7, width = 12)
+
+
+
+```
+
+```{r,warning =F, message=F}
+
+library(dunn.test)
+library(multcompView)
+library(PMCMR)
+levels(DC_Q$Treatment_3class)
+
+
+# Function to perform the test and get multcomp letters
+Dunns_letters = function(variable, treatment) {
+  data = DC_Q %>% filter(Treatment_3class == treatment)
+  
+  multcompLetters(
+    get.pvalues(PMCMRplus::kwAllPairsDunnTest(
+      data[[variable]] ~ data$Site_id, p.adjust = "bonf")),
+    threshold = 0.05)$Letters
+}
+
+Dunns_DOC_PreDisturbance= Dunns_letters(variable = "DOC_mgL", treatment = "PreDisturbance")
+Dunns_14DOC_PreDisturbance= Dunns_letters(variable = "DOC_14C_Modern", treatment = "PreDisturbance")
+Dunns_CO2_PreDisturbance= Dunns_letters(variable = "CO2_mgL", treatment = "PreDisturbance")
+Dunns_14CO2_PreDisturbance= Dunns_letters(variable = "CO2_14C_Modern", treatment = "PreDisturbance")
+
+
+
+Dunns_DOC_PostHarvest=Dunns_letters(variable = "DOC_mgL", treatment = "PostHarvest")
+Dunns_14DOC_PostHarvest= Dunns_letters(variable = "DOC_14C_Modern", treatment = "PostHarvest")
+Dunns_CO2_PostHarvest= Dunns_letters(variable = "CO2_mgL", treatment = "PostHarvest")
+Dunns_14CO2_PostHarvest=Dunns_letters(variable = "CO2_14C_Modern", treatment = "PostHarvest")
+
+
+
+Dunns_DOC_PostDrain_2yrsPostHarv=Dunns_letters(variable = "DOC_mgL", treatment = "PostDrain_2yrsPostHarv")
+Dunns_14DOC_PostDrain_2yrsPostHarv= Dunns_letters(variable = "DOC_14C_Modern", treatment = "PostDrain_2yrsPostHarv")
+Dunns_CO2_PostDrain_2yrsPostHarv= Dunns_letters(variable = "CO2_mgL", treatment = "PostDrain_2yrsPostHarv")
+Dunns_14CO2_PostDrain_2yrsPostHarv=Dunns_letters(variable = "CO2_14C_Modern", treatment = "PostDrain_2yrsPostHarv")
+
+        
+# Combine into a data frame
+combined_dunns_PreDisturbance <- data.frame(
+  Site = names(Dunns_DOC_PreDisturbance),
+  "[DOC]"   = as.character(Dunns_DOC_PreDisturbance),
+  "14C-DOC" = as.character(Dunns_14DOC_PreDisturbance[names(Dunns_DOC_PreDisturbance)]),
+  "[CO2]"   = as.character(Dunns_CO2_PreDisturbance[names(Dunns_DOC_PreDisturbance)]),
+  "14C-CO2" = as.character(Dunns_14CO2_PreDisturbance[names(Dunns_DOC_PreDisturbance)]),
+  check.names = FALSE
+)
+
+combined_dunns_PostHarvest <- data.frame(
+  Site = names(Dunns_DOC_PostHarvest),
+  "[DOC]"   = as.character(Dunns_DOC_PostHarvest),
+  "14C-DOC" = as.character(Dunns_14DOC_PostHarvest[names(Dunns_DOC_PostHarvest)]),
+  "[CO2]"   = as.character(Dunns_CO2_PostHarvest[names(Dunns_DOC_PostHarvest)]),
+  "14C-CO2" = as.character(Dunns_14CO2_PostHarvest[names(Dunns_DOC_PostHarvest)]),
+  check.names = FALSE
+)
+
+combined_dunns_PostDrain_2yrsPostHarv <- data.frame(
+  Site = names(Dunns_DOC_PostDrain_2yrsPostHarv),
+  "[DOC]"   = as.character(Dunns_DOC_PostDrain_2yrsPostHarv),
+  "14C-DOC" = as.character(Dunns_14DOC_PostDrain_2yrsPostHarv[names(Dunns_DOC_PostDrain_2yrsPostHarv)]),
+  "[CO2]"   = as.character(Dunns_CO2_PostDrain_2yrsPostHarv[names(Dunns_DOC_PostDrain_2yrsPostHarv)]),
+  "14C-CO2" = as.character(Dunns_14CO2_PostDrain_2yrsPostHarv[names(Dunns_DOC_PostDrain_2yrsPostHarv)]),
+  check.names = FALSE
+)
+
+
+knitr::kable(combined_dunns_PreDisturbance,
+             caption = "Dunn's test grouping letters by site — Predisturbance conditions")
+
+knitr::kable(combined_dunns_PostHarvest,
+             caption = "Dunn's test grouping letters by site — post-Harvest conditions")
+
+knitr::kable(combined_dunns_PostDrain_2yrsPostHarv,
+             caption = "Dunn's test grouping letters by site — PostDrain_2yrsPostHarv conditions")
+```
+
 ## Figure 4: Scatterplot \[C\] or ¹⁴C-content by treatment
 
 ```{r, warning =F, message=F,fig.height=7, fig.width=7, fig.cap="relationship between C concentration and radiocarbon content of CO2 and DOC coloured by treatment"}
 
 
 # Make plot function for DOC vs CO2 concentrations
-density_Cscatter_pairs = function(site_pair) {
+density_Cscatter_pairs = function() { #site_pair
  # ggExtra::ggMarginal(
-    ggplot(data = DC_Q %>% filter(Site_pairs == site_pair),
+    ggplot(data = DC_Q,# %>% filter(Site_pairs == site_pair),
            aes(x = DOC_mgL, y = CO2_mgL_filled, 
                color = Treatment, fill = Treatment)) +
       #stat_density_2d(aes(fill = Treatment), geom = "polygon", linewidth = 0,
@@ -542,16 +711,16 @@ density_Cscatter_pairs = function(site_pair) {
 }
 
 # Create plots for both site pair
-density_Cscatter_sites_FC    = density_Cscatter_pairs("FC")
-density_Cscatter_sites_FC_DC = density_Cscatter_pairs("FC_DC")
+density_Cscatter_sites_FC    = density_Cscatter_pairs() #c("FC","FC_DC")
+#density_Cscatter_sites_FC_DC = density_Cscatter_pairs("FC_DC")
 
-
+#density_Cscatter_sites_FC
 
 
 # Make a plot function for 14C-DOC vs 14C-CO2 
-density_14Cscatter_pairs = function(site_pair) {
+density_14Cscatter_pairs = function() { #site_pair
 #ggExtra::ggMarginal(
-            ggplot(data=DC_Q %>% filter (Site_pairs==site_pair),
+            ggplot(data=DC_Q, #%>% filter (Site_pairs==site_pair),
               aes(x=DOC_14C_Modern, y=CO2_14C_Modern, 
                     color=Treatment, fill=Treatment, shape=Site_id))+
               geom_abline(intercept=0,slope=1, linetype="dashed", color="gray30")+
@@ -572,18 +741,18 @@ density_14Cscatter_pairs = function(site_pair) {
             
 }
   
-density_14Cscatter_treatment_FC = density_14Cscatter_pairs(c("FC"))
-density_14Cscatter_treatment_FC_DC = density_14Cscatter_pairs("FC_DC")
+density_14Cscatter_treatment_FC = density_14Cscatter_pairs() #c("FC","FC_DC")
+#density_14Cscatter_treatment_FC_DC = density_14Cscatter_pairs("FC_DC")
     
 
-combined_CO2DOCscattters= ggarrange(density_Cscatter_sites_FC,  density_Cscatter_sites_FC_DC, 
-          density_14Cscatter_treatment_FC,  density_14Cscatter_treatment_FC_DC,
- nrow=2, ncol=2, align="hv",labels="AUTO")
+combined_CO2DOCscattters= ggarrange(density_Cscatter_sites_FC,  #density_Cscatter_sites_FC_DC, 
+          density_14Cscatter_treatment_FC,  #density_14Cscatter_treatment_FC_DC,
+ nrow=2, ncol=1, align="hv",labels="AUTO")
 
 combined_CO2DOCscattters
 
 ggsave("Output/Figures/Figure4_CO2DOC_scatters.pdf", plot =combined_CO2DOCscattters,
-       height= 8, width = 8)
+       height= 8, width = 4.5)
 
 ```
 
@@ -593,9 +762,9 @@ ggsave("Output/Figures/Figure4_CO2DOC_scatters.pdf", plot =combined_CO2DOCscattt
 
 
 # Function to extract lm results for one treatment group within a site_pair
-extract_lm_results <- function(site_pair) {
+extract_lm_results <- function() { #site_pair
   DC_Q %>%
-    filter(Site_pairs == site_pair) %>%
+    #filter(Site_pairs == site_pair) %>%
     group_by(Treatment) %>%
     group_map(~ {
       model <- lm(log10(CO2_mgL_filled) ~ log10(DOC_mgL), data = .x)
@@ -605,7 +774,7 @@ extract_lm_results <- function(site_pair) {
       p_val <- pf(f[1], f[2], f[3], lower.tail = FALSE)
       
      tibble(
-        Site_pair  = site_pair,
+        #Site_pair  = site_pair,
         Treatment  = .y$Treatment,
         Intercept  = round(coefs[1], 3),
         Slope      = round(coefs[2], 3),
@@ -618,10 +787,11 @@ extract_lm_results <- function(site_pair) {
 }
 
 # Run for both site pairs
-lm_results_table <- bind_rows(
-  extract_lm_results("FC"),
-  extract_lm_results("FC_DC")
-)
+lm_results_table = extract_lm_results()
+  #bind_rows(
+  #extract_lm_results("FC"),
+ # extract_lm_results("FC_DC")
+#)
 
 knitr::kable(lm_results_table,
              caption = "Linear regression results (log10-log10) of CO2 vs DOC by treatment and site pair")
@@ -633,34 +803,34 @@ knitr::kable(lm_results_table,
 
 knitr::kable(
   DC_Q %>%
-    filter(Site_pairs == "FC") %>%
+    #filter(Site_pairs == "FC") %>%
     mutate(log_DOC = log10(DOC_mgL),
            log_CO2 = log10(CO2_mgL_filled)) %>%
     anova_test(log_DOC ~ log_CO2 * Treatment),
   caption = "ANCOVA results: log10(DOC) ~ log10(CO2) × Treatment — FC sites"
 )
 
-knitr::kable(
-  DC_Q %>%
-    filter(Site_pairs == "FC_DC") %>%
-    mutate(log_DOC = log10(DOC_mgL),
-           log_CO2 = log10(CO2_mgL_filled)) %>%
-    anova_test(log_DOC ~ log_CO2 * Treatment),
-  caption = "ANCOVA results: log10(DOC) ~ log10(CO2) × Treatment — FC_DC sites"
-)
+#knitr::kable(
+#  DC_Q %>%
+    #filter(Site_pairs == "FC_DC") %>%
+#    mutate(log_DOC = log10(DOC_mgL),
+#           log_CO2 = log10(CO2_mgL_filled)) %>%
+#    anova_test(log_DOC ~ log_CO2 * Treatment),
+#  caption = "ANCOVA results: log10(DOC) ~ log10(CO2) × Treatment — FC_DC sites"
+#)
 ```
 
 ## Figure 5: 14C \~ Q relationship
 
-```{r, warning=FALSE, message=FALSE, fig.height=7, fig.width=7, fig.cap="relationship between radiocarbon content of CO2 and DOC and discharge, coloured by treatment"}
+```{r, warning=FALSE, message=FALSE, fig.height=8, fig.width=4.5, fig.cap="relationship between radiocarbon content of CO2 and DOC and discharge, coloured by treatment"}
 #Scatter coloured by Treatment
 
 
 #14C-DOC -q scatter
-DOC_Q_scatters_pairs = function(site_pair) {
+#DOC_Q_scatters_pairs = function(site_pair) {
   
- ggplot(DC_Q %>% #filter(!is.na(DOC_14C_Modern))%>%
-         filter (Site_pairs==site_pair),
+plot_DOC_q= ggplot(DC_Q,# %>% #filter(!is.na(DOC_14C_Modern))%>%
+         #filter (Site_pairs==site_pair),
                    aes(y = DOC_14C_Modern, x = q_int_mmd, 
                        fill = Treatment, color = Treatment)) +
   geom_point(aes(shape = Site_id), size = 3, show.legend = F) +
@@ -680,17 +850,17 @@ DOC_Q_scatters_pairs = function(site_pair) {
        y = bquote("" ^14*"C-DOC (% modern)")) +
   theme(legend.position = "none")  
 
-}
+#}
 
 
-  plot_DOC_q_FC = DOC_Q_scatters_pairs("FC") 
-   plot_DOC_q_FC_DC = DOC_Q_scatters_pairs("FC_DC")
+#  plot_DOC_q_FC = DOC_Q_scatters_pairs("FC") 
+#   plot_DOC_q_FC_DC = DOC_Q_scatters_pairs("FC_DC")
   
   
 #14C-CO2 -q scatter
-CO2_Q_scatters_pairs = function(site_pair) { 
-  ggplot(DC_Q %>% #filter(!is.na(CO2_14C_Modern))%>%
-          filter (Site_pairs==site_pair),
+#CO2_Q_scatters_pairs = function(site_pair) { 
+plot_CO2_q=  ggplot(DC_Q,# %>% #filter(!is.na(CO2_14C_Modern))%>%
+          #filter (Site_pairs==site_pair),
                    aes(y = CO2_14C_Modern, x = q_int_mmd, 
                        fill = Treatment, color = Treatment)) +
   geom_point(aes(shape = Site_id), size = 3, show.legend = F) +
@@ -709,21 +879,22 @@ CO2_Q_scatters_pairs = function(site_pair) {
   labs(x = "", 
        y = bquote("" ^14*"C-CO"[2]*" (% modern)")) +
   theme(legend.position = "right")
-}
+#}
 
-plot_CO2_q_FC = CO2_Q_scatters_pairs("FC") 
-plot_CO2_q_FC_DC = CO2_Q_scatters_pairs("FC_DC")
+#plot_CO2_q_FC = CO2_Q_scatters_pairs("FC") 
+#plot_CO2_q_FC_DC = CO2_Q_scatters_pairs("FC_DC")
 
 
-combined_14C_q=ggarrange( plot_DOC_q_FC, plot_DOC_q_FC_DC, 
-           plot_CO2_q_FC, plot_CO2_q_FC_DC, labels = "AUTO", align = "hv")
+combined_14C_q=ggarrange( plot_DOC_q, #plot_DOC_q_FC_DC, 
+           plot_CO2_q,# plot_CO2_q_FC_DC, 
+           labels = "AUTO", nrow=2, align = "hv")
 
 
 combined_14C_q
 
 
 ggsave("Output/Figures/Figure5_14C_q_scatters.pdf", plot =combined_14C_q,
-       height= 8, width = 8)
+       height= 8, width = 4.5)
 
 
 
@@ -734,9 +905,9 @@ ggsave("Output/Figures/Figure5_14C_q_scatters.pdf", plot =combined_14C_q,
 
 # --- Linear regression tables ---
 
-extract_lm_results_14C <- function(site_pair, y_var) {
+extract_lm_results_14C <- function(y_var) { #site_pair
   DC_Q %>%
-    filter(Site_pairs == site_pair) %>%
+    #filter(Site_pairs == site_pair) %>%
     group_by(Treatment) %>%
     group_map(~ {
       model <- lm(.x[[y_var]] ~ .x$q_int_mmd)
@@ -746,7 +917,7 @@ extract_lm_results_14C <- function(site_pair, y_var) {
       p_val <- if (!is.null(f)) pf(f[1], f[2], f[3], lower.tail = FALSE) else NA
       
       tibble(
-        Site_pair  = site_pair,
+        #Site_pair  = site_pair,
         Treatment  = .y$Treatment,
         Response   = y_var,
         Intercept  = round(coefs[1], 3),
@@ -761,10 +932,10 @@ extract_lm_results_14C <- function(site_pair, y_var) {
 
 # Extract for all combinations
 lm_14C_results <- bind_rows(
-  extract_lm_results_14C("FC",     y_var=  "DOC_14C_Modern"),
-  extract_lm_results_14C("FC_DC",  y_var=  "DOC_14C_Modern"),
-  extract_lm_results_14C("FC",     y_var= "CO2_14C_Modern"),
-  extract_lm_results_14C("FC_DC",  y_var=  "CO2_14C_Modern")
+  extract_lm_results_14C( y_var=  "DOC_14C_Modern"),
+  #extract_lm_results_14C("FC_DC",  y_var=  "DOC_14C_Modern"),
+  extract_lm_results_14C( y_var= "CO2_14C_Modern"),
+  #extract_lm_results_14C("FC_DC",  y_var=  "CO2_14C_Modern")
 )
 
 knitr::kable(lm_14C_results,
@@ -776,32 +947,32 @@ knitr::kable(lm_14C_results,
 # 14C-DOC
 knitr::kable(
   DC_Q %>%
-    filter(Site_pairs == "FC", !is.na(DOC_14C_Modern)) %>%
+    filter( !is.na(DOC_14C_Modern)) %>% #Site_pairs == "FC",
     anova_test(DOC_14C_Modern ~ q_int_mmd * Treatment),
-  caption = "ANCOVA results: 14C-DOC ~ discharge × Treatment — FC sites"
+  caption = "ANCOVA results: 14C-DOC ~ discharge × Treatment"
 )
 
-knitr::kable(
-  DC_Q %>%
-    filter(Site_pairs == "FC_DC", !is.na(DOC_14C_Modern)) %>%
-    anova_test(DOC_14C_Modern ~ q_int_mmd * Treatment),
-  caption = "ANCOVA results: 14C-DOC ~ discharge × Treatment — FC_DC sites"
-)
+#knitr::kable(
+#  DC_Q %>%
+#    filter(Site_pairs == "FC_DC", !is.na(DOC_14C_Modern)) %>%
+#    anova_test(DOC_14C_Modern ~ q_int_mmd * Treatment),
+#  caption = "ANCOVA results: 14C-DOC ~ discharge × Treatment — FC_DC sites"
+#)
 
 # 14C-CO2
 knitr::kable(
   DC_Q %>%
-    filter(Site_pairs == "FC", !is.na(CO2_14C_Modern)) %>%
+    filter( !is.na(CO2_14C_Modern)) %>% #Site_pairs == "FC",
     anova_test(CO2_14C_Modern ~ q_int_mmd * Treatment),
-  caption = "ANCOVA results: 14C-CO2 ~ discharge × Treatment — FC sites"
+  caption = "ANCOVA results: 14C-CO2 ~ discharge × Treatment"
 )
 
-knitr::kable(
-  DC_Q %>%
-    filter(Site_pairs == "FC_DC", !is.na(CO2_14C_Modern)) %>%
-    anova_test(CO2_14C_Modern ~ q_int_mmd * Treatment),
-  caption = "ANCOVA results: 14C-CO2 ~ discharge × Treatment — FC_DC sites"
-)
+#knitr::kable(
+#  DC_Q %>%
+#    filter(Site_pairs == "FC_DC", !is.na(CO2_14C_Modern)) %>%
+#    anova_test(CO2_14C_Modern ~ q_int_mmd * Treatment),
+#  caption = "ANCOVA results: 14C-CO2 ~ discharge × Treatment — FC_DC sites"
+#)
 ```
 
 #### ANCOVA tests
@@ -876,12 +1047,12 @@ plot_d13C <- ggplot(DC_Q %>% filter(!is.na(d13C_CO2)),
 # Combine plots
 combined_keeling= ggarrange(plot_14C, 
           plot_d13C, #
-          ncol = 1, nrow=2, labels="", heights = c(0.5, 0.5)
+          ncol = 1, nrow=2, labels="AUTO", heights = c(0.5, 0.5)
           )
 
 combined_keeling
-ggsave("Output/Figures/Figure5_keeling.pdf", plot =combined_keeling,
-       height= 8, width = 8)
+ggsave("Output/Figures/Figure6_keeling.pdf", plot =combined_keeling,
+       height= 8, width = 4.5)
 
 ```
 
@@ -1035,6 +1206,9 @@ exceedanceprob_plot= ggarrange(q_exceedance_FC1, q_exceedance_FCDC2,
           nrow=1, labels = "AUTO")
 
 exceedanceprob_plot
+
+samples_with_exceedance_FC
+samples_with_exceedance_FCDC
 
 ggsave("Output/Figures/SupFigure_exceedprob.pdf", plot =exceedanceprob_plot, height = 4, width = 8)
 ```
