@@ -11,8 +11,8 @@ format:
   html:
     theme: cosmo
     keep-tex: true
-    code-fold: true
-    code-summary: "👈 see code here"
+    code-fold: false
+    #code-summary: "👈 see code here"
     toc: true
     toc-depth: 2
     number-sections: true
@@ -44,7 +44,7 @@ crossref:
 
 # Methodology
 
-![Figure 1: Schematic of the studied catchment and their treatments](Input/TrollbergetDC.jpg){fig-align="center"}
+![Figure 1: Schematic of the studied catchment and their treatments](Figure1_procreate_sweden.jpg){fig-align="center"}
 
 ## Study Site and Treatment:
 
@@ -395,40 +395,32 @@ combined_dotplots =
   ggarrange(
     dotplots_treatment_sites(site_pair = "FC", variable = DOC_mgL)+
       scale_y_log10(limits=c(8,300)),
+    dotplots_treatment_sites(site_pair = "FC_DC", variable = DOC_mgL)+
+      scale_y_log10(limits=c(8,300)),
     
      dotplots_treatment_sites(site_pair = "FC", variable = DOC_14C_Modern)+
+      scale_y_continuous(limits=c(95,115)),
+      dotplots_treatment_sites(site_pair = "FC_DC", variable = DOC_14C_Modern)+
       scale_y_continuous(limits=c(95,115)),
     
     dotplots_treatment_sites(site_pair = "FC", variable = CO2_mgL)+
       scale_y_log10(limits=c(0.8,30)),
-    
-    dotplots_treatment_sites(site_pair = "FC", variable = CO2_14C_Modern)+
-      scale_y_continuous(limits=c(95,115)),
-    
-   
-    
-    dotplots_treatment_sites(site_pair = "FC_DC", variable = DOC_mgL)+
-      scale_y_log10(limits=c(8,300)),
-    
-    dotplots_treatment_sites(site_pair = "FC_DC", variable = DOC_14C_Modern)+
-      scale_y_continuous(limits=c(95,115)),
-    
     dotplots_treatment_sites(site_pair = "FC_DC", variable = CO2_mgL)+
       scale_y_log10(limits=c(0.8,30)),
     
-    dotplots_treatment_sites(site_pair = "FC_DC", variable = CO2_14C_Modern)+
+    dotplots_treatment_sites(site_pair = "FC", variable = CO2_14C_Modern)+
+      scale_y_continuous(limits=c(95,115)),
+     dotplots_treatment_sites(site_pair = "FC_DC", variable = CO2_14C_Modern)+
       scale_y_continuous(limits=c(95,115)),
     
-   
-    
-    nrow = 2, ncol = 4, align = "hv"
+    nrow = 4, ncol = 2, align = "hv"
   )
  
 
 combined_dotplots
 
 
-ggsave("Output/Figures/Figure3_dotplots.pdf", plot =combined_dotplots, height = 5, width = 12)
+ggsave("Output/Figures/Figure3_dotplots.pdf", plot =combined_dotplots, height = 10, width = 7)
 
 
 ```
