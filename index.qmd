@@ -685,36 +685,32 @@ knitr::kable(combined_dunns_PostDrain_2yrsPostHarv,
 
 
 # Make plot function for DOC vs CO2 concentrations
-density_Cscatter_pairs = function() { #site_pair
- # ggExtra::ggMarginal(
-    ggplot(data = DC_Q,# %>% filter(Site_pairs == site_pair),
-           aes(x = DOC_mgL, y = CO2_mgL_filled, 
+DC_Q$logCO2=log10(DC_Q$CO2_mgL_filled)
+DC_Q$logDOC=log10(DC_Q$DOC_mgL)
+
+
+density_Cscatter_sites_FC=
+    ggplot(data = DC_Q,
+           aes(x = logDOC, y = logCO2, 
                color = Treatment, fill = Treatment)) +
-      #stat_density_2d(aes(fill = Treatment), geom = "polygon", linewidth = 0,
-      #                alpha = 0.15) +
+      
       geom_point(aes(shape = Site_id), size = 2) +
       geom_smooth(method = "lm", se = F, aes(color = Treatment), show.legend = F) +
-     # stat_regline_equation(label.y.npc = "top", label.x.npc = "left",
-      #                      aes(label = paste(..eq.label.., ..adj.rr.label..,
-      #                                        sep = "~~~~"), color = Treatment),
-      #                      show.legend = F, size = 3) +
+      stat_regline_equation(label.y.npc = "top", label.x.npc = "left",
+                            aes(label = paste(..eq.label.., ..adj.rr.label..,
+                                              sep = "~~~~"), color = Treatment),
+                            show.legend = F, size = 3) +
       scale_shape_manual(values = c(site_symbols)) +
       scale_color_manual(values = c(treatment_colors)) +
       scale_fill_manual(values = alpha(c(treatment_colors), 0.5)) +
-      scale_y_log10(limits = c(range(DC_Q$CO2_mgL_filled, na.rm = T))) +
-      scale_x_log10(limits = c(range(DC_Q$DOC_mgL_filled, na.rm = T))) +
-      labs(x = bquote("DOC (mg L"^-1*")"),
-           y = bquote("CO"[2]*" (mg L"^-1*")")) +
-      theme(legend.position = "none")#,
-   # type = "boxplot", groupColour = TRUE, groupFill = TRUE
-  #)
-}
+      #scale_x_continuous( breaks = log10(c(10, 30, 100, 300)),labels = c(10, 30, 100, 300)) +
+      #scale_y_continuous(breaks = log10(c(1, 3, 10)),labels = c(1, 3, 10)) +
+      labs(x = bquote("logDOC (mg L"^-1*")"),
+           y = bquote("logCO"[2]*" (mg L"^-1*")")) +
+      theme(legend.position = "none")
+   
 
-# Create plots for both site pair
-density_Cscatter_sites_FC    = density_Cscatter_pairs() #c("FC","FC_DC")
-#density_Cscatter_sites_FC_DC = density_Cscatter_pairs("FC_DC")
-
-#density_Cscatter_sites_FC
+density_Cscatter_sites_FC
 
 
 # Make a plot function for 14C-DOC vs 14C-CO2 
